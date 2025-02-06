@@ -2,14 +2,22 @@ import React, { useState, useContext, useLayoutEffect } from "react";
 import imageCompression from "browser-image-compression";
 import { AuthContext } from "../../AuthProvider";
 import { db } from "../../firebase";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue,update } from "firebase/database";
 
 function Profile() {
   const [imageSrc, setImageSrc] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-
   const { currentUser } = useContext(AuthContext);
+
+  const [subjects, setSubjects] = useState([]);
+  const [languages, setLanguages] = useState([]);
+  const [selectedSubject, setSelectedSubject] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [choice, setChoice] = useState("");
+
+  const subjectsList = ["English", "Maths", "Chemistry", "Biology"];
+  const languagesList = ["Hindi", "English"];
 
   useLayoutEffect(() => {
     fetchData();
@@ -20,11 +28,14 @@ function Profile() {
       const starCountRef = ref(db, "users/" + currentUser.uid);
       onValue(starCountRef, (snapshot) => {
         if (snapshot.exists()) {
+          setChoice("user");
           var data = snapshot.val();
           setName(data.name);
           setEmail(data.email);
           setImageSrc(data.profilepic);
-        }else{fetchTutorData()}
+        } else {
+          fetchTutorData();
+        }
       });
     }
   }
@@ -35,10 +46,16 @@ function Profile() {
       onValue(starCountRef, (snapshot) => {
         if (snapshot.exists()) {
           var data = snapshot.val();
+          console.log(data);
+          setChoice("tutor");
+          setSubjects(data.sub || []);
+          setLanguages(data.lang || []);
           setName(data.name);
           setEmail(data.email);
           setImageSrc(data.profilepic);
-        }else{Navigate("/notfound")}
+        } else {
+          Navigate("/notfound");
+        }
       });
     }
   }
@@ -65,7 +82,47 @@ function Profile() {
     document.getElementById("fileInput").click();
   };
 
-
+  const addSubject = () => {
+    if (selectedSubject && !subjects.includes(selectedSubject)) {
+      const updatedSubjects = [...subjects, selectedSubject];
+      const updates = {};
+      updates[`/tutors/${currentUser.uid}/sub`] = updatedSubjects;
+  
+      update(ref(db), updates);
+      setSubjects(updatedSubjects);
+      setSelectedSubject("");
+    }
+  };
+  
+  const removeSubject = (subjectToRemove) => {
+    const updatedSubjects = subjects.filter((sub) => sub !== subjectToRemove);
+    const updates = {};
+    updates[`/tutors/${currentUser.uid}/sub`] = updatedSubjects;
+  
+    update(ref(db), updates);
+    setSubjects(updatedSubjects);
+  };
+  
+  const addLanguage = () => {
+    if (selectedLanguage && !languages.includes(selectedLanguage)) {
+      const updatedLanguages = [...languages, selectedLanguage];
+      const updates = {};
+      updates[`/tutors/${currentUser.uid}/lang`] = updatedLanguages;
+  
+      update(ref(db), updates);
+      setLanguages(updatedLanguages);
+      setSelectedLanguage("");
+    }
+  };
+  
+  const removeLanguage = (languageToRemove) => {
+    const updatedLanguages = languages.filter((lang) => lang !== languageToRemove);
+    const updates = {};
+    updates[`/tutors/${currentUser.uid}/lang`] = updatedLanguages;
+  
+    update(ref(db), updates);
+    setLanguages(updatedLanguages);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -151,11 +208,106 @@ function Profile() {
                       value={email}
                     />
                   </label>
+                  
                 </div>
                 <button className="w-full rounded-full py-1 px-2 md:w-auto bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90">
                   Save Changes
                 </button>
               </div>
+              {/* select subject */}
+              <div className="p-4 bg-gray-50 rounded-lg my-4 shadow-md">
+                    {/* Subject Selection */}
+                    <h2 className="text-lg font-semibold mb-2">
+                      Select Subjects
+                    </h2>
+                    <div className="flex gap-2">
+                      <select
+                        value={selectedSubject}
+                        onChange={(e) => setSelectedSubject(e.target.value)}
+                        className="border rounded-md p-2 w-full"
+                      >
+                        <option value="">Select a subject</option>
+                        {subjectsList.map((subject) => (
+                          <option key={subject} value={subject}>
+                            {subject}
+                          </option>
+                        ))}
+                      </select>
+                      <button
+                        onClick={addSubject}
+                        className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
+                      >
+                        ✔
+                      </button>
+                    </div>
+
+                    {subjects.length > 0 && (
+                      <div className="mt-4">
+                        <h3 className="font-medium mb-2">Selected Subjects:</h3>
+                        {subjects.map((subject) => (
+                          <div
+                            key={subject}
+                            className="flex items-center justify-between bg-gray-200 px-3 py-1 rounded-md mb-2"
+                          >
+                            <span>{subject}</span>
+                            <button
+                              onClick={() => removeSubject(subject)}
+                              className="text-red-500 hover:text-red-700"
+                            >
+                              ✖
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Language Selection */}
+                    <h2 className="text-lg font-semibold mt-6 mb-2">
+                      Select Languages
+                    </h2>
+                    <div className="flex gap-2">
+                      <select
+                        value={selectedLanguage}
+                        onChange={(e) => setSelectedLanguage(e.target.value)}
+                        className="border rounded-md p-2 w-full"
+                      >
+                        <option value="">Select a language</option>
+                        {languagesList.map((lang) => (
+                          <option key={lang} value={lang}>
+                            {lang}
+                          </option>
+                        ))}
+                      </select>
+                      <button
+                        onClick={addLanguage}
+                        className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
+                      >
+                        ✔
+                      </button>
+                    </div>
+
+                    {languages.length > 0 && (
+                      <div className="mt-4">
+                        <h3 className="font-medium mb-2">
+                          Selected Languages:
+                        </h3>
+                        {languages.map((lang) => (
+                          <div
+                            key={lang}
+                            className="flex items-center justify-between bg-gray-200 px-3 py-1 rounded-md mb-2"
+                          >
+                            <span>{lang}</span>
+                            <button
+                              onClick={() => removeLanguage(lang)}
+                              className="text-red-500 hover:text-red-700"
+                            >
+                              ✖
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
             </div>
 
             <div className="hover:border-peach-300 transition-colors">
@@ -165,7 +317,7 @@ function Profile() {
                 </div>
               </div>
               <div>
-                <div className="space-y-4">
+                {/* <div className="space-y-4">
                   {[1, 2, 3].map((i) => (
                     <div
                       key={i}
@@ -197,7 +349,7 @@ function Profile() {
                       <p className="font-semibold">₹{30 + i * 5}.00</p>
                     </div>
                   ))}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

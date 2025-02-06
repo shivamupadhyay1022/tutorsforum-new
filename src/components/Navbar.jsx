@@ -33,7 +33,7 @@ function Navbar() {
                 className="text-gray-600 hover:text-gray-900"
                 onClick={() => navigate("/signin")}
               >
-                Signin
+                Sign In
               </button>
               <button
                 className="bg-gradient-to-r p-2 rounded-xl from-peach-300 to-peach-100 text-white hover:opacity-90 transition-opacity"

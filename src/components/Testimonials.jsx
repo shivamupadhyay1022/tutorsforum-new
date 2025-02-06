@@ -39,7 +39,7 @@ function Testimonials() {
       name: "Sunil Kumar Sahoo",
       role: "AIIMS Bhubaneswar",
       content:
-        "TutorsForum made learning so much easier! I found the perfect tutor for math, and their guidance helped me ace my calculus exam. The whole process was smooth and stress-free!",
+        "TutorsForum made learning so much easier! I found the perfect tutor for chemistry, and their guidance helped me ace my calculus exam. The whole process was smooth and stress-free!",
       image: "https://i.ibb.co/tpBK7kXb/image.png",
     },
     {
