@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../AuthProvider";
 
 function Navbar() {
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
@@ -15,21 +17,32 @@ function Navbar() {
               TutorFind
             </span>
           </div>
-          <div className="flex items-center space-x-4">
-            <button
-              variant="ghost"
-              className="text-gray-600 hover:text-gray-900"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </button>
-            <button
-              className="bg-gradient-to-r p-2 rounded-xl from-peach-300 to-peach-100 text-white hover:opacity-90 transition-opacity"
-              onClick={() => navigate("/signup")}
-            >
-              Sign Up
-            </button>
-          </div>
+          {currentUser ? (
+            <div className="flex items-center space-x-4">
+              <button
+                className="bg-gradient-to-r p-2 rounded-xl from-peach-300 to-peach-100 text-white hover:opacity-90 transition-opacity"
+                onClick={() => navigate("/dashboard")}
+              >
+                Dashboard
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center space-x-4">
+              <button
+                variant="ghost"
+                className="text-gray-600 hover:text-gray-900"
+                onClick={() => navigate("/signin")}
+              >
+                Signin
+              </button>
+              <button
+                className="bg-gradient-to-r p-2 rounded-xl from-peach-300 to-peach-100 text-white hover:opacity-90 transition-opacity"
+                onClick={() => navigate("/signup")}
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </nav>

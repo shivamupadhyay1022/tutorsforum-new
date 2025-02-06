@@ -1,8 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useLayoutEffect } from "react";
 import imageCompression from "browser-image-compression";
+import { AuthContext } from "../../AuthProvider";
+import { db } from "../../firebase";
+import { ref, onValue } from "firebase/database";
 
 function Profile() {
   const [imageSrc, setImageSrc] = useState(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const { currentUser } = useContext(AuthContext);
+
+  useLayoutEffect(() => {
+    fetchData();
+  }, [currentUser]);
+
+  async function fetchData() {
+    if (currentUser) {
+      const starCountRef = ref(db, "users/" + currentUser.uid);
+      onValue(starCountRef, (snapshot) => {
+        if (snapshot.exists()) {
+          var data = snapshot.val();
+          setName(data.name);
+          setEmail(data.email);
+          setImageSrc(data.profilepic);
+        }else{fetchTutorData()}
+      });
+    }
+  }
+
+  async function fetchTutorData() {
+    if (currentUser) {
+      const starCountRef = ref(db, "tutors/" + currentUser.uid);
+      onValue(starCountRef, (snapshot) => {
+        if (snapshot.exists()) {
+          var data = snapshot.val();
+          setName(data.name);
+          setEmail(data.email);
+          setImageSrc(data.profilepic);
+        }else{Navigate("/notfound")}
+      });
+    }
+  }
 
   const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
@@ -26,6 +65,8 @@ function Profile() {
     document.getElementById("fileInput").click();
   };
 
+
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8 pt-20">
@@ -39,11 +80,9 @@ function Profile() {
             <div className="flex flex-col items-center space-y-4">
               <div className="relative">
                 <img
-                  className="object-cover rounded-full"
+                  className="object-cover h-40 w-40 rounded-full"
                   src={
-                    imageSrc
-                      ? `data:image/jpeg;base64,${imageSrc}`
-                      : "https://i.pravatar.cc/150?img=1"
+                    imageSrc ? `${imageSrc}` : "https://i.pravatar.cc/150?img=1"
                   }
                   alt="Profile"
                 />
@@ -64,12 +103,7 @@ function Profile() {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
+                      d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
                     />
                   </svg>
                 </button>
@@ -81,8 +115,12 @@ function Profile() {
                   onChange={handleFileInputChange}
                 />
               </div>
-              <h2 className="text-xl font-semibold">Nitish Kuamr</h2>
-              <p className="text-sm text-gray-500">nitish.kumar@example.com</p>
+              <h2 className="text-xl font-semibold">
+                {name || "Nitish Kuamr"}
+              </h2>
+              <p className="text-sm text-gray-500">
+                {email || "nitish.kumar@example.com"}
+              </p>
             </div>
           </div>
 
@@ -95,26 +133,24 @@ function Profile() {
               </div>
               <div className="space-y-4">
                 <div className="grid gap-4 md:grid-cols-2">
-                  <input
-                    className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                    placeholder="First Name"
-                    defaultValue="Nitish"
-                  />
-                  <input
-                    className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                    placeholder="Last Name"
-                    defaultValue="Kumar"
-                  />
-                  <input
-                    className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                    placeholder="Email"
-                    defaultValue="nitish.kumar@example.com"
-                  />
-                  <input
-                    className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                    placeholder="Phone"
-                    defaultValue="+91 2340 567 890"
-                  />
+                  <label className="flex flex-col my-2 ">
+                    <p className="text-sm text-gray-400">Name</p>
+                    <input
+                      className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                      placeholder="First Name"
+                      defaultValue="Undefined, contact admin"
+                      value={name}
+                    />
+                  </label>
+                  <label className="flex flex-col my-2 ">
+                    <p className="text-sm text-gray-400">Email</p>
+                    <input
+                      className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                      placeholder="Phone"
+                      defaultValue="Undefined, contact admin"
+                      value={email}
+                    />
+                  </label>
                 </div>
                 <button className="w-full rounded-full py-1 px-2 md:w-auto bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90">
                   Save Changes

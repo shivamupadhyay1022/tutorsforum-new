@@ -103,7 +103,7 @@ function DashNav({ func, refresh }) {
         </svg>
       ),
       label: "Logout",
-      onClick: "login",
+      onClick: "logout",
     },
   ];
 

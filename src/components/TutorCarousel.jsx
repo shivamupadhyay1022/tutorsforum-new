@@ -104,7 +104,7 @@ function TutorCarousel() {
       <Swiper
         slidesPerView={slidesPerView}
         centeredSlides={width > 500 ? true : false}
-        spaceBetween={width > 500 ? 50 : 0}
+        spaceBetween={width > 500 ? 40 : 0}
         pagination={{
           clickable: true,
         }}
@@ -113,27 +113,27 @@ function TutorCarousel() {
           disableOnInteraction: false,
         }}
         modules={[Pagination, Autoplay, Virtual]}
-        className="mySwiper justify-center items-center"
+        className="justify-center min-h-[420px] items-center"
       >
         {data &&
           data.map((item, index) => (
             <SwiperSlide
               className={
                 width < 500
-                  ? `flex flex-col w-full rounded-2xl justify-center items-center`
-                  : `grid gap-8 rounded-2xl w-80`
+                  ? `flex flex-col w-full rounded-2xl min-h-60 justify-center items-center`
+                  : `grid gap-16 rounded-2xl min-w-80 min-h-72`
               }
             >
               <div
                 key={`${item.id}-${index}`}
-                className="flex shadow-md flex-col rounded-2xl justify-center items-center min-w-60 p-4 hover:shadow-lg transition-all  duration-300 ease-in-out bg-white/80 backdrop-blur-sm cursor-pointer transform hover:scale-105"
+                className="flex shadow-md flex-col rounded-2xl justify-center items-center min-w-80 min-h-80 p-4 hover:shadow-lg transition-all  duration-300 ease-in-out bg-white/80 backdrop-blur-sm cursor-pointer transform hover:scale-105"
                 onClick={() => navigate(`/tutor/${item.id}`)}
               >
-                <div className="relative w-full h-40 mb-4 overflow-hidden rounded-lg">
+                <div className="relative w-full h-72 mb-4 overflow-hidden rounded-lg">
                   <img
                     src={item.profilepic}
                     alt={item.name}
-                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out hover:scale-110"
+                    className="w-full h-72  transition-transform duration-300 ease-in-out hover:scale-110"
                     loading="lazy"
                   />
                   <div
