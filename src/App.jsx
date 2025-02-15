@@ -11,6 +11,7 @@ import Signin from "./pages/Signin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "./AuthProvider";
+import SearchResults from "./pages/SearchResults";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/search" element={<SearchResults />} />
         </>
       </Routes>
     </>

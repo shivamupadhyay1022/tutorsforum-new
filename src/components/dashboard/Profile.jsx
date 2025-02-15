@@ -2,13 +2,20 @@ import React, { useState, useContext, useLayoutEffect } from "react";
 import imageCompression from "browser-image-compression";
 import { AuthContext } from "../../AuthProvider";
 import { db } from "../../firebase";
-import { ref, onValue,update } from "firebase/database";
+import { ref, onValue, update } from "firebase/database";
+import Select from "react-select";
+// import { getStatesOfCountry, getCitiesOfState } from "react-country-state-city";
+import { State, City } from "country-state-city";
 
 function Profile() {
   const [imageSrc, setImageSrc] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const { currentUser } = useContext(AuthContext);
+
+  const [selectedState, setSelectedState] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [locations, setLocations] = useState([]);
 
   const [subjects, setSubjects] = useState([]);
   const [languages, setLanguages] = useState([]);
@@ -18,6 +25,56 @@ function Profile() {
 
   const subjectsList = ["English", "Maths", "Chemistry", "Biology"];
   const languagesList = ["Hindi", "English"];
+
+  // Fetch states for India (ISO code: IN)
+  const states = State.getStatesOfCountry("IN").map((state) => ({
+    label: state.name,
+    value: state.isoCode,
+  }));
+
+  // Fetch cities when state changes
+  const handleStateChange = (state) => {
+    setSelectedState(state);
+    setSelectedCity(null);
+  };
+
+  const cities = selectedState
+    ? City.getCitiesOfState("IN", selectedState.value).map((city) => ({
+        label: city.name,
+        value: city.name,
+      }))
+    : [];
+
+  // Add location
+  const handleAddLocation = () => {
+    if (selectedState && selectedCity) {
+      const newLocation = `${selectedCity.label}, ${selectedState.label}`;
+
+      // Check if the location already exists
+      if (!locations.includes(newLocation)) {
+        const updatedLocations = [...locations, newLocation];
+        const updates = {};
+        updates[`/tutors/${currentUser.uid}/locations`] = updatedLocations;
+
+        update(ref(db), updates);
+        setLocations(updatedLocations);
+        setSelectedCity(null);
+        setSelectedState(null);
+      }
+    }
+  };
+
+  // Remove location
+  const handleRemoveLocation = (location) => {
+    const updatedLocations = locations.filter(
+      (loc) => loc !== location
+    );
+    const updates = {};
+    updates[`/tutors/${currentUser.uid}/locations`] = updatedLocations;
+
+    update(ref(db), updates);
+    setLocations(updatedLocations);
+  };
 
   useLayoutEffect(() => {
     fetchData();
@@ -33,6 +90,7 @@ function Profile() {
           setName(data.name);
           setEmail(data.email);
           setImageSrc(data.profilepic);
+          
         } else {
           fetchTutorData();
         }
@@ -53,6 +111,9 @@ function Profile() {
           setName(data.name);
           setEmail(data.email);
           setImageSrc(data.profilepic);
+          if (data.locations) {
+            setLocations(data.locations);
+          }
         } else {
           Navigate("/notfound");
         }
@@ -87,39 +148,41 @@ function Profile() {
       const updatedSubjects = [...subjects, selectedSubject];
       const updates = {};
       updates[`/tutors/${currentUser.uid}/sub`] = updatedSubjects;
-  
+
       update(ref(db), updates);
       setSubjects(updatedSubjects);
       setSelectedSubject("");
     }
   };
-  
+
   const removeSubject = (subjectToRemove) => {
     const updatedSubjects = subjects.filter((sub) => sub !== subjectToRemove);
     const updates = {};
     updates[`/tutors/${currentUser.uid}/sub`] = updatedSubjects;
-  
+
     update(ref(db), updates);
     setSubjects(updatedSubjects);
   };
-  
+
   const addLanguage = () => {
     if (selectedLanguage && !languages.includes(selectedLanguage)) {
       const updatedLanguages = [...languages, selectedLanguage];
       const updates = {};
       updates[`/tutors/${currentUser.uid}/lang`] = updatedLanguages;
-  
+
       update(ref(db), updates);
       setLanguages(updatedLanguages);
       setSelectedLanguage("");
     }
   };
-  
+
   const removeLanguage = (languageToRemove) => {
-    const updatedLanguages = languages.filter((lang) => lang !== languageToRemove);
+    const updatedLanguages = languages.filter(
+      (lang) => lang !== languageToRemove
+    );
     const updates = {};
     updates[`/tutors/${currentUser.uid}/lang`] = updatedLanguages;
-  
+
     update(ref(db), updates);
     setLanguages(updatedLanguages);
   };
@@ -208,7 +271,6 @@ function Profile() {
                       value={email}
                     />
                   </label>
-                  
                 </div>
                 <button className="w-full rounded-full py-1 px-2 md:w-auto bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90">
                   Save Changes
@@ -216,98 +278,149 @@ function Profile() {
               </div>
               {/* select subject */}
               <div className="p-4 bg-gray-50 rounded-lg my-4 shadow-md">
-                    {/* Subject Selection */}
-                    <h2 className="text-lg font-semibold mb-2">
-                      Select Subjects
-                    </h2>
-                    <div className="flex gap-2">
-                      <select
-                        value={selectedSubject}
-                        onChange={(e) => setSelectedSubject(e.target.value)}
-                        className="border rounded-md p-2 w-full"
-                      >
-                        <option value="">Select a subject</option>
-                        {subjectsList.map((subject) => (
-                          <option key={subject} value={subject}>
-                            {subject}
-                          </option>
-                        ))}
-                      </select>
-                      <button
-                        onClick={addSubject}
-                        className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
-                      >
-                        ✔
-                      </button>
-                    </div>
+                {/* Subject Selection */}
+                <h2 className="text-lg font-semibold mb-2">Select Subjects</h2>
+                <div className="flex gap-2">
+                  <select
+                    value={selectedSubject}
+                    onChange={(e) => setSelectedSubject(e.target.value)}
+                    className="border rounded-md p-2 w-full"
+                  >
+                    <option value="">Select a subject</option>
+                    {subjectsList.map((subject) => (
+                      <option key={subject} value={subject}>
+                        {subject}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    onClick={addSubject}
+                    className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
+                  >
+                    ✔
+                  </button>
+                </div>
 
-                    {subjects.length > 0 && (
-                      <div className="mt-4">
-                        <h3 className="font-medium mb-2">Selected Subjects:</h3>
-                        {subjects.map((subject) => (
-                          <div
-                            key={subject}
-                            className="flex items-center justify-between bg-gray-200 px-3 py-1 rounded-md mb-2"
-                          >
-                            <span>{subject}</span>
-                            <button
-                              onClick={() => removeSubject(subject)}
-                              className="text-red-500 hover:text-red-700"
-                            >
-                              ✖
-                            </button>
-                          </div>
-                        ))}
+                {subjects.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="font-medium mb-2">Selected Subjects:</h3>
+                    {subjects.map((subject) => (
+                      <div
+                        key={subject}
+                        className="flex items-center justify-between bg-gray-200 px-3 py-1 rounded-md mb-2"
+                      >
+                        <span>{subject}</span>
+                        <button
+                          onClick={() => removeSubject(subject)}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          ✖
+                        </button>
                       </div>
-                    )}
-
-                    {/* Language Selection */}
-                    <h2 className="text-lg font-semibold mt-6 mb-2">
-                      Select Languages
-                    </h2>
-                    <div className="flex gap-2">
-                      <select
-                        value={selectedLanguage}
-                        onChange={(e) => setSelectedLanguage(e.target.value)}
-                        className="border rounded-md p-2 w-full"
-                      >
-                        <option value="">Select a language</option>
-                        {languagesList.map((lang) => (
-                          <option key={lang} value={lang}>
-                            {lang}
-                          </option>
-                        ))}
-                      </select>
-                      <button
-                        onClick={addLanguage}
-                        className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
-                      >
-                        ✔
-                      </button>
-                    </div>
-
-                    {languages.length > 0 && (
-                      <div className="mt-4">
-                        <h3 className="font-medium mb-2">
-                          Selected Languages:
-                        </h3>
-                        {languages.map((lang) => (
-                          <div
-                            key={lang}
-                            className="flex items-center justify-between bg-gray-200 px-3 py-1 rounded-md mb-2"
-                          >
-                            <span>{lang}</span>
-                            <button
-                              onClick={() => removeLanguage(lang)}
-                              className="text-red-500 hover:text-red-700"
-                            >
-                              ✖
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                    ))}
                   </div>
+                )}
+
+                {/* Language Selection */}
+                <h2 className="text-lg font-semibold mt-6 mb-2">
+                  Select Languages
+                </h2>
+                <div className="flex gap-2">
+                  <select
+                    value={selectedLanguage}
+                    onChange={(e) => setSelectedLanguage(e.target.value)}
+                    className="border rounded-md p-2 w-full"
+                  >
+                    <option value="">Select a language</option>
+                    {languagesList.map((lang) => (
+                      <option key={lang} value={lang}>
+                        {lang}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    onClick={addLanguage}
+                    className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
+                  >
+                    ✔
+                  </button>
+                </div>
+
+                {languages.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="font-medium mb-2">Selected Languages:</h3>
+                    {languages.map((lang) => (
+                      <div
+                        key={lang}
+                        className="flex items-center justify-between bg-gray-200 px-3 py-1 rounded-md mb-2"
+                      >
+                        <span>{lang}</span>
+                        <button
+                          onClick={() => removeLanguage(lang)}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          ✖
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {/* select location */}
+                <div className="">
+                  <h2 className="text-lg font-semibold mt-6 mb-2">
+                    Select Location
+                  </h2>
+                  <div className="flex gap-2">
+                    {/* State Select */}
+                    <Select
+                      options={states}
+                      value={selectedState}
+                      onChange={handleStateChange}
+                      placeholder="Select a state"
+                      className="w-1/2"
+                    />
+
+                    {/* City Select */}
+                    <Select
+                      options={cities}
+                      value={selectedCity}
+                      onChange={setSelectedCity}
+                      placeholder="Select a city"
+                      className="w-1/2"
+                      isDisabled={!selectedState}
+                    />
+
+                    {/* Add Button */}
+                    <button
+                      onClick={handleAddLocation}
+                      className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
+                    >
+                      ✔
+                    </button>
+                  </div>
+
+                  {/* Selected Locations */}
+                  {locations.length > 0 && (
+                    <div className="mt-4">
+                      <h3 className="font-medium mb-2">Selected Locations:</h3>
+                      {locations.map((location) => (
+                        <div
+                          key={location}
+                          className="flex items-center justify-between bg-gray-200 px-3 py-1 rounded-md mb-2"
+                        >
+                          <span>{location}</span>
+                          <button
+                            onClick={() => handleRemoveLocation(location)}
+                            className="text-red-500 hover:text-red-700"
+                          >
+                            ✖
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="hover:border-peach-300 transition-colors">

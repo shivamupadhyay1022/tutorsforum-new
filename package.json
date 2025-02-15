@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "browser-image-compression": "^2.0.2",
+    "country-state-city": "^3.2.1",
     "firebase": "^11.2.0",
     "react": "^18.3.1",
+    "react-country-state-city": "^1.1.11",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1",
+    "react-select": "^5.10.0",
     "react-toastify": "^11.0.3",
     "supabase": "^2.6.8",
     "swiper": "^11.2.1"
