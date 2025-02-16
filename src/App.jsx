@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "./AuthProvider";
 import SearchResults from "./pages/SearchResults";
+import TutorInfo from "./pages/TutorInfo";
 
 
 function App() {
@@ -32,6 +33,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/search" element={<SearchResults />} />
+          <Route path="/tutor/:id" element={<TutorInfo />} />
+
         </>
       </Routes>
     </>

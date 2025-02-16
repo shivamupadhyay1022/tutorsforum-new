@@ -10,11 +10,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Virtual } from "swiper/modules";
 import { db } from "../firebase";
 import { ref, onValue } from "firebase/database";
+import { useNavigate } from "react-router-dom";
 
 function TutorCarousel() {
   const [data, setData] = useState([]);
   const [slidesPerView, setSlidesPerView] = useState(5);
   const [width, setWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     fetchData();
@@ -127,7 +129,7 @@ function TutorCarousel() {
               <div
                 key={`${item.id}-${index}`}
                 className="flex shadow-md flex-col rounded-2xl justify-center items-center min-w-80 min-h-80 p-4 hover:shadow-lg transition-all  duration-300 ease-in-out bg-white/80 backdrop-blur-sm cursor-pointer transform hover:scale-105"
-                onClick={() => navigate(`/tutor/${item.id}`)}
+                onClick={() => navigate(`/tutor/${item.uid}`)}
               >
                 <div className="relative w-full h-72 mb-4 overflow-hidden rounded-lg">
                   <img
