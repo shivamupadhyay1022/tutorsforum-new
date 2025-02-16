@@ -140,7 +140,7 @@ function TutorCarousel() {
                     className="absolute p-2 text-sm rounded-2xl top-2 right-2 bg-white/90 transition-colors duration-300 hover:bg-peach-100"
                     variant="secondary"
                   >
-                    ★ 4.9
+                    ★ {item.stars}
                     {/* {item.rating} */}
                   </div>
                   <div

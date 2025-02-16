@@ -3,14 +3,18 @@ import Navbar from "../components/Navbar";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect } from "react";
 import { db } from "../firebase";
+import { useSearchParams } from "react-router-dom";
 
 
 
 const SearchResults = () => {
+  const [searchParams] = useSearchParams();
+  const initialSubject = searchParams.get("subject") || "";
+  const initialSearch = searchParams.get("search") || "";
   const [allTutors, setAllTutors] = useState([]);
   const [filteredTutors, setFilteredTutors] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filterSubject, setFilterSubject] = useState("");
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const [filterSubject, setFilterSubject] = useState(initialSubject);
   const [filterLanguage, setFilterLanguage] = useState("");
   const [filterLocation, setFilterLocation] = useState("");
   const [filterStars, setFilterStars] = useState("");

@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function SubjectsGrid() {
+  const navigate = useNavigate();
   const subjects = [
     {
-      name: "Mathematics",
+      name: "Maths",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -22,26 +24,71 @@ function SubjectsGrid() {
       ),
       color: "from-blue-400 to-blue-600",
     },
-    {
-      name: "Sciences",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="white"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23-.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"
-          />
-        </svg>
-      ),
-      color: "from-green-400 to-green-600",
-    },
+// Physics
+{
+  name: "Physics",
+  icon: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="white"
+      className="size-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 3v18M3 12h18M16.5 7.5l-9 9M7.5 7.5l9 9"
+      />
+    </svg>
+  ),
+  color: "from-blue-400 to-blue-600",
+},
+
+// Chemistry
+{
+  name: "Chemistry",
+  icon: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="white"
+      className="size-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 3v4l-3 5h12l-3-5V3M5 21h14"
+      />
+    </svg>
+  ),
+  color: "from-purple-400 to-purple-600",
+},
+
+// Biology
+{
+  name: "Biology",
+  icon: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="white"
+      className="size-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 2c4 2 5 5 4 7s-4 4-7 5c-2 1-3 3-2 5 2 4 7 3 7 3M5 5s5 3 5 7M19 19s-3-5-7-5"
+      />
+    </svg>
+  ),
+  color: "from-green-500 to-green-700",
+},
     {
       name: "Literature",
       icon: (
@@ -170,6 +217,7 @@ function SubjectsGrid() {
           <div
             key={subject.name}
             className="p-6 text-center rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group bg-white/80 backdrop-blur-sm"
+            onClick={() =>{navigate(`/search?subject=${encodeURIComponent(subject.name)}`) }}
           >
             <div
               className={`w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center bg-gradient-to-r ${subject.color} transform group-hover:scale-110 transition-transform duration-300`}
