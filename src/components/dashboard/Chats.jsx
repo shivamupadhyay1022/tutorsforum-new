@@ -14,6 +14,7 @@ import {
   getFirestore,
 } from "firebase/firestore";
 import { AuthContext } from "../../AuthProvider";
+import { useNavigate } from "react-router-dom";
 function Chats() {
   const [data, setData] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
@@ -23,20 +24,15 @@ function Chats() {
   const [recentChatDetails, setRecentChatDetails] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const [ChatUsers, setChatUsers] = useState([]);
+  const [activeChatInfo, setActiveChatInfo] = useState(null);
   const [seed, setSeed] = useState(0);
   var messageList = [];
+  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     fetchData();
     fetchRecentChat();
-    // console.log(Date.now().toString());
   }, [currentUser]);
-
-  
-  // useEffect(() => {
-  //   getRecentChatDetails(recentChats, setChatUsers);
-  // }, [recentChats]);
-
 
   useEffect(() => {
     if (currentUser && activeChat) {
@@ -46,17 +42,33 @@ function Chats() {
         activeChat,
         setMessages
       );
+      fetchCurrentChatInfo();
       return () => unsubscribe();
     }
     // console.log(messages);
   }, [currentUser, activeChat]);
 
+  const fetchCurrentChatInfo = async () => {
+    if (!currentUser || !activeChat) return;
+
+    const tutorRef = ref(db, `tutors/${activeChat}`);
+    const userRef = ref(db, `users/${activeChat}`);
+
+    const snapshot = await get(tutorRef);
+    if (snapshot.exists()) {
+      const tutorData = snapshot.val();
+      console.log(tutorData);
+      setActiveChatInfo(tutorData);
+    } else {
+      const userSnapshot = await get(userRef);
+      if (userSnapshot.exists()) {
+        const userData = userSnapshot.val();
+        setActiveChatInfo(userData);
+      }
+    }
+  };
+
   const fetchMessages = (firestore, currentUser, activeChat, setMessages) => {
-    //     const querySnapshot =  getDocs(collection(firestore, "chats", currentUser.uid, "messages",));
-    // querySnapshot?.forEach((doc) => {
-    //   // doc.data() is never undefined for query doc snapshots
-    //   console.log(doc.id, " => ", doc.data());
-    // });
     if (!currentUser || !activeChat) return;
 
     const messagesRef = collection(
@@ -70,7 +82,6 @@ function Chats() {
     const q = query(messagesRef, orderBy("timestamp", "asc"));
 
     return onSnapshot(q, (snapshot) => {
-      // console.log(snapshot.docs);
       setMessages(
         snapshot.docs.map((doc) => {
           const data = doc.data();
@@ -96,8 +107,6 @@ function Chats() {
           };
         })
       );
-      // console.log(messageList)
-      // setMessages(messageList);
     });
   };
 
@@ -175,22 +184,6 @@ function Chats() {
     }
   };
 
-  // const messages = [
-  //   {
-  //     id: 1,
-  //     sender: "Nitish Kumar",
-  //     content: "Hello! How can I help you today?",
-  //     timestamp: "10:00 AM",
-  //     isSentByMe: false,
-  //   },
-  //   {
-  //     id: 2,
-  //     sender: "You",
-  //     content: "Hi! I have a question about the next class.",
-  //     timestamp: "10:01 AM",
-  //     isSentByMe: true,
-  //   },
-  // ];
   const [newMessage, setNewMessage] = useState("");
   const [toggle, setToggle] = useState(false);
 
@@ -212,7 +205,6 @@ function Chats() {
       setNewMessage("");
     }
   };
-
 
   const fetchRecentChat = async () => {
     try {
@@ -238,7 +230,7 @@ function Chats() {
         recentChats.map(async (userId) => {
           const tutorRef = ref(db, `tutors/${userId}`);
           const userRef = ref(db, `users/${userId}`);
-  
+
           return new Promise((resolve) => {
             onValue(
               tutorRef,
@@ -274,7 +266,7 @@ function Chats() {
           });
         })
       );
-  
+
       const filteredDetails = userDetails.filter((user) => user !== null);
       setChatUsers(filteredDetails);
       setRecentChatDetails(filteredDetails);
@@ -286,13 +278,13 @@ function Chats() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8 pt-20">
+      <div className="container mx-auto px-4 py-8 pt-16">
         <div className="flex flex-col gap-4">
           {/* Contacts Sidebar */}
           <div
             className={` ${
               toggle ? "min-w-[320px]" : "w-[50px]"
-            } absolute left-0 bg-slate-200 rounded-r-2xl min-h-[85vh]  z-50`}
+            } fixed left-0 bg-slate-200 rounded-r-2xl min-h-[90vh]  z-[100]`}
           >
             <div className={`${toggle ? "p-4" : "p-2"}`}>
               <div className="flex items-center justify-center gap-2">
@@ -367,32 +359,31 @@ function Chats() {
               </div>
               {/* chats */}
               <div className="space-y-4 mt-4">
-                {
-                  recentChatDetails?.map((contact, index) => (
-                    <div
-                      key={index}
-                      className={`${
-                        toggle ? "p-2 space-x-4" : "p-0 "
-                      } flex items-center   rounded-lg hover:bg-gray-100 cursor-pointer`}
-                      onClick={() => {
-                        setActiveChat(contact.uid);
-                        // console.log(activeChat);
-                      }}
-                    >
-                      <div>
-                        <img
-                          className="rounded-full h-8 w-8"
-                          src={contact.profilePic}
-                        />
-                      </div>
-                      {toggle && (
-                        <div>
-                          <p className="font-medium">{contact.name}</p>
-                          {/* <p className="text-sm text-gray-500">{contact.sub}</p> */}
-                        </div>
-                      )}
+                {recentChatDetails?.map((contact, index) => (
+                  <div
+                    key={index}
+                    className={`${
+                      toggle ? "p-2 space-x-4" : "p-0 "
+                    } flex items-center   rounded-lg hover:bg-gray-100 cursor-pointer`}
+                    onClick={() => {
+                      setActiveChat(contact.uid);
+                      // console.log(activeChat);
+                    }}
+                  >
+                    <div>
+                      <img
+                        className="rounded-full h-8 w-8"
+                        src={contact.profilePic}
+                      />
                     </div>
-                  ))}
+                    {toggle && (
+                      <div>
+                        <p className="font-medium">{contact.name}</p>
+                        {/* <p className="text-sm text-gray-500">{contact.sub}</p> */}
+                      </div>
+                    )}
+                  </div>
+                ))}
                 <div class="border-t border-gray-300 my-4"></div>
                 {data &&
                   data.map((contact, index) => (
@@ -425,68 +416,92 @@ function Chats() {
           </div>
 
           {/* Chat Window */}
-          <div className="w-full pl-[35px]">
-            <div className="p-4 h-[calc(100vh-12rem)]">
-              <div className="grid grid-cols-1 md:mx-16  justify-center items-center h-full">
-                {/* Messages */}
-                <div className="flex-1 overflow-y-auto space-y-4 mb-4">
-                  {messages &&
-                    messages.map((message) => (
-                      <div
-                        key={message.id}
-                        className={`flex ${
-                          message.isSentByMe ? "justify-end" : "justify-start"
-                        }`}
-                      >
-                        {/* <div>{console.log(message)}</div> */}
-                        <div
-                          className={`max-w-[70%] p-3 rounded-lg ${
-                            message.isSentByMe
-                              ? "bg-peach-100 text-gray-800"
-                              : "bg-gray-100"
-                          }`}
-                        >
-                          {/* <p className="text-sm font-medium mb-1">
-                          {message.sender}
-                        </p> */}
-                          <p>{message.content}</p>
-                          <p className="text-xs text-gray-500 mt-1">
-                            {message.timestamp}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                </div>
-
-                {/* Message input */}
-                <div className="flex absolute bottom-10 md:w-3/5 justify-center items-center justify-self-center space-x-2">
-                  <input
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && sendChat()} // Trigger sendChat on Enter
-                    placeholder="Type your message..."
-                    className="w-full mt-1 flex h-10 rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+          <div className="w-full pb-16 pl-[35px]">
+            {/* Chat Header */}
+            <div className="bg-gradient-to-r justify-between from-peach-100 via-white to-peach-100 pl-2 pr-16 md:pl-12 md:pr-36 left-12 right fixed w-full h-12 flex z-50 border-b-2 border-white">
+              <div className="flex items-center space-x-2">
+                <img
+                  src={activeChatInfo?.profilepic}
+                  className="rounded-full h-8 w-8"
+                />
+                <p className="font-serif">{activeChatInfo?.name}</p>
+              </div>
+              <button
+              onClick={() => navigate(`/tutor/${activeChat}`)}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="black"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
                   />
-                  <button
-                    onClick={sendChat}
-                    className="bg-gray-400 py-1.5 px-4 rounded-2xl"
+                </svg>
+              </button>
+            </div>
+
+            {/* Messages Section */}
+            <div className="p-4 h-[calc(100vh-8rem)] overflow-y-auto flex flex-col-reverse space-y-4">
+              {messages &&
+                messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`flex ${
+                      message.isSentByMe ? "justify-end" : "justify-start"
+                    }`}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-6"
+                    <div
+                      className={`max-w-[70%] p-3 rounded-lg ${
+                        message.isSentByMe
+                          ? "bg-peach-100 text-gray-800"
+                          : "bg-gray-100"
+                      }`}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-                      />
-                    </svg>
-                  </button>
-                </div>
+                      <p>{message.content}</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {message.timestamp}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            {/* Message Input - Sticky at Bottom */}
+            <div className="w-full fixed bottom-0 left-0 pl-[35px] z-50 bg-white border-t border-gray-300 py-2">
+              <div className="flex items-center space-x-2 px-4 md:w-3/5 mx-auto">
+                <input
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") sendChat();
+                  }}
+                  placeholder="Type your message..."
+                  className="w-full h-10 rounded-md border border-gray-300 px-3 text-base focus:outline-none focus:ring-2 focus:ring-peach-400"
+                />
+                <button
+                  onClick={sendChat}
+                  className="bg-gray-400 py-2 px-4 rounded-full hover:bg-gray-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6 text-white"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
