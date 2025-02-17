@@ -446,7 +446,7 @@ function Chats() {
             </div>
 
             {/* Messages Section */}
-            <div className="p-4 h-[calc(100vh-8rem)] overflow-y-auto flex flex-col-reverse space-y-4">
+            <div className="p-4 h-[calc(100vh-8rem)] overflow-y-auto flex flex-col space-y-4">
               {messages &&
                 messages.map((message) => (
                   <div

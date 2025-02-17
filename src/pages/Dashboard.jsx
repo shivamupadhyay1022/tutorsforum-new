@@ -10,10 +10,12 @@ import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import { auth } from "../firebase";
 import { AuthContext } from "../AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [nav, setNav] = useState("previous_classes");
   const [seed, setSeed] = useState("123");
+  const navigate = useNavigate();
 
   function content() {
     switch (nav) {
@@ -42,6 +44,7 @@ function Dashboard() {
               progress: undefined,
               theme: "light",
             });
+            navigate("/")
           })
           .catch((error) => {
             toast.error(error.message, {
