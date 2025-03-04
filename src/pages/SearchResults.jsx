@@ -75,7 +75,7 @@ const SearchResults = () => {
   
     // Apply location filter
     if (filterLocation) {
-      result = result.filter((tutor) => tutor.locations?.includes(filterLocation));
+      result = result.filter((tutor) => tutor.locations?.some(str => str.includes(filterLocation)));
     }
   
     // Apply stars filter
@@ -114,7 +114,7 @@ const SearchResults = () => {
       <Navbar/>
     <div className="p-6 mt-16 space-y-4">
       {/* Search Bar */}
-      <div className="flex w-full justify-center">
+      <div className="flex flex-col gap-4 w-full items-center justify-center">
         <div className="flex flex-row min-w-[50vw] justify-between px-6 items-center h-12 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full shadow-sm">
           <input
             type="text"
@@ -126,6 +126,16 @@ const SearchResults = () => {
           <button className="bg-gradient-to-r from-peach-300 to-peach-100 text-white rounded-full px-4 py-2 hover:opacity-90">
             Search
           </button>
+        </div>
+        <div className="flex flex-row min-w-[50vw] px-6 items-center justify-center h-12 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full shadow-sm">
+          <input
+            type="text"
+            placeholder="Search by location"
+            className="w-full px-4 bg-transparent focus:outline-none"
+            value={filterLocation}
+            onChange={(e) => setFilterLocation(e.target.value)}
+          />
+
         </div>
       </div>
 
@@ -158,7 +168,7 @@ const SearchResults = () => {
         </select>
 
         {/* Location Filter */}
-        <select
+        {/* <select
           value={filterLocation}
           onChange={(e) => setFilterLocation(e.target.value)}
           className="border p-2 rounded-md"
@@ -168,7 +178,7 @@ const SearchResults = () => {
           <option value="Delhi">Delhi</option>
           <option value="Chennai">Chennai</option>
           <option value="Kolkata">Kolkata</option>
-        </select>
+        </select> */}
 
         {/* Stars Filter */}
         <select
@@ -250,7 +260,7 @@ const SearchResults = () => {
 
               {/* Subjects */}
               <div className="flex flex-wrap justify-end gap-2 px-2">
-                {tutor.sub.map((subject) => (
+                {tutor?.sub?.map((subject) => (
                   <div
                     key={subject}
                     className="shadow-md rounded-full bg-gradient-to-br from-white to-[#ffded5] text-sm"

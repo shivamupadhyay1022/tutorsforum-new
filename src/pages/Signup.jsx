@@ -15,7 +15,7 @@ function Signup() {
   const [toggle, setToggle] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-  const [imageSrc, setImageSrc] = useState();
+  const [imageSrc, setImageSrc] = useState("");
 
   const checkinput = () => {
     if (email.trim().length == 0 || password.trim().length == 0 || confirmPassword.trim() == 0 || name.trim() == 0 || choice.trim() ==0) {
@@ -56,8 +56,12 @@ function Signup() {
         set(ref(db, choice+"/" + user.uid), {
           name:name,
           email: email,
-          profilepic:imageSrc
-        }).then(
+          profilepic:imageSrc,
+          bio:"",
+          stars:"0.0",
+          cph:"0"
+        })
+        
         toast.success("Account Created", {
           position: "top-right",
           autoClose: 5000,
@@ -67,7 +71,8 @@ function Signup() {
           draggable: true,
           progress: undefined,
           theme: "light",
-        }))
+        });
+        navigate("/signin");
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -133,11 +138,11 @@ function Signup() {
           <div className="flex flex-col items-center space-y-4">
             <div className="relative">
               <img
-                className="object-cover rounded-full"
+                className="object-cover rounded-full w-32"
                 src={
                   imageSrc
                     ? `${imageSrc}`
-                    : "https://i.pravatar.cc/150?img=1"
+                    : "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png"
                 }
                 alt="Profile"
               />
@@ -175,7 +180,7 @@ function Signup() {
                 onChange={handleFileInputChange}
               />
             </div>
-            <h2 className="text-xl font-semibold">{name || "Mr Name"}</h2>
+            <h2 className="text-xl font-semibold">{name || "Name"}</h2>
             <p className="text-sm text-gray-500">{email || "Mail"}</p>
             <div className="flex gap-4 justify-between" >
               <button className={`rounded-xl p-2 border-2 border-gray-700 ${choice == "tutors" ? " bg-gray-700 text-white": ""}`}  onClick={()=> setChoice("tutors")} >

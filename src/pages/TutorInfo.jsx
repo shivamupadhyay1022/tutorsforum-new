@@ -40,7 +40,7 @@ const TutorInfo = () => {
 
         {/* Name & Stats */}
         <h1 className="text-3xl font-semibold text-gray-800 mb-2">{tutor.name}</h1>
-        <p className="text-sm text-gray-500 mb-4">⭐ {tutor.stars} | ₹{tutor.costPerHour}/hr</p>
+        <p className="text-sm text-gray-500 mb-4">⭐ {tutor.stars} | ₹{tutor.cph}/hr</p>
 
         {/* Subjects */}
         <div className="mb-6 w-full">

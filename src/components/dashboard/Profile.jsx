@@ -3,6 +3,7 @@ import imageCompression from "browser-image-compression";
 import { AuthContext } from "../../AuthProvider";
 import { db } from "../../firebase";
 import { ref, onValue, update } from "firebase/database";
+import { toast } from "react-toastify";
 import Select from "react-select";
 // import { getStatesOfCountry, getCitiesOfState } from "react-country-state-city";
 import { State, City } from "country-state-city";
@@ -11,6 +12,8 @@ function Profile() {
   const [imageSrc, setImageSrc] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [bio, setBio] = useState(" ");
+  const [cph, setCph] = useState(" ");
   const { currentUser } = useContext(AuthContext);
 
   const [selectedState, setSelectedState] = useState(null);
@@ -66,9 +69,7 @@ function Profile() {
 
   // Remove location
   const handleRemoveLocation = (location) => {
-    const updatedLocations = locations.filter(
-      (loc) => loc !== location
-    );
+    const updatedLocations = locations.filter((loc) => loc !== location);
     const updates = {};
     updates[`/tutors/${currentUser.uid}/locations`] = updatedLocations;
 
@@ -90,7 +91,6 @@ function Profile() {
           setName(data.name);
           setEmail(data.email);
           setImageSrc(data.profilepic);
-          
         } else {
           fetchTutorData();
         }
@@ -111,6 +111,8 @@ function Profile() {
           setName(data.name);
           setEmail(data.email);
           setImageSrc(data.profilepic);
+          setCph(data.cph);
+          setBio(data.bio);
           if (data.locations) {
             setLocations(data.locations);
           }
@@ -187,6 +189,41 @@ function Profile() {
     setLanguages(updatedLanguages);
   };
 
+  async function updateTutorData() {
+    if (currentUser) {
+      const tutorRef = ref(db, "tutors/" + currentUser.uid);
+      try {
+        await update(tutorRef, {
+          name: name,
+          email: email,
+          bio: bio,
+          cph: cph,
+        });
+        toast.success("Tutor data updated successfully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } catch (error) {
+        toast.error(error.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8 pt-20">
@@ -202,7 +239,9 @@ function Profile() {
                 <img
                   className="object-cover h-40 w-40 rounded-full"
                   src={
-                    imageSrc ? `${imageSrc}` : "https://i.pravatar.cc/150?img=1"
+                    imageSrc
+                      ? `${imageSrc}`
+                      : "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png"
                   }
                   alt="Profile"
                 />
@@ -235,11 +274,9 @@ function Profile() {
                   onChange={handleFileInputChange}
                 />
               </div>
-              <h2 className="text-xl font-semibold">
-                {name || "Nitish Kuamr"}
-              </h2>
+              <h2 className="text-xl font-semibold">{name || "name"}</h2>
               <p className="text-sm text-gray-500">
-                {email || "nitish.kumar@example.com"}
+                {email || "email@example.com"}
               </p>
             </div>
           </div>
@@ -259,6 +296,7 @@ function Profile() {
                       className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                       placeholder="First Name"
                       defaultValue="Undefined, contact admin"
+                      onChange={(e) => setName(e.target.value)}
                       value={name}
                     />
                   </label>
@@ -268,11 +306,34 @@ function Profile() {
                       className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                       placeholder="Phone"
                       defaultValue="Undefined, contact admin"
+                      contentEditable={false}
                       value={email}
                     />
                   </label>
+                  <label className="flex flex-col my-2 ">
+                    <p className="text-sm text-gray-400">Cost Per Hour</p>
+                    <input
+                      className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                      placeholder="Cost Per Hour"
+                      defaultValue="Undefined, contact admin"
+                      onChange={(e) => setCph(e.target.value)}
+                      value={cph}
+                    />
+                  </label>
                 </div>
-                <button className="w-full rounded-full py-1 px-2 md:w-auto bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90">
+                <label className="flex flex-col my-2 ">
+                  <p className="text-sm text-gray-400">Bio</p>
+                  <input
+                    className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                    placeholder="Bio"
+                    onChange={(e) => setBio(e.target.value)}
+                    value={bio}
+                  />
+                </label>
+                <button
+                  onClick={() => updateTutorData()}
+                  className="w-full rounded-full py-1 px-2 md:w-auto bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
+                >
                   Save Changes
                 </button>
               </div>
