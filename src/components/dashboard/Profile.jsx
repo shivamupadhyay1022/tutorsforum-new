@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import Select from "react-select";
 // import { getStatesOfCountry, getCitiesOfState } from "react-country-state-city";
 import { State, City } from "country-state-city";
+import TeachOnlineToggle from "./TeachOnlineToggle";
 
 function Profile() {
   const [imageSrc, setImageSrc] = useState(null);
@@ -337,8 +338,10 @@ function Profile() {
                   Save Changes
                 </button>
               </div>
+              {currentUser && <TeachOnlineToggle currentUser={currentUser} />}
               {/* select subject */}
               <div className="p-4 bg-gray-50 rounded-lg my-4 shadow-md">
+              
                 {/* Subject Selection */}
                 <h2 className="text-lg font-semibold mb-2">Select Subjects</h2>
                 <div className="flex gap-2">
