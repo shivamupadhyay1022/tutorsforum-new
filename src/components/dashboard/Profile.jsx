@@ -8,6 +8,7 @@ import Select from "react-select";
 // import { getStatesOfCountry, getCitiesOfState } from "react-country-state-city";
 import { State, City } from "country-state-city";
 import TeachOnlineToggle from "./TeachOnlineToggle";
+import StudProfile from "../studdashboard/StudProfile";
 
 function Profile() {
   const [imageSrc, setImageSrc] = useState(null);
@@ -26,6 +27,7 @@ function Profile() {
   const [selectedSubject, setSelectedSubject] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [choice, setChoice] = useState("");
+  const [stud, setStud] = useState(false);
 
   const subjectsList = ["English", "Maths", "Chemistry", "Biology"];
   const languagesList = ["Hindi", "English"];
@@ -79,21 +81,21 @@ function Profile() {
   };
 
   useLayoutEffect(() => {
-    fetchData();
+    fetchTutorData();
   }, [currentUser]);
 
-  async function fetchData() {
+  useLayoutEffect(() => {
+    CheckStud();
+  }, []);
+
+  async function CheckStud() {
     if (currentUser) {
       const starCountRef = ref(db, "users/" + currentUser.uid);
       onValue(starCountRef, (snapshot) => {
         if (snapshot.exists()) {
-          setChoice("user");
-          var data = snapshot.val();
-          setName(data.name);
-          setEmail(data.email);
-          setImageSrc(data.profilepic);
+          setStud(true);
         } else {
-          fetchTutorData();
+          setStud(false);
         }
       });
     }
@@ -118,7 +120,7 @@ function Profile() {
             setLocations(data.locations);
           }
         } else {
-          Navigate("/notfound");
+          return <StudProfile />;
         }
       });
     }
@@ -136,7 +138,7 @@ function Profile() {
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      const base64Image = reader.result.split(",")[1];
+      const base64Image = reader.result;
       setImageSrc(base64Image); // Correctly set the base64 image source
     };
     reader.readAsDataURL(compressedFile);
@@ -199,6 +201,7 @@ function Profile() {
           email: email,
           bio: bio,
           cph: cph,
+          profilepic: imageSrc,
         });
         toast.success("Tutor data updated successfully", {
           position: "top-right",
@@ -225,7 +228,7 @@ function Profile() {
     }
   }
 
-  return (
+  return (!stud ? (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8 pt-20">
         <div className="grid gap-8 md:grid-cols-3">
@@ -341,7 +344,6 @@ function Profile() {
               {currentUser && <TeachOnlineToggle currentUser={currentUser} />}
               {/* select subject */}
               <div className="p-4 bg-gray-50 rounded-lg my-4 shadow-md">
-              
                 {/* Subject Selection */}
                 <h2 className="text-lg font-semibold mb-2">Select Subjects</h2>
                 <div className="flex gap-2">
@@ -533,7 +535,9 @@ function Profile() {
         </div>
       </div>
     </div>
-  );
+  ) : (
+    <StudProfile />
+  ))
 }
 
 export default Profile;

@@ -133,7 +133,7 @@ function TutorCarousel() {
               >
                 <div className="relative w-full h-72 mb-4 overflow-hidden rounded-lg">
                   <img
-                    src={item.profilepic}
+                    src={item.profilepic ? (item.profilepic): "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png"}
                     alt={item.name}
                     className="w-full h-72  transition-transform duration-300 ease-in-out hover:scale-110"
                     loading="lazy"

@@ -67,7 +67,7 @@ const TutorInfo = () => {
               📚 Subjects
             </h2>
             <div className="flex flex-wrap gap-2">
-              {tutor.sub.map((subject) => (
+              {tutor?.sub?.map((subject) => (
                 <span
                   key={subject}
                   className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm"
@@ -103,7 +103,7 @@ const TutorInfo = () => {
               🌐 Languages
             </h2>
             <div className="flex flex-wrap gap-2">
-              {tutor.lang.map((language) => (
+              {tutor?.lang?.map((language) => (
                 <span
                   key={language}
                   className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm"

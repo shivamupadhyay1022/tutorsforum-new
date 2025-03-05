@@ -114,7 +114,7 @@ const TeachOnlineToggle = ({ currentUser }) => {
             />
             <button
               onClick={addScheduleEntry}
-              className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
+              className="rounded-full py-1 w-12 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
             >
               ✔
             </button>

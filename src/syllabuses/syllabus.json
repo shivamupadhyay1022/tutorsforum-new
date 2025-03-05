@@ -1,0 +1,2868 @@
+{
+  "Class 6": {
+    "Science": [
+      {
+        "name": "Chapter 1: Food: Where Does it Come From?",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Food Habits of Animals" },
+          { "name": "1.2 Source of Food" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Components of Food",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Components of Food" },
+          { "name": "2.2 Deficiency Diseases" },
+          { "name": "2.3 Nutrients in Food and Balanced Die" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Fibre to Fabric",
+        "status": "pending",
+        "subtopics": [{ "name": "3.1 Fabrics and Fibres" }]
+      },
+      {
+        "name": "Chapter 4: Sorting Materials into Groups",
+        "status": "pending",
+        "subtopics": [{ "name": "4.1 Grouping Objects" }]
+      },
+      {
+        "name": "Chapter 5: Separation of Substances",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Methods of Separation of Substances-1" },
+          { "name": "5.2 Methods of Separation of Substances-2" },
+          { "name": "5.3 Multiple Methods of Separation and Saturation" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Changes Around us",
+        "status": "pending",
+        "subtopics": [{ "name": "6.1 Reversible and Irreversible Changes" }]
+      },
+      {
+        "name": "Chapter 7: Getting to Know Plants",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Flower and Leaf" },
+          { "name": "7.2 Herbs, Shrubs and Trees" },
+          { "name": "7.3 Stem and Root" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Body Movements",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Locomotion in Vertebrates" },
+          { "name": "8.2 Movement in Invertebrates" },
+          { "name": "8.3 The Human Skeletal System" }
+        ]
+      },
+      {
+        "name": "Chapter 9: The Living Organisms and Their Surroundings",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Characteristics of Living Things" },
+          { "name": "9.2 Habitat and Adaptation" },
+          { "name": "9.3 Terrestrial and Aquatic Habitats" }
+        ]
+      },
+      {
+        "name": "Chapter 10: Motion and Measurement of Distances",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Measurement of Length" },
+          { "name": "10.2 Modes of Transport" },
+          { "name": "10.3 Standard Units of Length" },
+          { "name": "10.4 Types of Motion" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Light, Shadows and Reflections",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Light and Shadows" },
+          { "name": "11.2 Reflection of Light" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Electricity and Circuits",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Electric Cell and Bulb" },
+          { "name": "12.2 Electric Circuit" }
+        ]
+      },
+      {
+        "name": "Chapter 13: Fun with Magnets",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 Magnets" },
+          { "name": "13.2 Properties of Magnets" },
+          { "name": "13.3 Uses and Care of Magnets" }
+        ]
+      },
+      {
+        "name": "Chapter 14: Water",
+        "status": "pending",
+        "subtopics": [
+          { "name": "14.1 Conservation of Water" },
+          { "name": "14.2 Water - A Precious Natural Resource" },
+          { "name": "14.3 Water Cycle" }
+        ]
+      },
+      {
+        "name": "Chapter 15: Air Around Us",
+        "status": "pending",
+        "subtopics": [
+          { "name": "15.1 Air - A Precious Natural Resource" },
+          { "name": "15.2 Components of Air" },
+          { "name": "15.3 Oxygen and Carbon dioxide" }
+        ]
+      },
+      {
+        "name": "Chapter 16: Garbage in, Garbage out",
+        "status": "pending",
+        "subtopics": [
+          { "name": "16.1 Effect of Plastic on Environment" },
+          { "name": "16.2 Garbage" },
+          { "name": "16.3 Managing Waste" }
+        ]
+      }
+    ],
+    "Mathematics": [
+      {
+        "name": "Chapter 1: Knowing our Numbers",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Comparing and Ordering 4-Digit Numbers" },
+          { "name": "1.2 Estimation" },
+          { "name": "1.3 Large Numbers" },
+          { "name": "1.4 Large Numbers in Practice" },
+          { "name": "1.5 Roman Numerals" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Whole Numbers",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Identities and Special Properties of Whole Numbers" },
+          { "name": "2.2 Introduction to Whole Numbers" },
+          { "name": "2.3 Patterns in Whole Numbers" },
+          { "name": "2.4 Properties of Whole Numbers" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Playing with Numbers",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Divisibility Rules" },
+          { "name": "3.2 Factors and Multiples" },
+          { "name": "3.3 Highest Common Factor" },
+          { "name": "3.4 Lowest Common Multiple" },
+          { "name": "3.5 Prime and Composite Numbers" },
+          { "name": "3.6 Prime Factorisation" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Basic Geometrical Ideas",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Basic Geometrical Ideas" },
+          { "name": "4.2 Circles" },
+          { "name": "4.3 Curves and Their Types" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Understanding Elementary Shapes",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Angles" },
+          { "name": "5.2 Classification of Triangles" },
+          { "name": "5.3 Line" },
+          { "name": "5.4 Quadrilaterals and Other Polygons" },
+          { "name": "5.5 Three Dimensional Shapes" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Integers",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Addition of Integers" },
+          { "name": "6.2 Introduction to Integers" },
+          { "name": "6.3 Subtraction of Integers" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Fractions",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Addition and Subtraction of Fractions" },
+          { "name": "7.2 Conversion of Fractions" },
+          { "name": "7.3 Equivalent Fractions" },
+          { "name": "7.4 Like and Unlike Fractions" },
+          { "name": "7.5 Types of Fractions and Their Representation" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Decimals",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Addition and Subtraction of Decimals" },
+          { "name": "8.2 Comparison and Uses of Decimals" },
+          { "name": "8.3 Decimals: Tenths and Hundredths" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Data Handling",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Bar Graphs" },
+          { "name": "9.2 Collecting and Organising Data" },
+          { "name": "9.3 Pictographs" }
+        ]
+      },
+      {
+        "name": "Chapter 10: Mensuration",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Area of Regular and Irregular Shapes" },
+          { "name": "10.2 Perimeter of Regular and Irregular Shapes" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Algebra",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Algebraic Expressions" },
+          { "name": "11.2 Introduction to Algebra" },
+          { "name": "11.3 Introduction to Algebraic Equations" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Ratio and Proportion",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Proportion" },
+          { "name": "12.2 Ratio" },
+          { "name": "12.3 Unitary Method" }
+        ]
+      },
+      {
+        "name": "Chapter 13: Symmetry",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 Line Symmetry and Reflection Symmetry" },
+          { "name": "13.2 Symmetrical and Asymmetrical Figures" }
+        ]
+      },
+      {
+        "name": "Chapter 14: Practical Geometry",
+        "status": "pending",
+        "subtopics": [
+          { "name": "14.1 Construction of a Circle" },
+          { "name": "14.2 Construction of a Line Segment" },
+          { "name": "14.3 Construction of Angles and their Bisectors" },
+          { "name": "14.4 Construction of Angles of Special Measures" }
+        ]
+      }
+    ]
+  },
+  "Class 7": {
+    "Science": [
+      {
+        "name": "Chapter 1: Nutrition in Plants",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Mode of Nutrition in Plants" },
+          { "name": "1.2 Photosynthesis - Food Making Process in Plants" },
+          { "name": "1.3 Other Modes of Nutrition in Plants" },
+          { "name": "1.4 Saprotrophs" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Nutrition in Animals",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Different Ways of Taking Food" },
+          { "name": "2.2 Digestion in Humans" },
+          { "name": "2.3 Digestion in Grass-Eating Animals" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Heat",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Hot and Cold" },
+          { "name": "3.2 Measuring Temperature" },
+          { "name": "3.3 Laboratory Thermometer" },
+          { "name": "3.4 Transfer of Heat" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Acids, Bases and Salts",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Acids and Bases" },
+          { "name": "4.2 Natural Indicators Around Us" },
+          { "name": "4.3 Neutralisation" },
+          { "name": "4.4 Neutralisation in Everyday Life" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Physical and Chemical Changes",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Physical Changes" },
+          { "name": "5.2 Chemical Change" },
+          { "name": "5.3 Rusting of Iron" },
+          { "name": "5.4 Crystallisation" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Respiration in Organisms",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Why do we Respire" },
+          { "name": "6.2 Breathing" },
+          { "name": "6.3 How do we breathe?" },
+          { "name": "6.4 What do we Breathe Out?" },
+          { "name": "6.5 Breathing in Other Animals" },
+          { "name": "6.6 Breathing Under Water" },
+          { "name": "6.7 Do Plants Also Respire?" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Transportation in Animals and Plants",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Circulatory System" },
+          { "name": "7.2 Excretion in Animals" },
+          { "name": "7.3 Transport of Substances in Plants" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Reproduction in Plants",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Modes of Reproduction" },
+          { "name": "8.2 Sexual Reproduction" },
+          { "name": "8.3 Fruits and Seed Formation" },
+          { "name": "8.4 Seed Dispersal" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Motion and Time",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Slow or Fast" },
+          { "name": "9.2 Speed" },
+          { "name": "9.3 Measurement of Time" },
+          { "name": "9.4 Measuring Speed" },
+          { "name": "9.5 Distance-Time Graph" }
+        ]
+      },
+      {
+        "name": "Chapter 10: Electric Current and its Effects",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Symbols of Electric Components" },
+          { "name": "10.2 Heating Effect of Electric Current" },
+          { "name": "10.3 Magnetic Effect of Electric Current" },
+          { "name": "10.4 Electromagnet" },
+          { "name": "10.5 Electric Bell" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Light",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Light Travels Along a Straight Line" },
+          { "name": "11.2 Reflection of Light" },
+          { "name": "11.3 Right or Left!" },
+          { "name": "11.4 Playing with Spherical Mirrors" },
+          { "name": "11.5 Images Formed by Lenses" },
+          { "name": "11.6 Sunlight - White or Coloured?" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Forests: Our Lifeline",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Visit to a Forest" },
+          { "name": "12.2 What is Sewage?" },
+          { "name": "12.3 Water Freshens Up - An Eventful Journey" },
+          { "name": "12.4 Wastewater Treatment Plant (WWTP)" },
+          { "name": "12.5 Better Housekeeping Practices" },
+          { "name": "12.6 Sanitation and Disease" },
+          { "name": "12.7 Alternative Arrangement for Sewage Disposal" },
+          { "name": "12.8 Sanitation at Public Places" }
+        ]
+      }
+    ],
+    "Mathematics": [
+      {
+        "name": "Chapter 1: Integers",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Properties of Addition and Subtraction of Integers" },
+          { "name": "1.2 Multiplication of Integers" },
+          { "name": "1.3 Properties of Multiplication of Integers" },
+          { "name": "1.4 Division of Integers" },
+          { "name": "1.5 Properties of Division of Integers" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Fractions and Decimals",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Multiplication of Fractions" },
+          { "name": "2.2 Division of Fractions" },
+          { "name": "2.3 Multiplication of Decimal Numbers" },
+          { "name": "2.4 Division of Decimal Numbers" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Data Handling",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Representative Values" },
+          { "name": "3.2 Arithmetic Mean" },
+          { "name": "3.3 Mode" },
+          { "name": "3.4 Median" },
+          { "name": "3.5 Use of Bar Graphs with a Different Purpose" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Simple Equations",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 A Mind-reading Game!" },
+          { "name": "4.2 Setting up of an Equation" },
+          { "name": "4.3 Review of what we know" },
+          { "name": "4.4 What Equation is?" },
+          { "name": "4.5 More Equations" },
+          {
+            "name": "4.6 Applications of Simple Equations to Practical Situations"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 5: Lines and Angles",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Introduction" },
+          { "name": "5.2 Related Angles" },
+          { "name": "5.3 Pairs of Lines" },
+          { "name": "5.4 Checking for Parallel Lines" }
+        ]
+      },
+      {
+        "name": "Chapter 6: The Triangle and its Properties",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Introduction" },
+          { "name": "6.2 Medians of a Triangle" },
+          { "name": "6.3 Altitudes of a Triangle" },
+          { "name": "6.4 Exterior Angle of a Triangle and its Property" },
+          { "name": "6.5 Angle Sum Property of a Triangle" },
+          { "name": "6.6 Two Special Triangles: Equilateral and Isosceles" },
+          { "name": "6.7 Sum of the Lengths of Two Sides of a Triangle" },
+          { "name": "6.8 Right-Angled Triangles and Pythagoras Property" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Comparing Quantities",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Percentage - Another Way of Comparing Quantities" },
+          { "name": "7.2 Use of Percentages" },
+          { "name": "7.3 Prices Related to an Item or Buying and Selling" },
+          { "name": "7.4 Charge Given on Borrowed Money or Simple Interest" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Rational Numbers",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Introduction" },
+          { "name": "8.2 Need for Rational Numbers" },
+          { "name": "8.3 What are Rational Numbers?" },
+          { "name": "8.4 Positive and Negative Rational Numbers" },
+          { "name": "8.5 Rational Numbers on a Number Line" },
+          { "name": "8.6 Rational Numbers in Standard Form" },
+          { "name": "8.7 Comparison of Rational Numbers" },
+          { "name": "8.8 Rational Numbers Between Two Rational Numbers" },
+          { "name": "8.9 Operations on Rational Numbers" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Perimeter and Area",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Area of a Parallelogram" },
+          { "name": "9.2 Area of a Triangle" },
+          { "name": "9.3 Circles" }
+        ]
+      },
+      {
+        "name": "Chapter 10: Algebraic Expressions",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Introduction" },
+          { "name": "10.2 How are Expressions Formed?" },
+          { "name": "10.3 Terms of an Expression" },
+          { "name": "10.4 Like and Unlike Terms" },
+          { "name": "10.5 Monomials, Binomials, Trinomials and Polynomials" },
+          { "name": "10.6 Finding the Value of an Expression" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Exponents and Powers",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Introduction" },
+          { "name": "11.2 Exponents" },
+          { "name": "11.3 Laws of Exponents" },
+          { "name": "11.4 Miscellaneous Examples Using the Laws of Exponents" },
+          { "name": "11.5 Decimal Number System" },
+          { "name": "11.6 Expressing Large Numbers in the Standard Form" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Symmetry",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Lines of Symmetry for Regular Polygons" },
+          { "name": "12.2 Rotational Symmetry" },
+          { "name": "12.3 Line Symmetry and Rotational Symmetry" }
+        ]
+      },
+      {
+        "name": "Chapter 13: Visualising Solid Shapes",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 Introduction: Plane Figures and Solid Shapes" },
+          { "name": "13.2 Faces, Edges and Vertices" },
+          { "name": "13.3 Nets for Building 3-D Shapes" },
+          { "name": "13.4 Drawing Solids on a Flat Surface" },
+          { "name": "13.5 Viewing Different Sections of a Solid" }
+        ]
+      }
+    ]
+  },
+  "Class 8": {
+    "Science": [
+      {
+        "name": "Chapter 1: Crop Production and Management",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Agricultural Practices" },
+          { "name": "1.2 Basic Practices of Crop Production" },
+          { "name": "1.3 Preparation of Soil" },
+          { "name": "1.4 Sowing" },
+          { "name": "1.5 Adding Manure and Fertilisers" },
+          { "name": "1.6 Irrigation" },
+          { "name": "1.7 Protection from Weeds" },
+          { "name": "1.8 Harvesting" },
+          { "name": "1.9 Storage" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Microorganisms: Friend and Foe",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Microorganisms" },
+          { "name": "2.2 Where do Microorganisms Live?" },
+          { "name": "2.3 Microorganisms and Us" },
+          { "name": "2.4 Harmful Microorganisms" },
+          { "name": "2.5 Food Preservation" },
+          { "name": "2.6 Nitrogen Fixation" },
+          { "name": "2.7 Nitrogen Cycle" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Coal and Petroleum",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Coal" },
+          { "name": "3.2 Petroleum" },
+          { "name": "3.3 Natural Gas" },
+          { "name": "3.4 Some Natural Resources are Limited" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Combustion and Flame",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 What is Combustion?" },
+          { "name": "4.2 How Do We Control Fire?" },
+          { "name": "4.3 Types of Combustion" },
+          { "name": "4.4 Flame" },
+          { "name": "4.5 Structure of a Flame" },
+          { "name": "4.6 What is a Fuel?" },
+          { "name": "4.7 Fuel Efficiency" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Conservation of Plants and Animals",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Deforestation and Its Causes" },
+          { "name": "5.2 Consequences of Deforestation" },
+          { "name": "5.3 Conservation of Forest and Wildlife" },
+          { "name": "5.4 Biosphere Reserve" },
+          { "name": "5.5 Flora and Fauna" },
+          { "name": "5.6 Endemic Species" },
+          { "name": "5.7 Wildlife Sanctuary" },
+          { "name": "5.8 National Park" },
+          { "name": "5.9 Red Data Book" },
+          { "name": "5.10 Migration" },
+          { "name": "5.11 Recycling of Paper" },
+          { "name": "5.12 Reforestation" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Reproduction in Animals",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Modes of Reproduction" },
+          { "name": "6.2 Sexual Reproduction" },
+          { "name": "6.3 Asexual Reproduction" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Reaching the Age of Adolescence",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Adolescence and Puberty" },
+          { "name": "7.2 Changes at Puberty" },
+          { "name": "7.3 Secondary Sexual Characters" },
+          {
+            "name": "7.4 Role of Hormones in Initiating Reproductive Function"
+          },
+          { "name": "7.5 Reproductive Phase of Life in Humans" },
+          { "name": "7.6 How is the Sex of the Baby Determined?" },
+          { "name": "7.7 Hormones other than Sex Hormones" },
+          {
+            "name": "7.8 Role of Hormones in Completing the Life History of Insects and Frogs"
+          },
+          { "name": "7.9 Reproductive Health" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Force and Pressure",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Force – A Push or a Pull" },
+          { "name": "8.2 Forces are due to an Interaction" },
+          { "name": "8.3 Exploring Forces" },
+          { "name": "8.4 A Force can Change the State of Motion" },
+          { "name": "8.5 Force can Change the Shape of an Object" },
+          { "name": "8.6 Contact Forces" },
+          { "name": "8.7 Non-contact Forces" },
+          { "name": "8.8 Pressure" },
+          { "name": "8.9 Pressure Exerted by Liquids and Gases" },
+          { "name": "8.10 Atmospheric Pressure" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Friction",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Force of Friction" },
+          { "name": "9.2 Factors affecting Friction" },
+          { "name": "9.3 Friction: A Necessary Evil" },
+          { "name": "9.4 Increasing and Reducing Friction" },
+          { "name": "9.5 Wheels Reduce Friction" },
+          { "name": "9.6 Fluid Friction" }
+        ]
+      },
+      {
+        "name": "Chapter 10: Sound",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Sound is Produced by a Vibrating Body" },
+          { "name": "10.2 Sound Produced by Humans" },
+          { "name": "10.3 Sound Needs a Medium for Propagation" },
+          { "name": "10.4 We Hear Sound through Our Ears" },
+          {
+            "name": "10.5 Amplitude, Time Period and Frequency of a Vibration"
+          },
+          { "name": "10.6 Audible and Inaudible Sounds" },
+          { "name": "10.7 Noise and Music" },
+          { "name": "10.8 Noise Pollution" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Chemical Effects of Electric Current",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Do Liquids Conduct Electricity?" },
+          { "name": "11.2 Chemical Effects of Electric Current" },
+          { "name": "11.3 Electroplating" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Some Natural Phenomena",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Lightning" },
+          { "name": "12.2 Charging by Rubbing" },
+          { "name": "12.3 Types of Charges and Their Interaction" },
+          { "name": "12.4 Transfer of Charge" },
+          { "name": "12.5 The Story of Lightning" },
+          { "name": "12.6 Lightning Safety" },
+          { "name": "12.7 Earthquakes" }
+        ]
+      },
+      {
+        "name": "Chapter 13: Light",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 What makes Things Visible" },
+          { "name": "13.2 Laws of Reflection" },
+          { "name": "13.3 Regular and Diffused Reflection" },
+          { "name": "13.4 Reflected Light Can be Reflected Again" },
+          { "name": "13.5 Multiple Images" },
+          { "name": "13.6 Sunlight — White or Coloured" },
+          { "name": "13.7 What is inside Our Eyes?" },
+          { "name": "13.8 Care of the Eyes" },
+          { "name": "13.9 Visually Impaired Persons Can Read and Write" },
+          { "name": "13.10 What is the Braille System?" }
+        ]
+      }
+    ],
+    "Mathematics": [
+      {
+        "name": "Chapter 1: Rational Numbers",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Introduction" },
+          { "name": "1.2 Properties of Rational Numbers" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Linear Equations in One Variable",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Introduction" },
+          { "name": "2.2 Solving Equations having the Variable on both Sides" },
+          { "name": "2.3 Reducing Equations to Simpler Form" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Understanding Quadrilaterals",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Introduction" },
+          { "name": "3.2 Kinds of Quadrilaterals" },
+          { "name": "3.3 Some Special Parallelograms" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Data Handling",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Looking for Information" },
+          { "name": "4.2 Circle Graph or Pie Chart" },
+          { "name": "4.3 Chance and Probability" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Squares and Square Roots",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Properties of Square Numbers" },
+          { "name": "5.2 Finding the Square of a Number" },
+          { "name": "5.3 Square Roots" },
+          { "name": "5.4 Square Roots of Decimals" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Cubes and Cube Roots",
+        "status": "pending",
+        "subtopics": [{ "name": "6.1 Introduction" }, { "name": "6.2 Cubes" }]
+      },
+      {
+        "name": "Chapter 7: Comparing Quantities",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Recalling Ratios and Percentages" },
+          { "name": "7.2 Finding Discounts" },
+          { "name": "7.3 Sales Tax/Value Added Tax/Goods and Services Tax" },
+          { "name": "7.4 Compound Interest" },
+          { "name": "7.5 Deducing a Formula for Compound Interest" },
+          { "name": "7.6 Applications of Compound Interest Formula" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Algebraic Expressions and Identities",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Addition and Subtraction of Algebraic Expressions" },
+          {
+            "name": "8.2 Multiplication of Algebraic Expressions: Introduction"
+          },
+          { "name": "8.3 Multiplying a Monomial by a Monomial" },
+          { "name": "8.4 Multiplying a Monomial by a Polynomial" },
+          { "name": "8.5 Multiplying a Polynomial by a Polynomial" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Mensuration",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Introduction" },
+          { "name": "9.2 Area of a Polygon" },
+          { "name": "9.3 Solid Shapes" },
+          { "name": "9.4 Surface Area of Cube, Cuboid and Cylinder" },
+          { "name": "9.5 Volume of Cube, Cuboid and Cylinder" },
+          { "name": "9.6 Volume and Capacity" }
+        ]
+      },
+      {
+        "name": "Chapter 10: Exponents and Powers",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Introduction" },
+          { "name": "10.2 Powers with Negative Exponents" },
+          { "name": "10.3 Laws of Exponents" },
+          {
+            "name": "10.4 Use of Exponents to Express Small Numbers in Standard Form"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 11: Direct and Inverse Proportions",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Introduction" },
+          { "name": "11.2 Direct Proportion" },
+          { "name": "11.3 Inverse Proportion" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Factorisation",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Introduction" },
+          { "name": "12.2 What is Factorisation?" },
+          { "name": "12.3 Division of Algebraic Expressions" },
+          {
+            "name": "12.4 Division of Algebraic Expressions Continued (Polynomial ÷ Polynomial)"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 13: Introduction to Graphs",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 Introduction" },
+          { "name": "13.2 Some Applications" }
+        ]
+      }
+    ]
+  },
+  "Class 9": {
+    "Science": [
+      {
+        "name": "Chapter 1: Matter in Our Surroundings",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Physical Nature of Matter" },
+          { "name": "1.2 Characteristics of Particles of Matter" },
+          { "name": "1.3 States of Matter" },
+          { "name": "1.4 Can Matter Change its State?" },
+          { "name": "1.5 Evaporation" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Is Matter Around Us Pure?",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 What is a Mixture?" },
+          { "name": "2.2 What is a Solution?" },
+          { "name": "2.3 Physical and Chemical Changes" },
+          { "name": "2.4 What are the Types of Pure Substances?" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Atoms and Molecules",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Laws of Chemical Combination" },
+          { "name": "3.2 What is an Atom?" },
+          { "name": "3.3 What is a Molecule?" },
+          { "name": "3.4 Writing Chemical Formulae" },
+          { "name": "3.5 Molecular Mass" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Structure of the Atom",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Charged Particles in Matter" },
+          { "name": "4.2 The Structure of an Atom" },
+          {
+            "name": "4.3 How are Electrons Distributed in Different Orbits (Shells)?"
+          },
+          { "name": "4.4 Valency" },
+          { "name": "4.5 Atomic Number and Mass Number" },
+          { "name": "4.6 Isotopes" }
+        ]
+      },
+      {
+        "name": "Chapter 5: The Fundamental Unit of Life",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 What are Living Organisms Made Up of?" },
+          {
+            "name": "5.2 What is a Cell Made Up of? What is the Structural Organisation of a Cell?"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 6: Tissues",
+        "status": "pending",
+        "subtopics": [
+          {
+            "name": "6.1 Are Plants and Animals Made of Same Types of Tissues?"
+          },
+          { "name": "6.2 Plant Tissues" },
+          { "name": "6.3 Animal Tissues" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Diversity in Living Organisms",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 What is the Basis of Classification?" },
+          { "name": "7.2 Classification and Evolution" },
+          { "name": "7.3 The Hierarchy of Classification Groups" },
+          { "name": "7.4 Plantae" },
+          { "name": "7.5 Animalia" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Motion",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Describing Motion" },
+          { "name": "8.2 Measuring the Rate of Motion" },
+          { "name": "8.3 Rate of Change of Velocity" },
+          { "name": "8.4 Graphical Representation of Motion" },
+          { "name": "8.5 Equations of Motion" },
+          { "name": "8.6 Uniform Circular Motion" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Force and Laws of Motion",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Balanced and Unbalanced Forces" },
+          { "name": "9.2 First Law of Motion" },
+          { "name": "9.3 Inertia and Mass" },
+          { "name": "9.4 Second Law of Motion" },
+          { "name": "9.5 Third Law of Motion" }
+        ]
+      },
+      {
+        "name": "Chapter 10: Gravitation",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Gravitation" },
+          { "name": "10.2 Free Fall" },
+          { "name": "10.3 Mass" },
+          { "name": "10.4 Weight" },
+          { "name": "10.5 Thrust and Pressure" },
+          { "name": "10.6 Archimedes’ Principle" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Work and Energy",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Work" },
+          { "name": "11.2 Energy" },
+          { "name": "11.3 Rate of Doing Work" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Sound",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Production of Sound" },
+          { "name": "12.2 Propagation of Sound" },
+          { "name": "12.3 Reflection of Sound" },
+          { "name": "12.4 Range of Hearing" },
+          { "name": "12.5 Applications of Ultrasound" }
+        ]
+      },
+      {
+        "name": "Chapter 13: Why Do We Fall Ill?",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 Health and its Failure" },
+          { "name": "13.2 Disease and its Causes" },
+          { "name": "13.3 Infectious Diseases" }
+        ]
+      },
+      {
+        "name": "Chapter 14: Natural Resources",
+        "status": "pending",
+        "subtopics": [
+          { "name": "14.1 The Breath of Life: Air" },
+          { "name": "14.2 Water: A Wonder Liquid" },
+          { "name": "14.3 Mineral Riches in the Soil" },
+          { "name": "14.4 Biogeochemical Cycles" },
+          { "name": "14.5 Ozone Layer" }
+        ]
+      },
+      {
+        "name": "Chapter 15: Improvement in Food Resources",
+        "status": "pending",
+        "subtopics": [
+          { "name": "15.1 Improvement in Crop Yields" },
+          { "name": "15.2 Animal Husbandry" }
+        ]
+      }
+    ],
+    "Mathematics": [
+      {
+        "name": "Chapter 1: Number Systems",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Introduction" },
+          { "name": "1.2 Irrational Numbers" },
+          { "name": "1.3 Real Numbers and their Decimal Expansions" },
+          { "name": "1.4 Operations on Real Numbers" },
+          { "name": "1.5 Laws of Exponents for Real Numbers" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Polynomials",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Introduction" },
+          { "name": "2.2 Polynomials in One Variable" },
+          { "name": "2.3 Zeros of a Polynomial" },
+          { "name": "2.4 Factorisation of Polynomials" },
+          { "name": "2.5 Algebraic Identities" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Coordinate Geometry",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Introduction" },
+          { "name": "3.2 Cartesian System" },
+          {
+            "name": "3.3 Plotting a Point in the Plane if its Coordinates are Given"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 4: Linear Equations in Two Variables",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Introduction" },
+          { "name": "4.2 Solution of a Linear Equation" },
+          { "name": "4.3 Graph of a Linear Equation in Two Variables" },
+          { "name": "4.4 Equations of Lines Parallel to Axes" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Introduction to Euclid's Geometry",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Introduction" },
+          { "name": "5.2 Euclid’s Definitions, Axioms and Postulates" },
+          { "name": "5.3 Equivalent Versions of Euclid’s Fifth Postulate" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Lines and Angles",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Introduction" },
+          { "name": "6.2 Basic Terms and Definitions" },
+          { "name": "6.3 Intersecting Lines and Non-intersecting Lines" },
+          { "name": "6.4 Pairs of Angles" },
+          { "name": "6.5 Lines Parallel to the Same Line" },
+          { "name": "6.6 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Triangles",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Introduction" },
+          { "name": "7.2 Congruence of Triangles" },
+          { "name": "7.3 Criteria for Congruence of Triangles" },
+          { "name": "7.4 Some Properties of a Triangle" },
+          { "name": "7.5 Some More Criteria for Congruence of Triangles" },
+          { "name": "7.6 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Quadrilaterals",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Properties of a Parallelogram" },
+          { "name": "8.2 The Mid-point Theorem" },
+          { "name": "8.3 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Areas of Parallelograms and Triangles",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Introduction" },
+          {
+            "name": "9.2 Figures on the Same Base and Between the Same Parallels"
+          },
+          {
+            "name": "9.3 Parallelograms on the Same Base and Between the Same Parallels"
+          },
+          {
+            "name": "9.4 Triangles on the Same Base and Between the Same Parallels"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 10: Circles",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Introduction" },
+          { "name": "10.2 Angle Subtended by a Chord at a Point" },
+          { "name": "10.3 Perpendicular from the Centre to a Chord" },
+          { "name": "10.4 Equal Chords and their Distances from the Centre" },
+          { "name": "10.5 Angle Subtended by an Arc of a Circle" },
+          { "name": "10.6 Cyclic Quadrilaterals" },
+          { "name": "10.7 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Constructions",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Introduction" },
+          { "name": "11.2 Basic Constructions" },
+          { "name": "11.3 Some Constructions of Triangles" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Heron's Formula",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Introduction" },
+          { "name": "12.2 Area of a Triangle - by Heron's Formula" },
+          {
+            "name": "12.3 Application of Heron’s Formula in Finding Areas of Quadrilaterals"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 13: Surface Areas and Volumes",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 Introduction" },
+          { "name": "13.2 Surface Area of a Right Circular Cone" },
+          { "name": "13.3 Surface Area of a Sphere" },
+          { "name": "13.4 Volume of a Right Circular Cone" },
+          { "name": "13.5 Volume of a Sphere" },
+          { "name": "13.6 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 14: Statistics",
+        "status": "pending",
+        "subtopics": [
+          { "name": "14.1 Introduction" },
+          { "name": "14.2 Graphical Representation of Data" },
+          { "name": "14.3 Measures of Central Tendency" },
+          { "name": "14.4 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 15: Probability",
+        "status": "pending",
+        "subtopics": [
+          { "name": "15.1 Introduction" },
+          { "name": "15.2 Probability - A Theoretical Approach" },
+          { "name": "15.3 Summary" }
+        ]
+      }
+    ]
+  },
+  "Class 10": {
+    "Science": [
+      {
+        "name": "Chapter 1: Chemical Reactions and Equations",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Chemical Equations" },
+          { "name": "1.2 Types of Chemical Reactions" },
+          {
+            "name": "1.3 Have you observed the effects of Oxidation Reactions in Everyday Life?"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 2: Acids, Bases and Salts",
+        "status": "pending",
+        "subtopics": [
+          {
+            "name": "2.1 Understanding the Chemical Properties of Acids and Bases"
+          },
+          { "name": "2.2 What do all Acids and all Bases have in Common?" },
+          { "name": "2.3 How Strong are Acid or Base Solutions?" },
+          { "name": "2.4 More about Salts" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Metals and Non-metals",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Physical Properties" },
+          { "name": "3.2 Chemical Properties of Metals" },
+          { "name": "3.3 How do Metals and Non-metals React?" },
+          { "name": "3.4 Occurrence of Metals" },
+          { "name": "3.5 Corrosion" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Carbon and its Compounds",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Bonding in Carbon - The Covalent Bond" },
+          { "name": "4.2 Versatile Nature of Carbon" },
+          { "name": "4.3 Chemical Properties of Carbon Compounds" },
+          {
+            "name": "4.4 Some Important Carbon Compounds - Ethanol and Ethanoic Acid"
+          },
+          { "name": "4.5 Soaps and Detergents" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Life Processes",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 What are Life Processes?" },
+          { "name": "5.2 Nutrition" },
+          { "name": "5.3 Respiration" },
+          { "name": "5.4 Transportation" },
+          { "name": "5.5 Excretion" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Control and Coordination",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Animals - Nervous System" },
+          { "name": "6.2 Coordination in Plants" },
+          { "name": "6.3 Hormones in Animals" }
+        ]
+      },
+      {
+        "name": "Chapter 7: How do Organisms Reproduce?",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Do Organisms create exact copies of themselves?" },
+          { "name": "7.2 Modes of Reproduction used by single organisms" },
+          { "name": "7.3 Sexual Reproduction" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Heredity",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Accumulation of variation during reproduction" },
+          { "name": "8.2 Heredity" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Light - Reflection and Refraction",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Reflection of Light" },
+          { "name": "9.2 Spherical Mirrors" },
+          { "name": "9.3 Refraction of Light" },
+          { "name": "9.4 Refraction through a Prism" },
+          { "name": "9.5 Atmospheric Refraction" },
+          { "name": "9.6 Scattering of Light" }
+        ]
+      },
+      {
+        "name": "Chapter 10: The Human Eye and the Colourful World",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 The Human Eye" },
+          { "name": "10.2 Defects of Vision and their Correction" },
+          { "name": "10.3 Refraction of Light through a Prism" },
+          { "name": "10.4 Dispersion of White Light by a Glass Prism" },
+          { "name": "10.5 Atmospheric Refraction" },
+          { "name": "10.6 Scattering of Light" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Electricity",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Electric Current and Circuit" },
+          { "name": "11.2 Electric Potential and Potential Difference" },
+          { "name": "11.3 Circuit Diagram" },
+          { "name": "11.4 Ohm's Law" },
+          {
+            "name": "11.5 Factors on which the Resistance of a Conductor Depends"
+          },
+          { "name": "11.6 Resistance of a System of Resistors" },
+          { "name": "11.7 Heating Effect of Electric Current" },
+          { "name": "11.8 Electric Power" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Magnetic Effects of Electric Current",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Magnetic Field and Field Lines" },
+          { "name": "12.2 Magnetic Field due to a Current-Carrying Conductor" },
+          {
+            "name": "12.3 Force on a Current-Carrying Conductor in a Magnetic Field"
+          },
+          { "name": "12.4 Electric Motor" },
+          { "name": "12.5 Electromagnetic Induction" },
+          { "name": "12.6 Electric Generator" },
+          { "name": "12.7 Domestic Electric Circuits" }
+        ]
+      },
+      {
+        "name": "Chapter 13: Our Environment",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 Ecosystem" },
+          { "name": "13.2 Food Chains and Webs" },
+          { "name": "13.3 Environmental Problems" }
+        ]
+      }
+    ],
+    "Mathematics": [
+      {
+        "name": "Chapter 1: Real Numbers",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Introduction" },
+          { "name": "1.2 The Fundamental Theorem of Arithmetic" },
+          { "name": "1.3 Revisiting Irrational Numbers" },
+          { "name": "1.4 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Polynomials",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Introduction" },
+          { "name": "2.2 Geometrical Meaning of the Zeros of a Polynomial" },
+          {
+            "name": "2.3 Relationship between Zeroes and Coefficients of a Polynomial"
+          },
+          { "name": "2.4 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Pair of Linear Equations in Two Variables",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Introduction" },
+          {
+            "name": "3.2 Graphical Method of Solution of a Pair of Linear Equations"
+          },
+          {
+            "name": "3.3 Algebraic Methods of Solving a Pair of Linear Equations"
+          },
+          { "name": "3.4 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Quadratic Equations",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Introduction" },
+          { "name": "4.2 Quadratic Equations" },
+          { "name": "4.3 Solution of a Quadratic Equation by Factorisation" },
+          { "name": "4.4 Nature of Roots" },
+          { "name": "4.5 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Arithmetic Progressions",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Introduction" },
+          { "name": "5.2 Arithmetic Progressions" },
+          { "name": "5.3 nth Term of an AP" },
+          { "name": "5.4 Sum of First n Terms of an AP" },
+          { "name": "5.5 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Triangles",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Introduction" },
+          { "name": "6.2 Similar Figures" },
+          { "name": "6.3 Similarity of Triangles" },
+          { "name": "6.4 Criteria for Similarity of Triangles" },
+          { "name": "6.5 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Coordinate Geometry",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Introduction" },
+          { "name": "7.2 Distance Formula" },
+          { "name": "7.3 Section Formula" },
+          { "name": "7.4 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Introduction to Trigonometry",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Introduction" },
+          { "name": "8.2 Trigonometric Ratios" },
+          { "name": "8.3 Trigonometric Ratios of Some Specific Angles" },
+          { "name": "8.4 Trigonometric Identities" },
+          { "name": "8.5 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Some Applications of Trigonometry",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Introduction" },
+          { "name": "9.2 Heights and Distances" },
+          { "name": "9.3 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 10: Circles",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Introduction" },
+          { "name": "10.2 Tangent to a Circle" },
+          { "name": "10.3 Number of Tangents from a Point on a Circle" },
+          { "name": "10.4 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Constructions",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Introduction" },
+          { "name": "11.2 Division of a Line Segment" },
+          { "name": "11.3 Construction of Tangents to a Circle" },
+          { "name": "11.4 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Areas Related to Circles",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Introduction" },
+          { "name": "12.2 Areas of Sector and Segment of a Circle" },
+          { "name": "12.3 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 13: Surface Areas and Volumes",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 Introduction" },
+          { "name": "13.2 Surface Area of a Combination of Solids" },
+          { "name": "13.3 Volume of Combination of Solids" },
+          { "name": "13.4 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 14: Statistics",
+        "status": "pending",
+        "subtopics": [
+          { "name": "14.1 Introduction" },
+          { "name": "14.2 Mean of Grouped Data" },
+          { "name": "14.3 Mode of Grouped Data" },
+          { "name": "14.4 Median of Grouped Data" },
+          { "name": "14.5 Summary" }
+        ]
+      },
+      {
+        "name": "Chapter 15: Probability",
+        "status": "pending",
+        "subtopics": [
+          { "name": "15.1 Introduction" },
+          { "name": "15.2 Probability - A Theoretical Approach" },
+          { "name": "15.3 Summary" }
+        ]
+      }
+    ]
+  },
+  "Class 11": {
+    "Physics": [
+      {
+        "name": "Chapter 1: Units and Measurements",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Introduction" },
+          { "name": "1.2 The International System of Units" },
+          { "name": "1.3 Significant Figures" },
+          { "name": "1.4 Dimensions of Physical Quantities" },
+          { "name": "1.5 Dimensional Formulae and Dimensional Equations" },
+          { "name": "1.6 Dimensional Analysis and its Applications" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Motion in a Straight Line",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Introduction" },
+          { "name": "2.2 Instantaneous Velocity and Speed" },
+          { "name": "2.3 Acceleration" },
+          { "name": "2.4 Kinematic Equations for Uniformly Accelerated Motion" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Motion in a Plane",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Introduction" },
+          { "name": "3.2 Scalars and Vectors" },
+          { "name": "3.3 Multiplication of Vectors by Real Numbers" },
+          {
+            "name": "3.4 Addition and Subtraction of Vectors – Graphical Method"
+          },
+          { "name": "3.5 Resolution of Vectors" },
+          { "name": "3.6 Vector Addition – Analytical Method" },
+          { "name": "3.7 Motion in a Plane" },
+          { "name": "3.8 Motion in a Plane with Constant Acceleration" },
+          { "name": "3.9 Projectile Motion" },
+          { "name": "3.10 Uniform Circular Motion" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Laws of Motion",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Introduction" },
+          { "name": "4.2 Aristotle’s Fallacy" },
+          { "name": "4.3 The Law of Inertia" },
+          { "name": "4.4 Newton’s First Law of Motion" },
+          { "name": "4.5 Newton’s Second Law of Motion" },
+          { "name": "4.6 Newton’s Third Law of Motion" },
+          { "name": "4.7 Conservation of Momentum" },
+          { "name": "4.8 Equilibrium of a Particle" },
+          { "name": "4.9 Common Forces in Mechanics" },
+          { "name": "4.10 Circular Motion" },
+          { "name": "4.11 Solving Problems in Mechanics" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Work, Energy and Power",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Introduction" },
+          {
+            "name": "5.2 Notions of Work and Kinetic Energy: The Work-Energy Theorem"
+          },
+          { "name": "5.3 Work" },
+          { "name": "5.4 Kinetic Energy" },
+          { "name": "5.5 Work Done by a Variable Force" },
+          { "name": "5.6 The Work-Energy Theorem for a Variable Force" },
+          { "name": "5.7 The Concept of Potential Energy" },
+          { "name": "5.8 The Conservation of Mechanical Energy" },
+          { "name": "5.9 The Potential Energy of a Spring" },
+          { "name": "5.10 Power" },
+          { "name": "5.11 Collision" }
+        ]
+      },
+      {
+        "name": "Chapter 6: System of Particles and Rotational Motion",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Introduction" },
+          { "name": "6.2 Centre of Mass" },
+          { "name": "6.3 Motion of Centre of Mass" },
+          { "name": "6.4 Linear Momentum of a System of Particles" },
+          { "name": "6.5 Vector Product of Two Vectors" },
+          {
+            "name": "6.6 Angular Velocity and its Relation with Linear Velocity"
+          },
+          { "name": "6.7 Torque and Angular Momentum" },
+          { "name": "6.8 Equilibrium of a Rigid Body" },
+          { "name": "6.9 Moment of Inertia" },
+          { "name": "6.10 Kinematics of Rotational Motion about a Fixed Axis" },
+          { "name": "6.11 Dynamics of Rotational Motion about a Fixed Axis" },
+          {
+            "name": "6.12 Angular Momentum in Case of Rotations about a Fixed Axis"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 7: Gravitation",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Introduction" },
+          { "name": "7.2 Kepler’s Laws" },
+          { "name": "7.3 Universal Law of Gravitation" },
+          { "name": "7.4 The Gravitational Constant" },
+          { "name": "7.5 Acceleration due to Gravity of the Earth" },
+          {
+            "name": "7.6 Acceleration due to Gravity Below and Above the Surface of Earth"
+          },
+          { "name": "7.7 Gravitational Potential Energy" },
+          { "name": "7.8 Escape Speed" },
+          { "name": "7.9 Earth Satellites" },
+          { "name": "7.10 Energy of an Orbiting Satellite" }
+        ]
+      }
+    ],
+    "Chemistry": [
+      {
+        "name": "Chapter 1: Some Basic Concepts of Chemistry",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Importance of Chemistry" },
+          { "name": "1.2 Nature of Matter" },
+          { "name": "1.3 Properties of Matter and their Measurement" },
+          { "name": "1.4 Uncertainty in Measurement" },
+          { "name": "1.5 Laws of Chemical Combinations" },
+          { "name": "1.6 Dalton’s Atomic Theory" },
+          { "name": "1.7 Atomic and Molecular Masses" },
+          { "name": "1.8 Mole Concept and Molar Masses" },
+          { "name": "1.9 Percentage Composition" },
+          { "name": "1.10 Stoichiometry and Stoichiometric Calculations" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Structure of Atom",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Discovery of Sub-atomic Particles" },
+          { "name": "2.2 Atomic Models" },
+          { "name": "2.3 Developments Leading to the Bohr’s Model of Atom" },
+          { "name": "2.4 Bohr’s Model for Hydrogen Atom" },
+          { "name": "2.5 Towards Quantum Mechanical Model of the Atom" },
+          { "name": "2.6 Quantum Mechanical Model of Atom" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Classification of Elements and Periodicity in Properties",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Why do we Need to Classify Elements?" },
+          { "name": "3.2 Genesis of Periodic Classification" },
+          {
+            "name": "3.3 Modern Periodic Law and the Present Form of the Periodic Table"
+          },
+          { "name": "3.4 Nomenclature of Elements with Atomic Numbers > 100" },
+          {
+            "name": "3.5 Electronic Configurations of Elements and the Periodic Table"
+          },
+          {
+            "name": "3.6 Electronic Configurations and Types of Elements: s-, p-, d-, f- Blocks"
+          },
+          { "name": "3.7 Periodic Trends in Properties of Elements" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Chemical Bonding and Molecular Structure",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Kössel-Lewis Approach to Chemical Bonding" },
+          { "name": "4.2 Ionic or Electrovalent Bond" },
+          { "name": "4.3 Bond Parameters" },
+          {
+            "name": "4.4 The Valence Shell Electron Pair Repulsion (VSEPR) Theory"
+          },
+          { "name": "4.5 Valence Bond Theory" },
+          { "name": "4.6 Hybridisation" },
+          { "name": "4.7 Molecular Orbital Theory" },
+          { "name": "4.8 Bonding in Some Homonuclear Diatomic Molecules" },
+          { "name": "4.9 Hydrogen Bonding" }
+        ]
+      },
+      {
+        "name": "Chapter 5: States of Matter",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Introduction" },
+          { "name": "5.2 Intermolecular Forces" },
+          { "name": "5.3 Thermal Energy" },
+          { "name": "5.4 Intermolecular Forces vs Thermal Interactions" },
+          { "name": "5.5 The Gaseous State" },
+          { "name": "5.6 The Gas Laws" },
+          { "name": "5.7 Ideal Gas Equation" },
+          { "name": "5.8 Kinetic Theory of Gases" },
+          {
+            "name": "5.9 Behaviour of Real Gases: Deviation from Ideal Gas Behaviour"
+          },
+          { "name": "5.10 Liquefaction of Gases" },
+          { "name": "5.11 Liquid State" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Thermodynamics",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Introduction" },
+          { "name": "6.2 Thermodynamic Terms" },
+          { "name": "6.3 Applications" },
+          { "name": "6.4 Measurement of ∆U and ∆H: Calorimetry" },
+          {
+            "name": "6.5 Enthalpy Change, ∆rH of a Reaction – Reaction Enthalpy"
+          },
+          { "name": "6.6 Enthalpies for Different Types of Reactions" },
+          { "name": "6.7 Spontaneity" },
+          { "name": "6.8 Gibbs Energy Change and Equilibrium" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Equilibrium",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Introduction" },
+          { "name": "7.2 Equilibrium in Physical Processes" },
+          {
+            "name": "7.3 Equilibrium in Chemical Processes – Dynamic Equilibrium"
+          },
+          {
+            "name": "7.4 Law of Chemical Equilibrium and Equilibrium Constant"
+          },
+          { "name": "7.5 Homogeneous Equilibria" },
+          { "name": "7.6 Heterogeneous Equilibria" },
+          { "name": "7.7 Applications of Equilibrium Constants" },
+          {
+            "name": "7.8 Relationship between Equilibrium Constant K, Reaction Quotient Q and Gibbs Energy G"
+          },
+          { "name": "7.9 Factors Affecting Equilibria" },
+          { "name": "7.10 Ionic Equilibrium in Solution" },
+          { "name": "7.11 Acids, Bases and Salts" },
+          { "name": "7.12 Ionization of Acids and Bases" },
+          { "name": "7.13 Buffer Solutions" },
+          { "name": "7.14 Solubility Equilibria of Sparingly Soluble Salts" }
+        ]
+      }
+    ],
+    "Mathematics": [
+      {
+        "name": "Chapter 1: Sets",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Introduction" },
+          { "name": "1.2 Sets and their Representations" },
+          { "name": "1.3 The Empty Set" },
+          { "name": "1.4 Finite and Infinite Sets" },
+          { "name": "1.5 Equal Sets" },
+          { "name": "1.6 Subsets" },
+          { "name": "1.7 Universal Set" },
+          { "name": "1.8 Venn Diagrams" },
+          { "name": "1.9 Operations on Sets" },
+          { "name": "1.10 Complement of a Set" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Relations and Functions",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Introduction" },
+          { "name": "2.2 Cartesian Product of Sets" },
+          { "name": "2.3 Relations" },
+          { "name": "2.4 Functions" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Trigonometric Functions",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Introduction" },
+          { "name": "3.2 Angles" },
+          { "name": "3.3 Trigonometric Functions" },
+          {
+            "name": "3.4 Trigonometric Functions of Sum and Difference of Two Angles"
+          },
+          { "name": "3.5 Trigonometric Equations" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Principle of Mathematical Induction",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Introduction" },
+          { "name": "4.2 Motivation" },
+          { "name": "4.3 The Principle of Mathematical Induction" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Complex Numbers and Quadratic Equations",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Introduction" },
+          { "name": "5.2 Complex Numbers" },
+          { "name": "5.3 Algebra of Complex Numbers" },
+          { "name": "5.4 The Modulus and the Conjugate of a Complex Number" },
+          { "name": "5.5 Argand Plane and Polar Representation" },
+          { "name": "5.6 Quadratic Equations" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Linear Inequalities",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Introduction" },
+          { "name": "6.2 Inequalities" },
+          {
+            "name": "6.3 Algebraic Solutions of Linear Inequalities in One Variable and their Graphical Representation"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 7: Permutations and Combinations",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Introduction" },
+          { "name": "7.2 Fundamental Principle of Counting" },
+          { "name": "7.3 Permutations" },
+          { "name": "7.4 Combinations" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Binomial Theorem",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Introduction" },
+          { "name": "8.2 Binomial Theorem for Positive Integral Indices" },
+          { "name": "8.3 General and Middle Terms" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Sequences and Series",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Introduction" },
+          { "name": "9.2 Sequences" },
+          { "name": "9.3 Series" },
+          { "name": "9.4 Arithmetic Progression (A.P.)" },
+          { "name": "9.5 Geometric Progression (G.P.)" },
+          { "name": "9.6 Relationship Between A.M. and G.M." }
+        ]
+      },
+      {
+        "name": "Chapter 10: Straight Lines",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Introduction" },
+          { "name": "10.2 Slope of a Line" },
+          { "name": "10.3 Various Forms of the Equation of a Line" },
+          { "name": "10.4 Distance of a Point From a Line" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Conic Sections",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Introduction" },
+          { "name": "11.2 Sections of a Cone" },
+          { "name": "11.3 Circle" },
+          { "name": "11.4 Parabola" },
+          { "name": "11.5 Ellipse" },
+          { "name": "11.6 Hyperbola" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Introduction to Three Dimensional Geometry",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Introduction" },
+          {
+            "name": "12.2 Coordinate Axes and Coordinate Planes in Three Dimensional Space"
+          },
+          { "name": "12.3 Coordinates of a Point in Space" },
+          { "name": "12.4 Distance between Two Points" }
+        ]
+      },
+      {
+        "name": "Chapter 13: Limits and Derivatives",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 Introduction" },
+          { "name": "13.2 Intuitive Idea of Derivatives" },
+          { "name": "13.3 Limits" },
+          { "name": "13.4 Limits of Trigonometric Functions" },
+          { "name": "13.5 Derivatives" }
+        ]
+      },
+      {
+        "name": "Chapter 14: Mathematical Reasoning",
+        "status": "pending",
+        "subtopics": [
+          { "name": "14.1 Introduction" },
+          { "name": "14.2 Statements" },
+          { "name": "14.3 New Statements from Old" },
+          { "name": "14.4 Special Words/Phrases" },
+          { "name": "14.5 Implications" },
+          { "name": "14.6 Validating Statements" }
+        ]
+      },
+      {
+        "name": "Chapter 15: Statistics",
+        "status": "pending",
+        "subtopics": [
+          { "name": "15.1 Introduction" },
+          { "name": "15.2 Measures of Dispersion" },
+          { "name": "15.3 Range" },
+          { "name": "15.4 Mean Deviation" },
+          { "name": "15.5 Variance and Standard Deviation" },
+          { "name": "15.6 Analysis of Frequency Distributions" }
+        ]
+      },
+      {
+        "name": "Chapter 16: Probability",
+        "status": "pending",
+        "subtopics": [
+          { "name": "16.1 Introduction" },
+          { "name": "16.2 Random Experiments" },
+          { "name": "16.3 Event" },
+          { "name": "16.4 Axiomatic Approach to Probability" }
+        ]
+      }
+    ],
+    "Biology": [
+      {
+        "name": "Chapter 1: The Living World",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 What is Living?" },
+          { "name": "1.2 Diversity in the Living World" },
+          { "name": "1.3 Taxonomic Categories" },
+          { "name": "1.4 Taxonomical Aids" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Biological Classification",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Introduction" },
+          { "name": "2.2 Kingdom Monera" },
+          { "name": "2.3 Kingdom Protista" },
+          { "name": "2.4 Kingdom Fungi" },
+          { "name": "2.5 Kingdom Plantae" },
+          { "name": "2.6 Kingdom Animalia" },
+          { "name": "2.7 Viruses, Viroids, and Lichens" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Plant Kingdom",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Introduction" },
+          { "name": "3.2 Algae" },
+          { "name": "3.3 Bryophytes" },
+          { "name": "3.4 Pteridophytes" },
+          { "name": "3.5 Gymnosperms" },
+          { "name": "3.6 Angiosperms" },
+          { "name": "3.7 Plant Life Cycles and Alternation of Generations" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Animal Kingdom",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Basis of Classification" },
+          { "name": "4.2 Classification of Animals" },
+          { "name": "4.3 Phylum Porifera" },
+          { "name": "4.4 Phylum Cnidaria" },
+          { "name": "4.5 Phylum Platyhelminthes" },
+          { "name": "4.6 Phylum Aschelminthes" },
+          { "name": "4.7 Phylum Annelida" },
+          { "name": "4.8 Phylum Arthropoda" },
+          { "name": "4.9 Phylum Mollusca" },
+          { "name": "4.10 Phylum Echinodermata" },
+          { "name": "4.11 Phylum Hemichordata" },
+          { "name": "4.12 Phylum Chordata" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Morphology of Flowering Plants",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Root" },
+          { "name": "5.2 Stem" },
+          { "name": "5.3 Leaf" },
+          { "name": "5.4 Inflorescence" },
+          { "name": "5.5 Flower" },
+          { "name": "5.6 Fruit" },
+          { "name": "5.7 Seed" },
+          {
+            "name": "5.8 Semi-technical Description of a Typical Flowering Plant"
+          },
+          { "name": "5.9 Description of Some Important Families" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Anatomy of Flowering Plants",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 The Tissues" },
+          { "name": "6.2 The Tissue System" },
+          {
+            "name": "6.3 Anatomy of Dicotyledonous and Monocotyledonous Plants"
+          },
+          { "name": "6.4 Secondary Growth" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Structural Organisation in Animals",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Animal Tissues" },
+          { "name": "7.2 Organ and Organ System" },
+          { "name": "7.3 Earthworm" },
+          { "name": "7.4 Cockroach" },
+          { "name": "7.5 Frogs" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Cell: The Unit of Life",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 What is a Cell?" },
+          { "name": "8.2 Cell Theory" },
+          { "name": "8.3 An Overview of Cell" },
+          { "name": "8.4 Prokaryotic Cells" },
+          { "name": "8.5 Eukaryotic Cells" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Biomolecules",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Introduction" },
+          { "name": "9.2 How to Analyse Chemical Composition?" },
+          { "name": "9.3 Primary and Secondary Metabolites" },
+          { "name": "9.4 Biomacromolecules" },
+          { "name": "9.5 Proteins" },
+          { "name": "9.6 Polysaccharides" },
+          { "name": "9.7 Nucleic Acids" },
+          { "name": "9.8 Structure of Proteins" },
+          { "name": "9.9 Nature of Bond Linking Monomers in a Polymer" },
+          {
+            "name": "9.10 Dynamic State of Body Constituents – Concept of Metabolism"
+          },
+          { "name": "9.11 Metabolic Basis for Living" },
+          { "name": "9.12 The Living State" }
+        ]
+      },
+      {
+        "name": "Chapter 10: Cell Cycle and Cell Division",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Cell Cycle" },
+          { "name": "10.2 M Phase" },
+          { "name": "10.3 Significance of Mitosis" },
+          { "name": "10.4 Meiosis" },
+          { "name": "10.5 Significance of Meiosis" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Transport in Plants",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Means of Transport" },
+          { "name": "11.2 Plant-Water Relations" },
+          { "name": "11.3 Long Distance Transport of Water" },
+          { "name": "11.4 Transpiration" },
+          { "name": "11.5 Uptake and Transport of Mineral Nutrients" },
+          { "name": "11.6 Phloem Transport: Flow from Source to Sink" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Mineral Nutrition",
+        "status": "pending",
+        "subtopics": [
+          {
+            "name": "12.1 Methods to Study the Mineral Requirements of Plants"
+          },
+          { "name": "12.2 Essential Mineral Elements" },
+          { "name": "12.3 Mechanism of Absorption of Elements" },
+          { "name": "12.4 Translocation of Solutes" },
+          { "name": "12.5 Soil as Reservoir of Essential Elements" },
+          { "name": "12.6 Metabolism of Nitrogen" }
+        ]
+      },
+      {
+        "name": "Chapter 13: Photosynthesis in Higher Plants",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 What Do We Know?" },
+          { "name": "13.2 Early Experiments" },
+          { "name": "13.3 Where Does Photosynthesis Take Place?" },
+          { "name": "13.4 How Many Pigments Are Involved in Photosynthesis?" },
+          { "name": "13.5 What is Light Reaction?" },
+          { "name": "13.6 The Electron Transport" },
+          { "name": "13.7 Where Are the ATP and NADPH Used?" },
+          { "name": "13.8 The C4 Pathway" },
+          { "name": "13.9 Photorespiration" },
+          { "name": "13.10 Factors Affecting Photosynthesis" }
+        ]
+      },
+      {
+        "name": "Chapter 14: Respiration in Plants",
+        "status": "pending",
+        "subtopics": [
+          { "name": "14.1 Do Plants Breathe?" },
+          { "name": "14.2 Glycolysis" },
+          { "name": "14.3 Fermentation" },
+          { "name": "14.4 Aerobic Respiration" },
+          { "name": "14.5 The Respiratory Balance Sheet" },
+          { "name": "14.6 Amphibolic Pathway" },
+          { "name": "14.7 Respiratory Quotient" }
+        ]
+      },
+      {
+        "name": "Chapter 15: Plant Growth and Development",
+        "status": "pending",
+        "subtopics": [
+          { "name": "15.1 Growth" },
+          {
+            "name": "15.2 Differentiation, Dedifferentiation and Redifferentiation"
+          },
+          { "name": "15.3 Development" },
+          { "name": "15.4 Plant Growth Regulators" },
+          { "name": "15.5 Photoperiodism" },
+          { "name": "15.6 Vernalisation" }
+        ]
+      },
+      {
+        "name": "Chapter 16: Digestion and Absorption",
+        "status": "pending",
+        "subtopics": [
+          { "name": "16.1 Digestive System" },
+          { "name": "16.2 Digestion of Food" },
+          { "name": "16.3 Absorption of Digested Products" },
+          { "name": "16.4 Disorders of Digestive System" }
+        ]
+      },
+      {
+        "name": "Chapter 17: Breathing and Exchange of Gases",
+        "status": "pending",
+        "subtopics": [
+          { "name": "17.1 Respiratory Organs" },
+          { "name": "17.2 Mechanism of Breathing" },
+          { "name": "17.3 Exchange of Gases" },
+          { "name": "17.4 Transport of Gases" },
+          { "name": "17.5 Regulation of Respiration" },
+          { "name": "17.6 Disorders of Respiratory System" }
+        ]
+      },
+      {
+        "name": "Chapter 18: Body Fluids and Circulation",
+        "status": "pending",
+        "subtopics": [
+          { "name": "18.1 Blood" },
+          { "name": "18.2 Lymph (Tissue Fluid)" },
+          { "name": "18.3 Circulatory Pathways" },
+          { "name": "18.4 Double Circulation" },
+          { "name": "18.5 Regulation of Cardiac Activity" },
+          { "name": "18.6 Disorders of Circulatory System" }
+        ]
+      },
+      {
+        "name": "Chapter 19: Excretory Products and their Elimination",
+        "status": "pending",
+        "subtopics": [
+          { "name": "19.1 Human Excretory System" },
+          { "name": "19.2 Urine Formation" },
+          { "name": "19.3 Function of the Tubules" },
+          { "name": "19.4 Mechanism of Concentration of the Filtrate" },
+          { "name": "19.5 Regulation of Kidney Function" },
+          { "name": "19.6 Micturition" },
+          { "name": "19.7 Role of Other Organs in Excretion" },
+          { "name": "19.8 Disorders of the Excretory System" }
+        ]
+      },
+      {
+        "name": "Chapter 20: Locomotion and Movement",
+        "status": "pending",
+        "subtopics": [
+          { "name": "20.1 Types of Movement" },
+          { "name": "20.2 Muscle" },
+          { "name": "20.3 Skeletal System" },
+          { "name": "20.4 Joints" },
+          { "name": "20.5 Disorders of Muscular and Skeletal System" }
+        ]
+      },
+      {
+        "name": "Chapter 21: Neural Control and Coordination",
+        "status": "pending",
+        "subtopics": [
+          { "name": "21.1 Neural System" },
+          { "name": "21.2 Human Neural System" },
+          {
+            "name": "21.3 Neuron as Structural and Functional Unit of Neural System"
+          },
+          { "name": "21.4 Central Neural System" },
+          { "name": "21.5 Reflex Action and Reflex Arc" },
+          { "name": "21.6 Sensory Reception and Processing" }
+        ]
+      },
+      {
+        "name": "Chapter 22: Chemical Coordination and Integration",
+        "status": "pending",
+        "subtopics": [
+          { "name": "22.1 Endocrine Glands and Hormones" },
+          { "name": "22.2 Human Endocrine System" },
+          {
+            "name": "22.3 Hormones of Heart, Kidney and Gastrointestinal Tract"
+          },
+          { "name": "22.4 Mechanism of Hormone Action" }
+        ]
+      }
+    ]
+  },
+  "Class 12": {
+    "Physics": [
+      {
+        "name": "Chapter 1: Electric Charges and Fields",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Introduction" },
+          { "name": "1.2 Electric Charge" },
+          { "name": "1.3 Conductors and Insulators" },
+          { "name": "1.4 Charging by Induction" },
+          { "name": "1.5 Coulomb’s Law" },
+          { "name": "1.6 Forces between Multiple Charges" },
+          { "name": "1.7 Electric Field" },
+          { "name": "1.8 Electric Field Lines" },
+          { "name": "1.9 Electric Flux" },
+          { "name": "1.10 Electric Dipole" },
+          { "name": "1.11 Dipole in a Uniform External Field" },
+          { "name": "1.12 Continuous Charge Distribution" },
+          { "name": "1.13 Gauss’s Law" },
+          { "name": "1.14 Applications of Gauss’s Law" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Electrostatic Potential and Capacitance",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Introduction" },
+          { "name": "2.2 Electrostatic Potential" },
+          { "name": "2.3 Potential due to a Point Charge" },
+          { "name": "2.4 Potential due to an Electric Dipole" },
+          { "name": "2.5 Potential due to a System of Charges" },
+          { "name": "2.6 Equipotential Surfaces" },
+          { "name": "2.7 Potential Energy of a System of Charges" },
+          { "name": "2.8 Potential Energy in an External Field" },
+          { "name": "2.9 Electrostatics of Conductors" },
+          { "name": "2.10 Dielectrics and Polarisation" },
+          { "name": "2.11 Capacitors and Capacitance" },
+          { "name": "2.12 The Parallel Plate Capacitor" },
+          { "name": "2.13 Effect of Dielectric on Capacitance" },
+          { "name": "2.14 Combination of Capacitors" },
+          { "name": "2.15 Energy Stored in a Capacitor" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Current Electricity",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Introduction" },
+          { "name": "3.2 Electric Current" },
+          { "name": "3.3 Electric Currents in Conductors" },
+          { "name": "3.4 Ohm’s Law" },
+          { "name": "3.5 Drift of Electrons and the Origin of Resistivity" },
+          { "name": "3.6 Limitations of Ohm’s Law" },
+          { "name": "3.7 Resistivity of Various Materials" },
+          { "name": "3.8 Temperature Dependence of Resistivity" },
+          { "name": "3.9 Electrical Energy, Power" },
+          { "name": "3.10 Cells, emf, Internal Resistance" },
+          { "name": "3.11 Cells in Series and in Parallel" },
+          { "name": "3.12 Kirchhoff’s Rules" },
+          { "name": "3.13 Wheatstone Bridge" },
+          { "name": "3.14 Meter Bridge" },
+          { "name": "3.15 Potentiometer" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Moving Charges and Magnetism",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Introduction" },
+          { "name": "4.2 Magnetic Force" },
+          { "name": "4.3 Motion in a Magnetic Field" },
+          {
+            "name": "4.4 Magnetic Field due to a Current Element, Biot-Savart Law"
+          },
+          {
+            "name": "4.5 Magnetic Field on the Axis of a Circular Current Loop"
+          },
+          { "name": "4.6 Ampere’s Circuital Law" },
+          { "name": "4.7 The Solenoid" },
+          { "name": "4.8 Force between Two Parallel Currents, the Ampere" },
+          { "name": "4.9 Torque on Current Loop, Magnetic Dipole" },
+          { "name": "4.10 The Moving Coil Galvanometer" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Magnetism and Matter",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Introduction" },
+          { "name": "5.2 The Bar Magnet" },
+          { "name": "5.3 Magnetism and Gauss’s Law" },
+          { "name": "5.4 Magnetisation and Magnetic Intensity" },
+          { "name": "5.5 Magnetic Properties of Materials" },
+          { "name": "5.6 Permanent Magnets and Electromagnets" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Electromagnetic Induction",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Introduction" },
+          { "name": "6.2 The Experiments of Faraday and Henry" },
+          { "name": "6.3 Magnetic Flux" },
+          { "name": "6.4 Faraday’s Law of Induction" },
+          { "name": "6.5 Lenz’s Law and Conservation of Energy" },
+          { "name": "6.6 Motional Electromotive Force" },
+          { "name": "6.7 Inductance" },
+          { "name": "6.8 AC Generator" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Alternating Current",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Introduction" },
+          { "name": "7.2 AC Voltage Applied to a Resistor" },
+          {
+            "name": "7.3 Representation of AC Current and Voltage by Rotating Vectors — Phasors"
+          },
+          { "name": "7.4 AC Voltage Applied to an Inductor" },
+          { "name": "7.5 AC Voltage Applied to a Capacitor" },
+          { "name": "7.6 AC Voltage Applied to a Series LCR Circuit" },
+          { "name": "7.7 Power in AC Circuit: The Power Factor" },
+          { "name": "7.8 Transformers" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Electromagnetic Waves",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Introduction" },
+          { "name": "8.2 Displacement Current" },
+          { "name": "8.3 Electromagnetic Waves" },
+          { "name": "8.4 Electromagnetic Spectrum" }
+        ]
+      }
+    ],
+    "Chemistry": [
+      {
+        "name": "Chapter 1: Solutions",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Types of Solutions" },
+          { "name": "1.2 Expressing Concentration of Solutions" },
+          { "name": "1.3 Solubility" },
+          { "name": "1.4 Vapour Pressure of Liquid Solutions" },
+          { "name": "1.5 Ideal and Non-ideal Solutions" },
+          {
+            "name": "1.6 Colligative Properties and Determination of Molar Mass"
+          },
+          { "name": "1.7 Abnormal Molar Masses" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Electrochemistry",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Electrochemical Cells" },
+          { "name": "2.2 Galvanic Cells" },
+          { "name": "2.3 Nernst Equation" },
+          { "name": "2.4 Conductance of Electrolytic Solutions" },
+          { "name": "2.5 Electrolytic Cells and Electrolysis" },
+          { "name": "2.6 Batteries" },
+          { "name": "2.7 Fuel Cells" },
+          { "name": "2.8 Corrosion" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Chemical Kinetics",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Rate of a Chemical Reaction" },
+          { "name": "3.2 Factors Influencing Rate of a Reaction" },
+          { "name": "3.3 Integrated Rate Equations" },
+          { "name": "3.4 Temperature Dependence of the Rate of a Reaction" },
+          { "name": "3.5 Collision Theory of Chemical Reactions" }
+        ]
+      },
+      {
+        "name": "Chapter 4: The d- and f-Block Elements",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Position in the Periodic Table" },
+          { "name": "4.2 Electronic Configurations of the d-Block Elements" },
+          {
+            "name": "4.3 General Properties of the Transition Elements (d-Block)"
+          },
+          { "name": "4.4 Some Important Compounds of Transition Elements" },
+          { "name": "4.5 The Lanthanoids" },
+          { "name": "4.6 The Actinoids" },
+          { "name": "4.7 Some Applications of d- and f-Block Elements" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Coordination Compounds",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Werner’s Theory of Coordination Compounds" },
+          {
+            "name": "5.2 Definitions of Some Important Terms Pertaining to Coordination Compounds"
+          },
+          { "name": "5.3 Nomenclature of Coordination Compounds" },
+          { "name": "5.4 Isomerism in Coordination Compounds" },
+          { "name": "5.5 Bonding in Coordination Compounds" },
+          { "name": "5.6 Bonding in Metal Carbonyls" },
+          {
+            "name": "5.7 Importance and Applications of Coordination Compounds"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 6: Haloalkanes and Haloarenes",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Classification" },
+          { "name": "6.2 Nomenclature" },
+          { "name": "6.3 Nature of C–X Bond" },
+          { "name": "6.4 Methods of Preparation of Haloalkanes" },
+          { "name": "6.5 Preparation of Haloarenes" },
+          { "name": "6.6 Physical Properties" },
+          { "name": "6.7 Chemical Reactions" },
+          { "name": "6.8 Polyhalogen Compounds" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Alcohols, Phenols and Ethers",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Classification" },
+          { "name": "7.2 Nomenclature" },
+          { "name": "7.3 Structures of Functional Groups" },
+          { "name": "7.4 Alcohols and Phenols" },
+          { "name": "7.5 Some Commercially Important Alcohols" },
+          { "name": "7.6 Ethers" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Aldehydes, Ketones and Carboxylic Acids",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Nomenclature and Structure of Carbonyl Group" },
+          { "name": "8.2 Preparation of Aldehydes and Ketones" },
+          { "name": "8.3 Physical Properties" },
+          { "name": "8.4 Chemical Reactions" },
+          { "name": "8.5 Uses of Aldehydes and Ketones" },
+          { "name": "8.6 Nomenclature and Structure of Carboxyl Group" },
+          { "name": "8.7 Methods of Preparation of Carboxylic Acids" },
+          { "name": "8.8 Physical Properties" },
+          { "name": "8.9 Chemical Reactions" },
+          { "name": "8.10 Uses of Carboxylic Acids" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Amines",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Structure of Amines" },
+          { "name": "9.2 Classification" },
+          { "name": "9.3 Nomenclature" },
+          { "name": "9.4 Preparation of Amines" },
+          { "name": "9.5 Physical Properties" },
+          { "name": "9.6 Chemical Reactions" },
+          { "name": "9.7 Method of Preparation of Diazonium Salts" },
+          { "name": "9.8 Physical Properties" },
+          { "name": "9.9 Chemical Reactions" },
+          {
+            "name": "9.10 Importance of Diazonium Salts in Synthesis of Aromatic Compounds"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 10: Biomolecules",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Carbohydrates" },
+          { "name": "10.2 Proteins" },
+          { "name": "10.3 Enzymes" },
+          { "name": "10.4 Vitamins" },
+          { "name": "10.5 Nucleic Acids" },
+          { "name": "10.6 Hormones" }
+        ]
+      }
+    ],
+    "Mathematics": [
+      {
+        "name": "Chapter 1: Relations and Functions",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Introduction" },
+          { "name": "1.2 Types of Relations" },
+          { "name": "1.3 Types of Functions" },
+          { "name": "1.4 Composition of Functions and Invertible Function" },
+          { "name": "1.5 Binary Operations" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Inverse Trigonometric Functions",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Introduction" },
+          { "name": "2.2 Basic Concepts" },
+          { "name": "2.3 Properties of Inverse Trigonometric Functions" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Matrices",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Introduction" },
+          { "name": "3.2 Matrix" },
+          { "name": "3.3 Types of Matrices" },
+          { "name": "3.4 Operations on Matrices" },
+          { "name": "3.5 Transpose of a Matrix" },
+          { "name": "3.6 Symmetric and Skew Symmetric Matrices" },
+          { "name": "3.7 Elementary Operation (Transformation) of a Matrix" },
+          { "name": "3.8 Invertible Matrices" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Determinants",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Introduction" },
+          { "name": "4.2 Determinant" },
+          { "name": "4.3 Area of a Triangle" },
+          { "name": "4.4 Minors and Cofactors" },
+          { "name": "4.5 Adjoint and Inverse of a Matrix" },
+          { "name": "4.6 Applications of Determinants and Matrices" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Continuity and Differentiability",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Introduction" },
+          { "name": "5.2 Continuity" },
+          { "name": "5.3 Differentiability" },
+          { "name": "5.4 Exponential and Logarithmic Functions" },
+          { "name": "5.5 Logarithmic Differentiation" },
+          { "name": "5.6 Derivatives of Functions in Parametric Forms" },
+          { "name": "5.7 Second Order Derivatives" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Application of Derivatives",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 Introduction" },
+          { "name": "6.2 Rate of Change of Quantities" },
+          { "name": "6.3 Increasing and Decreasing Functions" },
+          { "name": "6.4 Maxima and Minima" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Integrals",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Introduction" },
+          {
+            "name": "7.2 Integration as an Inverse Process of Differentiation"
+          },
+          { "name": "7.3 Methods of Integration" },
+          { "name": "7.4 Integrals of Some Particular Functions" },
+          { "name": "7.5 Integration by Partial Fractions" },
+          { "name": "7.6 Integration by Parts" },
+          { "name": "7.7 Definite Integral" },
+          { "name": "7.8 Fundamental Theorem of Calculus" },
+          { "name": "7.9 Evaluation of Definite Integrals by Substitution" },
+          { "name": "7.10 Some Properties of Definite Integrals" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Application of Integrals",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Introduction" },
+          { "name": "8.2 Area under Simple Curves" },
+          { "name": "8.3 Area between Two Curves" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Differential Equations",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Introduction" },
+          { "name": "9.2 Basic Concepts" },
+          {
+            "name": "9.3 General and Particular Solutions of a Differential Equation"
+          },
+          {
+            "name": "9.4 Methods of Solving First Order, First Degree Differential Equations"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 10: Vector Algebra",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Introduction" },
+          { "name": "10.2 Some Basic Concepts" },
+          { "name": "10.3 Types of Vectors" },
+          { "name": "10.4 Addition of Vectors" },
+          { "name": "10.5 Multiplication of a Vector by a Scalar" },
+          { "name": "10.6 Product of Two Vectors" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Three Dimensional Geometry",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Introduction" },
+          { "name": "11.2 Direction Cosines and Direction Ratios of a Line" },
+          { "name": "11.3 Equation of a Line in Space" },
+          { "name": "11.4 Angle between Two Lines" },
+          { "name": "11.5 Shortest Distance between Two Lines" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Linear Programming",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Introduction" },
+          {
+            "name": "12.2 Linear Programming Problem and its Mathematical Formulation"
+          },
+          {
+            "name": "12.3 Graphical Method of Solving Linear Programming Problems"
+          }
+        ]
+      },
+      {
+        "name": "Chapter 13: Probability",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 Introduction" },
+          { "name": "13.2 Conditional Probability" },
+          { "name": "13.3 Multiplication Theorem on Probability" },
+          { "name": "13.4 Independent Events" },
+          { "name": "13.5 Bayes' Theorem" },
+          { "name": "13.6 Random Variables and its Probability Distributions" },
+          { "name": "13.7 Bernoulli Trials and Binomial Distribution" }
+        ]
+      }
+    ],
+    "Biology": [
+      {
+        "name": "Chapter 1: Reproduction in Organisms",
+        "status": "pending",
+        "subtopics": [
+          { "name": "1.1 Asexual Reproduction" },
+          { "name": "1.2 Sexual Reproduction" }
+        ]
+      },
+      {
+        "name": "Chapter 2: Sexual Reproduction in Flowering Plants",
+        "status": "pending",
+        "subtopics": [
+          { "name": "2.1 Flower Structure" },
+          { "name": "2.2 Pre-fertilisation: Structures and Events" },
+          { "name": "2.3 Double Fertilisation" },
+          { "name": "2.4 Post-fertilisation: Structures and Events" },
+          { "name": "2.5 Apomixis and Polyembryony" }
+        ]
+      },
+      {
+        "name": "Chapter 3: Human Reproduction",
+        "status": "pending",
+        "subtopics": [
+          { "name": "3.1 Male Reproductive System" },
+          { "name": "3.2 Female Reproductive System" },
+          { "name": "3.3 Gametogenesis" },
+          { "name": "3.4 Menstrual Cycle" },
+          { "name": "3.5 Fertilisation and Implantation" },
+          { "name": "3.6 Pregnancy and Embryonic Development" },
+          { "name": "3.7 Parturition and Lactation" }
+        ]
+      },
+      {
+        "name": "Chapter 4: Reproductive Health",
+        "status": "pending",
+        "subtopics": [
+          { "name": "4.1 Reproductive Health – Problems and Strategies" },
+          { "name": "4.2 Population Explosion and Birth Control" },
+          { "name": "4.3 Medical Termination of Pregnancy" },
+          { "name": "4.4 Sexually Transmitted Diseases" },
+          { "name": "4.5 Infertility" }
+        ]
+      },
+      {
+        "name": "Chapter 5: Principles of Inheritance and Variation",
+        "status": "pending",
+        "subtopics": [
+          { "name": "5.1 Mendel’s Laws of Inheritance" },
+          { "name": "5.2 Inheritance of One Gene" },
+          { "name": "5.3 Inheritance of Two Genes" },
+          { "name": "5.4 Sex Determination" },
+          { "name": "5.5 Mutation" },
+          { "name": "5.6 Genetic Disorders" }
+        ]
+      },
+      {
+        "name": "Chapter 6: Molecular Basis of Inheritance",
+        "status": "pending",
+        "subtopics": [
+          { "name": "6.1 The DNA" },
+          { "name": "6.2 The Search for Genetic Material" },
+          { "name": "6.3 RNA World" },
+          { "name": "6.4 Replication" },
+          { "name": "6.5 Transcription" },
+          { "name": "6.6 Genetic Code" },
+          { "name": "6.7 Translation" },
+          { "name": "6.8 Regulation of Gene Expression" },
+          { "name": "6.9 Human Genome Project" },
+          { "name": "6.10 DNA Fingerprinting" }
+        ]
+      },
+      {
+        "name": "Chapter 7: Evolution",
+        "status": "pending",
+        "subtopics": [
+          { "name": "7.1 Origin of Life" },
+          { "name": "7.2 Evolution of Life Forms – A Theory" },
+          { "name": "7.3 What are the Evidences for Evolution?" },
+          { "name": "7.4 What is Adaptive Radiation?" },
+          { "name": "7.5 Biological Evolution" },
+          { "name": "7.6 Mechanism of Evolution" },
+          { "name": "7.7 Hardy-Weinberg Principle" },
+          { "name": "7.8 A Brief Account of Evolution" },
+          { "name": "7.9 Origin and Evolution of Man" }
+        ]
+      },
+      {
+        "name": "Chapter 8: Human Health and Disease",
+        "status": "pending",
+        "subtopics": [
+          { "name": "8.1 Common Diseases in Humans" },
+          { "name": "8.2 Immunity" },
+          { "name": "8.3 AIDS" },
+          { "name": "8.4 Cancer" },
+          { "name": "8.5 Drugs and Alcohol Abuse" }
+        ]
+      },
+      {
+        "name": "Chapter 9: Strategies for Enhancement in Food Production",
+        "status": "pending",
+        "subtopics": [
+          { "name": "9.1 Animal Husbandry" },
+          { "name": "9.2 Plant Breeding" },
+          { "name": "9.3 Single Cell Protein" },
+          { "name": "9.4 Tissue Culture" }
+        ]
+      },
+      {
+        "name": "Chapter 10: Microbes in Human Welfare",
+        "status": "pending",
+        "subtopics": [
+          { "name": "10.1 Microbes in Household Products" },
+          { "name": "10.2 Microbes in Industrial Products" },
+          { "name": "10.3 Microbes in Sewage Treatment" },
+          { "name": "10.4 Microbes in Production of Biogas" },
+          { "name": "10.5 Microbes as Biocontrol Agents" },
+          { "name": "10.6 Microbes as Biofertilisers" }
+        ]
+      },
+      {
+        "name": "Chapter 11: Biotechnology: Principles and Processes",
+        "status": "pending",
+        "subtopics": [
+          { "name": "11.1 Principles of Biotechnology" },
+          { "name": "11.2 Tools of Recombinant DNA Technology" },
+          { "name": "11.3 Processes of Recombinant DNA Technology" }
+        ]
+      },
+      {
+        "name": "Chapter 12: Biotechnology and its Applications",
+        "status": "pending",
+        "subtopics": [
+          { "name": "12.1 Biotechnological Applications in Agriculture" },
+          { "name": "12.2 Biotechnological Applications in Medicine" },
+          { "name": "12.3 Transgenic Animals" },
+          { "name": "12.4 Ethical Issues" }
+        ]
+      },
+      {
+        "name": "Chapter 13: Organisms and Populations",
+        "status": "pending",
+        "subtopics": [
+          { "name": "13.1 Organism and Its Environment" },
+          { "name": "13.2 Populations" },
+          { "name": "13.3 Population Interactions" }
+        ]
+      },
+      {
+        "name": "Chapter 14: Ecosystem",
+        "status": "pending",
+        "subtopics": [
+          { "name": "14.1 Ecosystem – Structure and Function" },
+          { "name": "14.2 Productivity" },
+          { "name": "14.3 Decomposition" },
+          { "name": "14.4 Energy Flow" },
+          { "name": "14.5 Ecological Pyramids" },
+          { "name": "14.6 Ecological Succession" },
+          { "name": "14.7 Nutrient Cycling" },
+          { "name": "14.8 Ecosystem Services" }
+        ]
+      },
+      {
+        "name": "Chapter 15: Biodiversity and Conservation",
+        "status": "pending",
+        "subtopics": [
+          { "name": "15.1 Biodiversity" },
+          { "name": "15.2 Biodiversity Conservation" }
+        ]
+      },
+      {
+        "name": "Chapter 16: Environmental Issues",
+        "status": "pending",
+        "subtopics": [
+          { "name": "16.1 Air Pollution and Its Control" },
+          { "name": "16.2 Water Pollution and Its Control" },
+          { "name": "16.3 Solid Wastes" },
+          { "name": "16.4 Agro-chemicals and Their Effects" },
+          { "name": "16.5 Radioactive Wastes" },
+          { "name": "16.6 Greenhouse Effect and Global Warming" },
+          { "name": "16.7 Ozone Depletion in the Stratosphere" },
+          {
+            "name": "16.8 Degradation by Improper Resource Utilisation and Maintenance"
+          },
+          { "name": "16.9 Deforestation" }
+        ]
+      }
+    ]
+  }
+}

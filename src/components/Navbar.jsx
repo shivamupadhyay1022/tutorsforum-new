@@ -20,7 +20,7 @@ function Navbar() {
           {currentUser ? (
             <div className="flex items-center space-x-4">
               <button
-                className="bg-gradient-to-r p-2 rounded-xl from-peach-300 to-peach-100 text-white hover:opacity-90 transition-opacity"
+                className="bg-gradient-to-r p-2 rounded-xl from-peach-300 to-peach-100 text-white hover:opacity-80 transition-opacity"
                 onClick={() => navigate("/dashboard")}
               >
                 Dashboard
