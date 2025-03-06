@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import syllabusData from "../syllabuses/syllabus.json"; // Import syllabus JSON
 
-const SubtopicSearch = () => {
+const SubtopicSearch = ({func}) => {
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");
   const [selectedTopic, setSelectedTopic] = useState("");
@@ -76,7 +76,7 @@ const SubtopicSearch = () => {
       {/* Subtopic Selection */}
       <select
         value={selectedSubtopic}
-        onChange={(e) => setSelectedSubtopic(e.target.value)}
+        onChange={(e) => {setSelectedSubtopic(e.target.value); func(selectedClass+","+selectedSubject+","+selectedTopic+","+selectedSubtopic)}}
         className="border p-2 rounded-md w-full mb-2"
         disabled={!selectedTopic}
       >

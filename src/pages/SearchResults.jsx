@@ -127,13 +127,12 @@ const SearchResults = () => {
             setStud(true)
             var data = snapshot.val();
             setName(data.name);
-            setEmail(data.email);
           }
         });
       }
     }
 
-  const requestClass = (tutorId) => {
+  const requestClass = (tutorId,tutorName) => {
     if (!tutorId)
       return toast.error("Tutor not found", {
         position: "top-right",
@@ -152,8 +151,8 @@ const SearchResults = () => {
       status: "pending",
     });
     set(ref(db, `users/${currentUser.uid}/requests/${tutorId}`), {
-      studentId: currentUser.uid,
-      studentName: name,
+      tutorId: tutorId,
+      tutorName: tutorName,
       status: "pending",
     });
 
@@ -326,7 +325,7 @@ const SearchResults = () => {
                 <div className="my-2 text-sm text-gray-600">{tutor.cph || "Not defined"}</div>
                 {/* request a class */}
                 {stud && <button
-                  onClick={() => requestClass(tutor.id)}
+                  onClick={() => requestClass(tutor.id,tutor.name)}
                   className="bg-gradient-to-r from-peach-300 to-peach-100 text-white rounded-xl py-2 w-full hover:opacity-80 transition-opacity"
                 >
                   Request a class
