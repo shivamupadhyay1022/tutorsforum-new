@@ -178,7 +178,7 @@ function DashNav({ func, refresh }) {
               onClick={() => navigate("/")}
               className="text-xl ml-12 md:ml-0 font-semibold bg-gradient-to-r from-peach-300 to-peach-100 bg-clip-text text-transparent cursor-pointer"
             >
-              TutorFind
+              TutorsForum
             </span>
           </div>
           <div className="hidden md:flex items-center  space-x-4">

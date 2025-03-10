@@ -14,7 +14,7 @@ function Navbar() {
               onClick={() => navigate("/")}
               className="text-xl font-semibold bg-gradient-to-r from-peach-300 to-peach-100 bg-clip-text text-transparent cursor-pointer"
             >
-              TutorFind
+              TutorsForum
             </span>
           </div>
           {currentUser ? (

@@ -8,7 +8,7 @@ function Footer() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
         {/* Company Info */}
         <div className="col-span-2 md:col-span-1">
-          <Link to="/" className="font-bold text-xl mb-4 block">TutorFind</Link>
+          <Link to="/" className="font-bold text-xl mb-4 block">TutorsForum</Link>
           <p className="text-gray-600 mb-4">
             Connecting students with expert tutors for personalized learning experiences.
           </p>
@@ -96,7 +96,7 @@ function Footer() {
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <p className="text-center text-gray-600">
-          © {new Date().getFullYear()} TutorFind. All rights reserved.
+          © {new Date().getFullYear()} TutorsForum. All rights reserved.
         </p>
       </div>
     </div>
