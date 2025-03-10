@@ -57,7 +57,7 @@ function PreviousClasses() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="md:mx-16 px-4 py-8 pt-20">
+      <div className="mx-2 md:mx-8 px-4 py-8 pt-20">
         <div key={key} >
         {!stud ? (
           <div>

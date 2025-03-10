@@ -1,24 +1,83 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getDatabase, ref, get } from "firebase/database";
+import { getDatabase, ref, get, set } from "firebase/database";
 import { db } from "../firebase";
 import Navbar from "../components/Navbar";
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider";
+import { toast } from "react-toastify";
 
 const TutorInfo = () => {
   const { id } = useParams();
   const [tutor, setTutor] = useState(null);
+  const {currentUser} = useContext(AuthContext);
+  const [stud, setStud] = useState(false);
+  const [name, setName] = useState("")
 
   useEffect(() => {
     const fetchTutorData = async () => {
       const tutorRef = ref(db, `tutors/${id}`);
       const snapshot = await get(tutorRef);
       if (snapshot.exists()) {
-        console.log(snapshot.val());
+        // console.log(snapshot.val());
         setTutor(snapshot.val());
       }
     };
     fetchTutorData();
   }, [id]);
+
+  useEffect(()=>{
+    if (currentUser){
+      fetchUserData();
+    }
+  }, [currentUser])
+
+  const fetchUserData = async () =>{
+    const userRef = ref(db, `users/${currentUser.uid}`);
+    const snapshot = await get(userRef);
+    if (snapshot.exists()) {
+      // console.log(snapshot.val());
+      setStud(true);
+      setName(snapshot.val().name);
+    }
+  }
+
+  const requestClass = () => {
+      if (!id)
+        return toast.error("Tutor not found", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+  
+      set(ref(db, `tutors/${id}/requests/${currentUser.uid}`), {
+        studentId: currentUser.uid,
+        studentName: name,
+        status: "pending",
+      });
+      set(ref(db, `users/${currentUser.uid}/requests/${id}`), {
+        tutorId: id,
+        tutorName: tutor.name,
+        status: "pending",
+      });
+  
+       toast.success("Class request Sent", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+    };
+
 
   if (!tutor) {
     return (
@@ -79,9 +138,13 @@ const TutorInfo = () => {
           </div>
 
           {/* Contact Button */}
-          <button className="w-full md:w-auto px-4 py-2 rounded-full text-white bg-gradient-to-r from-peach-300 to-peach-100 hover:bg-peach-600 transition-colors">
+          <button className="w-full mb-4 md:w-auto px-4 py-2 rounded-full text-white bg-gradient-to-r from-peach-300 to-peach-100 hover:bg-peach-600 transition-colors">
             🗨️ Chat with tutor
           </button>
+          {stud && <button onClick={requestClass} className="w-full md:w-auto px-4 py-2 rounded-full text-white bg-gradient-to-r from-peach-300 to-peach-100 hover:bg-peach-600 transition-colors">
+            ⌛ Request Class with tutor
+          </button>}
+          
         </div>
 
         {/* Right Column: Details */}

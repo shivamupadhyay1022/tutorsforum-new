@@ -37,6 +37,9 @@ function Dashboard() {
       case "payments":
         return <Payments />;
         break;
+      case "home":
+        return navigate("/");
+        break;
       case "logout": {
         signOut(auth)
           .then(() => {
