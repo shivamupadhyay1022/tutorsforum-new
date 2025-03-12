@@ -169,7 +169,38 @@ const TutorRequests = () => {
     get(studentRef).then((snapshot) => {
       if (snapshot.exists()) {
         // console.log(snapshot.val());
-        setFetchedOtp(snapshot.val().otp);
+        const otpFromDB = snapshot.val().otp;
+        if (enteredOtp !== otpFromDB) {
+          return toast.error("Incorrect Otp.", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          const classId = uuidv4();
+          const classDetails = {
+            tutorId: currentUser.uid,
+            tutorName: tutorName,
+            studentId: studentId,
+            studentName: studentName,
+            startTime: Date.now(),
+            status: "ongoing",
+          };
+          // Store in both student & tutor history
+          set(ref(db, `users/${studentId}/classOngoing/${classId}`), classDetails);
+          set(
+            ref(db, `tutors/${currentUser.uid}/classOngoing/${classId}`),
+            classDetails
+          );
+          remove(ref(db, `users/${studentId}/requests/${currentUser.uid}`));
+          remove(ref(db, `tutors/${currentUser.uid}/requests/${studentId}`));
+          alert("Class Started!");
+        }
       } else {
         // If no syllabus data exists, initialize from JSON
         toast.error("Otp not found.", {
@@ -184,38 +215,6 @@ const TutorRequests = () => {
         });
       }
     });
-    if (enteredOtp !== fetchedOtp) {
-      return toast.error("Incorrect Otp.", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } else {
-      const classId = uuidv4();
-      const classDetails = {
-        tutorId: currentUser.uid,
-        tutorName: tutorName,
-        studentId: studentId,
-        studentName: studentName,
-        startTime: Date.now(),
-        status: "ongoing",
-      };
-
-      // Store in both student & tutor history
-      set(ref(db, `users/${studentId}/classOngoing/${classId}`), classDetails);
-      set(
-        ref(db, `tutors/${currentUser.uid}/classOngoing/${classId}`),
-        classDetails
-      );
-      remove(ref(db, `users/${studentId}/requests/${currentUser.uid}`));
-      remove(ref(db, `tutors/${currentUser.uid}/requests/${studentId}`));
-      alert("Class Started!");
-    }
   };
 
   const endClass = () => {
