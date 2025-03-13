@@ -5,6 +5,7 @@ import { ref, onValue, update, remove, set, get } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 import SubtopicSearch from "../SubtopicSearch";
+import { useNavigate } from "react-router-dom";
 
 const TutorRequests = () => {
   const { currentUser } = useContext(AuthContext);
@@ -20,7 +21,7 @@ const TutorRequests = () => {
   const [topicsList, setTopicsList] = useState([]);
   const [endedClasses, setEndedClasses] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const requestsRef = ref(db, `tutors/${currentUser?.uid}/requests`);
@@ -192,7 +193,10 @@ const TutorRequests = () => {
             status: "ongoing",
           };
           // Store in both student & tutor history
-          set(ref(db, `users/${studentId}/classOngoing/${classId}`), classDetails);
+          set(
+            ref(db, `users/${studentId}/classOngoing/${classId}`),
+            classDetails
+          );
           set(
             ref(db, `tutors/${currentUser.uid}/classOngoing/${classId}`),
             classDetails
@@ -294,6 +298,14 @@ const TutorRequests = () => {
                       key={class_.id}
                       className="hover:border-peach-300 border-2 p-4 cursor-pointer rounded-2xl transition-colors"
                     >
+                      <div className="flex justify-end w-full">
+                        <button
+                          className="justify-self-end text-md bg-blue-500 text-white p-2 rounded-lg"
+                          onClick={() => navigate(`/student/${class_.studentId}`)}
+                        >
+                          Know the Student
+                        </button>
+                      </div>
                       <div>
                         <p className="text-sm text-gray-500">
                           <strong>{class_.subject}</strong>

@@ -1,8 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../AuthProvider";
 import { db } from "../../firebase";
-import { ref, onValue, update, query, orderByChild, equalTo,get,child } from "firebase/database";
+import {
+  ref,
+  onValue,
+  update,
+  query,
+  orderByChild,
+  equalTo,
+  get,
+  child,
+} from "firebase/database";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const StudentRequests = () => {
   const { currentUser } = useContext(AuthContext);
@@ -13,6 +23,8 @@ const StudentRequests = () => {
   const [selectedTutor, setSelectedTutor] = useState(null);
   const [feedbackDialog, setFeedbackDialog] = useState(null);
   const [feedback, setFeedback] = useState({});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const requestsRef = ref(db, `users/${currentUser?.uid}/requests`);
@@ -81,20 +93,16 @@ const StudentRequests = () => {
     if (!feedbackDialog || !feedback) return;
 
     const { tutorId, classId } = feedbackDialog;
-    const feedbackRef = ref(
-      db,
-      `tutors/${tutorId}/classHistory`
-    );
+    const feedbackRef = ref(db, `tutors/${tutorId}/classHistory`);
 
     const dataQuery = query(feedbackRef, orderByChild("id"), equalTo(classId));
     const snapshot = await get(dataQuery);
 
     if (snapshot.exists()) {
-
-        snapshot.forEach((childSnapshot) => {
-          const recordRef = childSnapshot.ref;
-          const feedbackPath = child(recordRef, "feedback");
-          update(feedbackPath, feedback)
+      snapshot.forEach((childSnapshot) => {
+        const recordRef = childSnapshot.ref;
+        const feedbackPath = child(recordRef, "feedback");
+        update(feedbackPath, feedback)
           .then(() => {
             setFeedbackDialog(null);
             setFeedback({});
@@ -105,7 +113,7 @@ const StudentRequests = () => {
             toast.error(error.message);
           });
       });
-    }else{
+    } else {
       console.error("No record found");
     }
   };
@@ -121,13 +129,15 @@ const StudentRequests = () => {
           {Object.keys(endedClasses).map((tutor) => (
             <div key={tutor}>
               {/* Tutor Dropdown */}
-              <button
-                className="w-full text-left font-semibold bg-gray-200 p-2 rounded"
-                onClick={() =>
-                  setSelectedTutor(selectedTutor === tutor ? null : tutor)
-                }
-              >
-                {tutor} ▼
+              <button className="w-full flex justify-between text-left font-semibold bg-gray-200 p-2 rounded">
+                <p
+                  className="w-full"
+                  onClick={() =>
+                    setSelectedTutor(selectedTutor === tutor ? null : tutor)
+                  }
+                >
+                  {tutor} ▼
+                </p>
               </button>
               {/* Show Classes if Tutor is Selected */}
               {selectedTutor === tutor && (
@@ -135,8 +145,16 @@ const StudentRequests = () => {
                   {endedClasses[tutor].map((class_) => (
                     <div
                       key={class_.id}
-                      className="hover:border-peach-300 border-2 p-4 cursor-pointer rounded-2xl transition-colors"
+                      className="hover:border-peach-300 border-2 p-4  rounded-2xl transition-colors"
                     >
+                      <div className="flex justify-end w-full">
+                        <button
+                          className="justify-self-end text-md bg-blue-500 text-white p-2 rounded-lg"
+                          onClick={() => navigate(`/tutor/${class_.tutorId}`)}
+                        >
+                          Know the Tutor
+                        </button>
+                      </div>
                       <div>
                         <p className="text-sm text-gray-500">
                           <strong>{class_.subject}</strong>
@@ -163,7 +181,8 @@ const StudentRequests = () => {
 
                       {/* Feedback Button */}
                       {/* {console.log(class_)} */}
-                      {!class_.feedback || Object.keys(class_.feedback).length === 0 ? (
+                      {!class_.feedback ||
+                      Object.keys(class_.feedback).length === 0 ? (
                         <button
                           onClick={() =>
                             setFeedbackDialog({
