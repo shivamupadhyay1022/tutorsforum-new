@@ -59,7 +59,6 @@ function Studentinfo() {
               <button className="w-full mb-4 md:w-auto px-4 py-2 rounded-full text-white bg-gradient-to-r from-peach-300 to-peach-100 hover:bg-peach-600 transition-colors">
                 🗨️ Chat with student
               </button>
-
               
             </div>
     

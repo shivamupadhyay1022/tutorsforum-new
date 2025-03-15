@@ -14,6 +14,10 @@ import { AuthContext } from "./AuthProvider";
 import SearchResults from "./pages/SearchResults";
 import TutorInfo from "./pages/TutorInfo";
 import Studentinfo from "./pages/Studentinfo";
+import AdminSignin from "./pages/admin/AdminSignin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminTutors from "./pages/admin/AdminTutors";
 
 
 function App() {
@@ -36,6 +40,10 @@ function App() {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/tutor/:id" element={<TutorInfo />} />
           <Route path="/student/:id" element={<Studentinfo />} />
+          <Route path="/admin" element={<AdminSignin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/tutors" element={<AdminTutors />} />
 
         </>
       </Routes>
