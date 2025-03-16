@@ -18,6 +18,8 @@ import AdminSignin from "./pages/admin/AdminSignin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminTutors from "./pages/admin/AdminTutors";
+import EditUser from "./pages/admin/EditUser";
+import EditTutor from "./pages/admin/EditTutor";
 
 
 function App() {
@@ -43,7 +45,9 @@ function App() {
           <Route path="/admin" element={<AdminSignin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/users/:id" element={<EditUser />} />
           <Route path="/admin/tutors" element={<AdminTutors />} />
+          <Route path="/admin/tutors/:id" element={<EditTutor />} />
 
         </>
       </Routes>

@@ -3,10 +3,11 @@ import { ref, get, remove } from "firebase/database";
 import { deleteUser } from "firebase/auth";
 import { db, auth } from "../../firebase";
 import AdminNav from "./AdminNav";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminTutors() {
   const [tutors, setTutors] = useState([]);
-
+  const navigate = useNavigate()
   // Fetch All Tutors from Firebase
   const fetchTutors = async () => {
     const tutorsRef = ref(db, "tutors/");
@@ -59,7 +60,7 @@ export default function AdminTutors() {
           >
             {/* Edit & Delete Buttons */}
             <div className="absolute top-2 right-2 flex gap-2">
-              <button className="text-blue-500 hover:text-blue-700">✏️</button>
+              <button onClick={() => navigate(`/admin/tutors/${tutor.id}`)} className="text-blue-500 hover:text-blue-700">✏️</button>
               <button
                 onClick={() => handleDelete(tutor.id)}
                 className="text-red-500 hover:text-red-700"
