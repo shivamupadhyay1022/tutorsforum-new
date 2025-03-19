@@ -38,6 +38,8 @@ const TutorRequests = () => {
       if (snapshot.exists()) {
         const classData = Object.entries(snapshot.val())[0]; // Get the first ongoing class
         setOngoingClass({ id: classData[0], ...classData[1] });
+        console.log(classData[0])
+        console.log(classData[1])
       } else {
         setOngoingClass(null);
       }
@@ -167,6 +169,7 @@ const TutorRequests = () => {
         setTutorName(snapshot.val().name);
       }
     });
+
     get(studentRef).then((snapshot) => {
       if (snapshot.exists()) {
         // console.log(snapshot.val());
@@ -301,7 +304,9 @@ const TutorRequests = () => {
                       <div className="flex justify-end w-full">
                         <button
                           className="justify-self-end text-md bg-blue-500 text-white p-2 rounded-lg"
-                          onClick={() => navigate(`/student/${class_.studentId}`)}
+                          onClick={() =>
+                            navigate(`/student/${class_.studentId}`)
+                          }
                         >
                           Know the Student
                         </button>

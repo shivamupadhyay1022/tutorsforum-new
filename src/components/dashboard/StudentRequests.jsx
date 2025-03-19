@@ -51,7 +51,8 @@ const StudentRequests = () => {
     if (ongoingClass) {
       const interval = setInterval(() => {
         const now = Date.now();
-        const elapsed = Math.floor((now - ongoingClass.startTime) / 1000);
+        const startTime = ongoingClass.startTime;
+        const elapsed = Math.floor((now - startTime) / 1000);
 
         const hours = String(Math.floor(elapsed / 3600)).padStart(2, "0");
         const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(
