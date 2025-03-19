@@ -10,6 +10,7 @@ import {
   equalTo,
   get,
   child,
+  serverTimestamp,
 } from "firebase/database";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +24,8 @@ const StudentRequests = () => {
   const [selectedTutor, setSelectedTutor] = useState(null);
   const [feedbackDialog, setFeedbackDialog] = useState(null);
   const [feedback, setFeedback] = useState({});
+  const [offset, setOffset] = useState(0); // Offset from Firebase
+
 
   const navigate = useNavigate();
 
@@ -48,24 +51,37 @@ const StudentRequests = () => {
   }, [currentUser]);
 
   useEffect(() => {
+    // Fetch Firebase server time offset
+    const offsetRef = ref(db, ".info/serverTimeOffset");
+    const offsetUnsub = onValue(offsetRef, (snapshot) => {
+      setOffset(snapshot.val() || 0);
+    });
+
     if (ongoingClass) {
-      const interval = setInterval(() => {
-        const now = Date.now();
-        const startTime = ongoingClass.startTime;
+      const startTime = ongoingClass.startTime; // Stored startTime from Firebase
+
+      const updateTimer = () => {
+        const now = Date.now() + offset; // Adjust local time using Firebase offset
         const elapsed = Math.floor((now - startTime) / 1000);
 
         const hours = String(Math.floor(elapsed / 3600)).padStart(2, "0");
-        const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(
-          2,
-          "0"
-        );
+        const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(2, "0");
         const seconds = String(elapsed % 60).padStart(2, "0");
 
         setTime(`${hours}:${minutes}:${seconds}`);
-      }, 1000);
-      return () => clearInterval(interval);
+      };
+
+      updateTimer(); // Run immediately
+      const interval = setInterval(updateTimer, 1000);
+
+      return () => {
+        clearInterval(interval);
+        offsetUnsub(); // Unsubscribe from Firebase offset listener
+      };
     }
-  }, [ongoingClass]);
+
+    return () => offsetUnsub(); // Cleanup Firebase listener
+  }, [ongoingClass, db, offset]);
 
   useEffect(() => {
     if (!currentUser) return;
