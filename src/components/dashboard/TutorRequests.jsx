@@ -21,6 +21,8 @@ const TutorRequests = () => {
   const [topicsList, setTopicsList] = useState([]);
   const [endedClasses, setEndedClasses] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
+    const [offset, setOffset] = useState(0); // Offset from Firebase
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,24 +50,36 @@ const TutorRequests = () => {
 
   // ⏳ Live Timer (HH:MM:SS format)
   useEffect(() => {
+        const offsetRef = ref(db, ".info/serverTimeOffset");
+        const offsetUnsub = onValue(offsetRef, (snapshot) => {
+          setOffset(snapshot.val() || 0);
+        });
+
     if (ongoingClass) {
-      const interval = setInterval(() => {
-        const now = Date.now();
-        const startTime = ongoingClass.startTime;
+      const startTime = ongoingClass.startTime; // Stored startTime from Firebase
+
+      const updateTimer = () => {
+        const now = Date.now() + offset; // Adjust local time using Firebase offset
         const elapsed = Math.floor((now - startTime) / 1000);
 
         const hours = String(Math.floor(elapsed / 3600)).padStart(2, "0");
-        const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(
-          2,
-          "0"
-        );
+        const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(2, "0");
         const seconds = String(elapsed % 60).padStart(2, "0");
 
         setTime(`${hours}:${minutes}:${seconds}`);
-      }, 1000);
-      return () => clearInterval(interval);
+      };
+
+      updateTimer(); // Run immediately
+      const interval = setInterval(updateTimer, 1000);
+
+      return () => {
+        clearInterval(interval);
+        offsetUnsub(); // Unsubscribe from Firebase offset listener
+      };
     }
-  }, [ongoingClass]);
+
+    return () => offsetUnsub();
+  }, [ongoingClass,db,offset]);
 
   useEffect(() => {
     if (!currentUser) return;
@@ -148,80 +162,59 @@ const TutorRequests = () => {
   };
 
   // 🔑 Verify OTP & Start Class
-  const verifyOtpAndStartClass = (studentId) => {
-    const studentRef = ref(
-      db,
-      `users/${studentId}/requests/${currentUser.uid}`
-    );
-    const studentNameRef = ref(db, `users/${studentId}`);
-    const tutorNameRef = ref(db, `tutors/${currentUser.uid}`);
-    get(studentNameRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        // console.log(data.name);
-        setStudentName(snapshot.val().name);
+  const verifyOtpAndStartClass = async (studentId) => {
+    try {
+      const studentRef = ref(db, `users/${studentId}/requests/${currentUser.uid}`);
+      const studentNameRef = ref(db, `users/${studentId}/name`);
+      const tutorNameRef = ref(db, `tutors/${currentUser.uid}/name`);
+  
+      // Fetch student and tutor names in parallel
+      const [studentSnap, tutorSnap] = await Promise.all([get(studentNameRef), get(tutorNameRef)]);
+  
+      if (!studentSnap.exists() || !tutorSnap.exists()) {
+        return toast.error("User data missing. Please try again.", { position: "top-right" });
       }
-    });
-    get(tutorNameRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        // console.log(data.name);
-        setTutorName(snapshot.val().name);
+  
+      const studentName = studentSnap.val();
+      const tutorName = tutorSnap.val();
+      setStudentName(studentName);
+      setTutorName(tutorName);
+  
+      // Fetch OTP
+      const requestSnap = await get(studentRef);
+      if (!requestSnap.exists()) {
+        return toast.error("OTP not found.", { position: "top-right" });
       }
-    });
-
-    get(studentRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        // console.log(snapshot.val());
-        const otpFromDB = snapshot.val().otp;
-        if (enteredOtp !== otpFromDB) {
-          return toast.error("Incorrect Otp.", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        } else {
-          const classId = uuidv4();
-          const classDetails = {
-            tutorId: currentUser.uid,
-            tutorName: tutorName,
-            studentId: studentId,
-            studentName: studentName,
-            startTime: Date.now(),
-            status: "ongoing",
-          };
-          // Store in both student & tutor history
-          set(
-            ref(db, `users/${studentId}/classOngoing/${classId}`),
-            classDetails
-          );
-          set(
-            ref(db, `tutors/${currentUser.uid}/classOngoing/${classId}`),
-            classDetails
-          );
-          remove(ref(db, `users/${studentId}/requests/${currentUser.uid}`));
-          remove(ref(db, `tutors/${currentUser.uid}/requests/${studentId}`));
-          alert("Class Started!");
-        }
-      } else {
-        // If no syllabus data exists, initialize from JSON
-        toast.error("Otp not found.", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+  
+      const otpFromDB = requestSnap.val().otp;
+      if (enteredOtp !== otpFromDB) {
+        return toast.error("Incorrect OTP.", { position: "top-right" });
       }
-    });
+  
+      // Proceed to start the class
+      const classId = uuidv4();
+      const classDetails = {
+        tutorId: currentUser.uid,
+        tutorName,
+        studentId,
+        studentName,
+        startTime: Date.now(),
+        status: "ongoing",
+      };
+  
+      // Store in both student & tutor history
+      await Promise.all([
+        set(ref(db, `users/${studentId}/classOngoing/${classId}`), classDetails),
+        set(ref(db, `tutors/${currentUser.uid}/classOngoing/${classId}`), classDetails),
+        remove(ref(db, `users/${studentId}/requests/${currentUser.uid}`)),
+        remove(ref(db, `tutors/${currentUser.uid}/requests/${studentId}`)),
+      ]);
+  
+      alert("Class Started!");
+    } catch (error) {
+      console.error("Error starting class:", error);
+      toast.error("An error occurred. Please try again.", { position: "top-right" });
+    }
   };
 
   const endClass = () => {
