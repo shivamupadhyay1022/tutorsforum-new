@@ -208,8 +208,14 @@ const StudentRequests = () => {
                       className="hover:border-peach-300 border-2 p-4  rounded-2xl transition-colors"
                     >
                       <div className="flex items-center justify-between w-full">
-                        <div className="text-white flex items-center my-2">.
-                        {class_.groupClass && <div className="bg-peach-400 p-2 text-white rounded" >Group Class</div>} <span className="text-black">with</span></div>
+                        <div className="text-white flex items-center my-2">
+                          .
+                          {class_.groupClass && (
+                            <div className="bg-peach-400 p-2 text-white rounded">
+                              Group Class
+                            </div>
+                          )}
+                        </div>
                         <button
                           className="justify-self-end text-md bg-blue-500 text-white p-2 rounded-lg"
                           onClick={() => navigate(`/tutor/${class_.tutorId}`)}
@@ -217,6 +223,7 @@ const StudentRequests = () => {
                           Know the Tutor
                         </button>
                       </div>
+
                       <div>
                         <p className="text-sm text-gray-500">
                           <strong>{class_.subject}</strong>
@@ -239,7 +246,20 @@ const StudentRequests = () => {
                             </span>
                           ))}
                         </div>
+                        
                       </div>
+                      {Array.isArray(class_.studentName) &&
+                        class_.studentName.length > 1 && (
+                          <div className="ml-2" >
+                            <p>Group Class with:</p>
+                            {/* {console.log(class_.studentName)} */}
+                            <ul className="list-disc ml-4">
+                              {class_.studentName.map((name, index) => (
+                                <li key={index}>{name}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
 
                       {/* Feedback Button */}
                       {/* {console.log(class_)} */}

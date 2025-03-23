@@ -90,18 +90,28 @@ const TutorRequests = () => {
 
   useEffect(() => {
     if (!currentUser) return;
+
     fetchStudents();
     const classesRef = ref(db, `tutors/${currentUser.uid}/classHistory`);
+
     onValue(classesRef, (snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
         const groupedByUsers = {};
+
         Object.entries(data).forEach(([id, class_]) => {
-          if (!groupedByUsers[class_.studentName]) {
-            groupedByUsers[class_.studentName] = [];
-          }
-          groupedByUsers[class_.studentName].push({ id, ...class_ });
+          let studentNames = Array.isArray(class_.studentName)
+            ? class_.studentName
+            : [class_.studentName]; // Ensure it's always an array
+
+          studentNames.forEach((name) => {
+            if (!groupedByUsers[name]) {
+              groupedByUsers[name] = [];
+            }
+            groupedByUsers[name].push({ id, ...class_ });
+          });
         });
+
         setEndedClasses(groupedByUsers);
       } else {
         setEndedClasses([]);
@@ -294,20 +304,26 @@ const TutorRequests = () => {
   const fetchStudents = async () => {
     const historyRef = ref(db, `tutors/${currentUser.uid}/classHistory`);
     const snapshot = await get(historyRef);
-
+  
     if (snapshot.exists()) {
-      const studentMap = new Map(); // Use a Map to store unique student records
-
+      const studentMap = new Map(); // Store unique student records
+  
       Object.values(snapshot.val()).forEach((entry) => {
-        studentMap.set(entry.studentId, {
-          studentId: entry.studentId,
-          studentName: entry.studentName,
+        const studentIds = Array.isArray(entry.studentId) ? entry.studentId : [entry.studentId];
+        const studentNames = Array.isArray(entry.studentName) ? entry.studentName : [entry.studentName];
+  
+        studentIds.forEach((sId, index) => {
+          studentMap.set(sId, {
+            studentId: sId,
+            studentName: studentNames[index] || "Unknown", // Ensure correct mapping
+          });
         });
       });
-
+  
       setStudents(Array.from(studentMap.values())); // Convert Map back to an array
     }
   };
+  
 
   const toggleStudentSelection = (student) => {
     setSelectedStudents((prev) =>
@@ -510,7 +526,15 @@ const TutorRequests = () => {
                       key={class_.id}
                       className="hover:border-peach-300 border-2 p-4 cursor-pointer rounded-2xl transition-colors"
                     >
-                      <div className="flex justify-end w-full">
+                      <div className="flex items-center justify-between w-full">
+                        <div className="text-white flex items-center my-2">
+                          .
+                          {class_.groupClass && (
+                            <div className="bg-peach-400 p-2 text-white rounded">
+                              Group Class
+                            </div>
+                          )}
+                        </div>
                         <button
                           className="justify-self-end text-md bg-blue-500 text-white p-2 rounded-lg"
                           onClick={() =>
@@ -520,6 +544,7 @@ const TutorRequests = () => {
                           Know the Student
                         </button>
                       </div>
+
                       <div>
                         <p className="text-sm text-gray-500">
                           <strong>{class_.subject}</strong>
@@ -542,7 +567,20 @@ const TutorRequests = () => {
                             </span>
                           ))}
                         </div>
+                        
                       </div>
+                      {Array.isArray(class_.studentName) &&
+                        class_.studentName.length > 1 && (
+                          <div className="ml-2 mb-2" >
+                            <p>Group Class with:</p>
+                            {/* {console.log(class_.studentName)} */}
+                            <ul className="list-disc ml-4">
+                              {class_.studentName.map((name, index) => (
+                                <li key={index}>{name}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                     </div>
                   ))}
                 </div>
