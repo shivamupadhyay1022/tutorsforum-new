@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TutorsForum</string>
+    <string name="title_activity_main">TutorsForum</string>
+    <string name="package_name">in.sci.tutorsforum</string>
+    <string name="custom_url_scheme">in.sci.tutorsforum</string>
+</resources>

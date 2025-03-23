@@ -1,0 +1,8 @@
+{
+  "appId": "in.sci.tutorsforum",
+  "appName": "TutorsForum",
+  "webDir": "dist",
+  "server" :{
+    "url":"https://sci-tutorsforum.web.app/"
+  }
+}

@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^7.1.0",
+    "@capacitor/core": "^7.1.0",
     "browser-image-compression": "^2.0.2",
     "country-state-city": "^3.2.1",
     "firebase": "^11.2.0",
@@ -24,6 +26,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@capacitor/cli": "^7.1.0",
     "@eslint/js": "^9.17.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
