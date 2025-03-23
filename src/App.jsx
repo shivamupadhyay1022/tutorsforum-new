@@ -14,13 +14,30 @@ import { AuthContext } from "./AuthProvider";
 import SearchResults from "./pages/SearchResults";
 import TutorInfo from "./pages/TutorInfo";
 import Studentinfo from "./pages/Studentinfo";
+import { useNavigate } from "react-router-dom";
 
 
 function App() {
   const [count, setCount] = useState(0);
   const {currentUser} = useContext(AuthContext)
+  // useEffect(() => {
+  //   console.log(currentUser)})
+  
+  const navigate = useNavigate(); // For navigation
+
   useEffect(() => {
-    console.log(currentUser)})
+    const backButtonListener = App.addListener("backButton", ({ canGoBack }) => {
+      if (canGoBack) {
+        navigate(-1); // Go to the previous page
+      } else {
+        App.exitApp(); // Exit the app if no previous page
+      }
+    });
+
+    return () => {
+      backButtonListener.remove(); // Clean up event listener
+    };
+  }, [navigate]);
 
   return (
     <>
