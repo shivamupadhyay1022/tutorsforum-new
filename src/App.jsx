@@ -15,6 +15,7 @@ import SearchResults from "./pages/SearchResults";
 import TutorInfo from "./pages/TutorInfo";
 import Studentinfo from "./pages/Studentinfo";
 import { useNavigate } from "react-router-dom";
+import { App as CapacitorApp } from "@capacitor/app"; // Rename import
 
 
 function App() {
@@ -26,11 +27,11 @@ function App() {
   const navigate = useNavigate(); // For navigation
 
   useEffect(() => {
-    const backButtonListener = App.addListener("backButton", ({ canGoBack }) => {
+    const backButtonListener = CapacitorApp.addListener("backButton", ({ canGoBack }) => {
       if (canGoBack) {
         navigate(-1); // Go to the previous page
       } else {
-        App.exitApp(); // Exit the app if no previous page
+        CapacitorApp.exitApp(); // Exit the app if no previous page
       }
     });
 

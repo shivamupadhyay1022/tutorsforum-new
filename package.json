@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@capacitor/android": "^7.1.0",
+    "@capacitor/app": "^7.0.0",
     "@capacitor/core": "^7.1.0",
     "browser-image-compression": "^2.0.2",
     "country-state-city": "^3.2.1",

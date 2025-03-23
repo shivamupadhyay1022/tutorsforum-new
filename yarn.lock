@@ -180,6 +180,11 @@
   resolved "https://registry.npmmirror.com/@capacitor/android/-/android-7.1.0.tgz#01af24445e9b56fae09d3a97c7343911344052cc"
   integrity sha512-piPgQViWOjh18H7R8wDkh5uaZ5PwRbMxGZFu39ReP8Y0nZwjS8ESUvJuBm38T+HHJnHM6MnDHmCWnW3ixKqeZw==
 
+"@capacitor/app@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.npmmirror.com/@capacitor/app/-/app-7.0.0.tgz#f216c6fdef2ed227b04786fb3c381ecc319d5135"
+  integrity sha512-/UFwfPFsw/Jen6vjrV0lfTBOQWSaDDdmrYXKpYg4Xn8hwj0xrrRPXxC43j7VmPoj9AFMVPA+hx94ygqjChPASQ==
+
 "@capacitor/cli@^7.1.0":
   version "7.1.0"
   resolved "https://registry.npmmirror.com/@capacitor/cli/-/cli-7.1.0.tgz#2cb630a144862005ab3dab5fbe7f1eb4a1bfc92d"
