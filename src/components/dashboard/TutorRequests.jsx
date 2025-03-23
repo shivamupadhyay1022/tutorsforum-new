@@ -21,15 +21,19 @@ const TutorRequests = () => {
   const [topicsList, setTopicsList] = useState([]);
   const [endedClasses, setEndedClasses] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-    const [offset, setOffset] = useState(0); // Offset from Firebase
-  
+  const [offset, setOffset] = useState(0); // Offset from Firebase
+  const [students, setStudents] = useState([]);
+  const [search, setSearch] = useState("");
+  const [selectedStudents, setSelectedStudents] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const requestsRef = ref(db, `tutors/${currentUser?.uid}/requests`);
     onValue(requestsRef, (snapshot) => {
-      if (snapshot.exists()) setRequests(Object.entries(snapshot.val()));
-      else setRequests([]);
+      if (snapshot.exists()) {
+        setRequests(Object.entries(snapshot.val()));
+      } else setRequests([]);
     });
     // console.log(Date.now());
   }, [currentUser]);
@@ -40,8 +44,8 @@ const TutorRequests = () => {
       if (snapshot.exists()) {
         const classData = Object.entries(snapshot.val())[0]; // Get the first ongoing class
         setOngoingClass({ id: classData[0], ...classData[1] });
-        console.log(classData[0])
-        console.log(classData[1])
+        // console.log(classData[0]);
+        // console.log(classData[1]);
       } else {
         setOngoingClass(null);
       }
@@ -50,10 +54,10 @@ const TutorRequests = () => {
 
   // ⏳ Live Timer (HH:MM:SS format)
   useEffect(() => {
-        const offsetRef = ref(db, ".info/serverTimeOffset");
-        const offsetUnsub = onValue(offsetRef, (snapshot) => {
-          setOffset(snapshot.val() || 0);
-        });
+    const offsetRef = ref(db, ".info/serverTimeOffset");
+    const offsetUnsub = onValue(offsetRef, (snapshot) => {
+      setOffset(snapshot.val() || 0);
+    });
 
     if (ongoingClass) {
       const startTime = ongoingClass.startTime; // Stored startTime from Firebase
@@ -63,7 +67,10 @@ const TutorRequests = () => {
         const elapsed = Math.floor((now - startTime) / 1000);
 
         const hours = String(Math.floor(elapsed / 3600)).padStart(2, "0");
-        const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(2, "0");
+        const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(
+          2,
+          "0"
+        );
         const seconds = String(elapsed % 60).padStart(2, "0");
 
         setTime(`${hours}:${minutes}:${seconds}`);
@@ -79,11 +86,11 @@ const TutorRequests = () => {
     }
 
     return () => offsetUnsub();
-  }, [ongoingClass,db,offset]);
+  }, [ongoingClass, db, offset]);
 
   useEffect(() => {
     if (!currentUser) return;
-
+    fetchStudents();
     const classesRef = ref(db, `tutors/${currentUser.uid}/classHistory`);
     onValue(classesRef, (snapshot) => {
       if (snapshot.exists()) {
@@ -164,33 +171,41 @@ const TutorRequests = () => {
   // 🔑 Verify OTP & Start Class
   const verifyOtpAndStartClass = async (studentId) => {
     try {
-      const studentRef = ref(db, `users/${studentId}/requests/${currentUser.uid}`);
+      const studentRef = ref(
+        db,
+        `users/${studentId}/requests/${currentUser.uid}`
+      );
       const studentNameRef = ref(db, `users/${studentId}/name`);
       const tutorNameRef = ref(db, `tutors/${currentUser.uid}/name`);
-  
+
       // Fetch student and tutor names in parallel
-      const [studentSnap, tutorSnap] = await Promise.all([get(studentNameRef), get(tutorNameRef)]);
-  
+      const [studentSnap, tutorSnap] = await Promise.all([
+        get(studentNameRef),
+        get(tutorNameRef),
+      ]);
+
       if (!studentSnap.exists() || !tutorSnap.exists()) {
-        return toast.error("User data missing. Please try again.", { position: "top-right" });
+        return toast.error("User data missing. Please try again.", {
+          position: "top-right",
+        });
       }
-  
+
       const studentName = studentSnap.val();
       const tutorName = tutorSnap.val();
       setStudentName(studentName);
       setTutorName(tutorName);
-  
+
       // Fetch OTP
       const requestSnap = await get(studentRef);
       if (!requestSnap.exists()) {
         return toast.error("OTP not found.", { position: "top-right" });
       }
-  
+
       const otpFromDB = requestSnap.val().otp;
       if (enteredOtp !== otpFromDB) {
         return toast.error("Incorrect OTP.", { position: "top-right" });
       }
-  
+
       // Proceed to start the class
       const classId = uuidv4();
       const classDetails = {
@@ -201,19 +216,27 @@ const TutorRequests = () => {
         startTime: Date.now(),
         status: "ongoing",
       };
-  
+
       // Store in both student & tutor history
       await Promise.all([
-        set(ref(db, `users/${studentId}/classOngoing/${classId}`), classDetails),
-        set(ref(db, `tutors/${currentUser.uid}/classOngoing/${classId}`), classDetails),
+        set(
+          ref(db, `users/${studentId}/classOngoing/${classId}`),
+          classDetails
+        ),
+        set(
+          ref(db, `tutors/${currentUser.uid}/classOngoing/${classId}`),
+          classDetails
+        ),
         remove(ref(db, `users/${studentId}/requests/${currentUser.uid}`)),
         remove(ref(db, `tutors/${currentUser.uid}/requests/${studentId}`)),
       ]);
-  
+
       alert("Class Started!");
     } catch (error) {
       console.error("Error starting class:", error);
-      toast.error("An error occurred. Please try again.", { position: "top-right" });
+      toast.error("An error occurred. Please try again.", {
+        position: "top-right",
+      });
     }
   };
 
@@ -268,9 +291,202 @@ const TutorRequests = () => {
     setTopicsFinal(updatedTopics); // Update parent state
   };
 
+  const fetchStudents = async () => {
+    const historyRef = ref(db, `tutors/${currentUser.uid}/classHistory`);
+    const snapshot = await get(historyRef);
+
+    if (snapshot.exists()) {
+      const studentMap = new Map(); // Use a Map to store unique student records
+
+      Object.values(snapshot.val()).forEach((entry) => {
+        studentMap.set(entry.studentId, {
+          studentId: entry.studentId,
+          studentName: entry.studentName,
+        });
+      });
+
+      setStudents(Array.from(studentMap.values())); // Convert Map back to an array
+    }
+  };
+
+  const toggleStudentSelection = (student) => {
+    setSelectedStudents((prev) =>
+      prev.some((s) => s.studentId === student.studentId)
+        ? prev.filter((s) => s.studentId !== student.studentId)
+        : [...prev, student]
+    );
+  };
+
+  const startGroupClass = async () => {
+    if (selectedStudents.length === 0) {
+      toast.error("Select at least one student", {
+        position: "top-right",
+        timeout: 2000,
+      });
+      // document.getElementById("dialog").close();
+      return;
+    } else {
+      const classId = uuidv4();
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      const startTime = Date.now();
+      const tutorNameRef = ref(db, `tutors/${currentUser.uid}/name`);
+
+      const tutorSnap = await Promise.all([get(tutorNameRef)]);
+      const tutorName = tutorSnap[0].val();
+      const studentNames = selectedStudents.map(
+        ({ studentName }) => studentName
+      );
+      const studentIds = selectedStudents.map(({ studentId }) => studentId);
+      console.log(classId);
+      console.log(selectedStudents);
+      const classDetails = {
+        tutorId: currentUser.uid,
+        tutorName: tutorName, // Fetch if needed
+        studentId: studentIds,
+        studentName: studentNames,
+        startTime,
+        status: "approved",
+        groupClass: "true",
+        otp: otp,
+      };
+      selectedStudents.forEach(({ studentId, studentName }, index) => {
+        console.log(classDetails);
+        processStudents(classDetails, studentId, classId);
+      });
+      await set(
+        ref(db, `tutors/${currentUser.uid}/requests/${classId}`),
+        classDetails
+      );
+      toast.success("Class started successfully!", { position: "top-right" });
+      document.getElementById("dialog").close();
+    }
+  };
+
+  async function processStudents(classDetails, studentId, classId) {
+    if (classDetails && studentId) {
+      await set(
+        ref(db, `users/${studentId}/requests/${classId}`),
+        classDetails
+      );
+    } else {
+      toast.error("User data missing. Contact admin.", {
+        position: "top-right",
+      });
+    }
+  }
+  // start grouyp class
+  const verifyOtpAndStartGroupClass = async (
+    currentClassId,
+    studentId,
+    studentName,
+    tutorName
+  ) => {
+    try {
+      if (!enteredOtp)
+        return toast.error("Enter OTP", { position: "top-right" });
+
+      if (!studentId || !tutorName || !studentName) {
+        return toast.error("User data missing. Please try again.", {
+          position: "top-right",
+        });
+      }
+      const studentRef = ref(
+        db,
+        `users/${studentId[0]}/requests/${currentClassId}`
+      );
+      // Fetch OTP
+      const requestSnap = await get(studentRef);
+      if (!requestSnap.exists()) {
+        return toast.error("OTP not found.", { position: "top-right" });
+      }
+
+      const otpFromDB = requestSnap.val().otp;
+      if (enteredOtp !== otpFromDB) {
+        return toast.error("Incorrect OTP.", { position: "top-right" });
+      }
+
+      // Proceed to start the class
+      const classId = uuidv4();
+      const classDetails = {
+        tutorId: currentUser.uid,
+        tutorName: tutorName,
+        studentId: studentId,
+        studentName: studentName,
+        startTime: Date.now(),
+        status: "ongoing",
+      };
+      await Promise.all(
+        studentId.map(async (sId) => {
+          await set(
+            ref(db, `users/${sId}/classOngoing/${classId}`),
+            classDetails
+          );
+          await remove(ref(db, `users/${sId}/requests/${currentClassId}`));
+          console.log(sId);
+        })
+      );
+      set(
+        ref(db, `tutors/${currentUser.uid}/classOngoing/${classId}`),
+        classDetails
+      );
+      remove(ref(db, `tutors/${currentUser.uid}/requests/${currentClassId}`));
+      toast.success("Class Started!", { position: "top-right" });
+    } catch (error) {
+      console.error("Error starting class:", error);
+      toast.error("An error occurred. Please try again.", {
+        position: "top-right",
+      });
+    }
+  };
+
+  const endGroupClass = async () => {
+    const classId = uuidv4();
+    const completedClassDetails = {
+      ...ongoingClass,
+      groupClass: "true",
+      endTime: Date.now(),
+      duration: time, // Store elapsed time as duration
+      topicsCovered: topicsList, // Convert string to array
+      status: "completed",
+    };
+
+    // Store in student & tutor history
+    await Promise.all(
+      ongoingClass.studentId.map(async (sId) => {
+        await set(
+          ref(db, `users/${sId}/classHistory/${classId}`),
+          completedClassDetails
+        );
+        // Remove from ongoing classes
+        await remove(ref(db, `users/${sId}/classOngoing/${ongoingClass.id}`));
+        // console.log(sId);
+        // console.log(completedClassDetails);
+      })
+    );
+
+    set(
+      ref(db, `tutors/${currentUser.uid}/classHistory/${classId}`),
+      completedClassDetails
+    );
+    remove(
+      ref(db, `tutors/${currentUser.uid}/classOngoing/${ongoingClass.id}`)
+    );
+
+    setOngoingClass(null);
+    alert("Class ended & saved to history!");
+  };
+
   return (
     <div className="p-4 border rounded-lg shadow-md">
-      <h2 className="text-lg font-bold mb-4">Ended Classes</h2>
+      <div className=" flex justify-between items-center mb-4">
+        <h2 className="text-lg h-auto font-bold">Ended Classes</h2>
+        <button
+          onClick={() => document.getElementById("dialog").showModal()}
+          className=" bg-peach-300 hover:bg-peach-400 text-white font-bold py-2 px-4 rounded"
+        >
+          Start Group Class
+        </button>
+      </div>
       {Object.keys(endedClasses).length === 0 ? (
         <p className="mb-4">No ended classes found.</p>
       ) : (
@@ -339,9 +555,24 @@ const TutorRequests = () => {
       <h2 className="text-lg font-bold">Ongoing Class</h2>
       {ongoingClass ? (
         <div className="px-2 border rounded mb-4">
-          <p>
-            <strong>Student:</strong> {ongoingClass.studentId}
-          </p>
+          {/* {ongoingClass.id} */}
+          {ongoingClass.studentName.length == 1 ? (
+            <div>
+              <p>
+                <strong>Student:</strong> {ongoingClass.studentId}
+              </p>
+            </div>
+          ) : (
+            <div>
+              <p>Group Class with:</p>
+              with
+              <ul className="list-disc ml-4">
+                {ongoingClass.studentName.map((name) => (
+                  <li key={Math.random()}>{name}</li>
+                ))}{" "}
+              </ul>
+            </div>
+          )}
           <p>
             <strong>Started:</strong>{" "}
             {new Date(ongoingClass.startTime).toLocaleString()}
@@ -396,7 +627,20 @@ const TutorRequests = () => {
             </div>
           </div>
           <button
-            onClick={endClass}
+            onClick={() => {
+              if (ongoingClass.studentName.length == 1) {
+                endClass();
+                // console.log("one")
+              } else {
+                endGroupClass(
+                  ongoingClass.id,
+                  ongoingClass.studentId,
+                  ongoingClass.studentName,
+                  ongoingClass.tutorName
+                );
+                // console.log(request.studentId);
+              }
+            }}
             className="bg-red-500 text-white p-2 rounded w-full mt-2"
           >
             End Class
@@ -416,12 +660,25 @@ const TutorRequests = () => {
           {/* 🗑️ Delete Request Button (Top Right Corner) */}
 
           <div>
-            <p>
-              <strong>{request.studentName}</strong> requested a class
-            </p>
-            <p>
+            {request.studentName.length == 1 ? (
+              <p>
+                <strong>{request.studentName}</strong> requested a class
+              </p>
+            ) : (
+              <div>
+                Group class with
+                <ul className="list-disc ml-4">
+                  {request.studentName.map((name) => (
+                    <li key={Math.random()}>{name}</li>
+                  ))}{" "}
+                </ul>
+                ...waiting for otp
+              </div>
+            )}
+
+            {/* <p>
               Student ID: <span>{request.studentId} </span>
-            </p>
+            </p> */}
             <p>
               Status:{" "}
               <span
@@ -447,7 +704,20 @@ const TutorRequests = () => {
                 className="border p-2 rounded w-full"
               />
               <button
-                onClick={() => verifyOtpAndStartClass(request.studentId)}
+                onClick={() => {
+                  if (request.studentName.length == 1) {
+                    verifyOtpAndStartClass(request.studentId);
+                    // console.log("one")
+                  } else {
+                    verifyOtpAndStartGroupClass(
+                      studentId,
+                      request.studentId,
+                      request.studentName,
+                      request.tutorName
+                    );
+                    // console.log(request.studentId);
+                  }
+                }}
                 className="bg-blue-500 text-white p-2 rounded w-full mt-2"
               >
                 Start Class
@@ -482,6 +752,64 @@ const TutorRequests = () => {
           </div>
         </div>
       ))}
+      {/* dialog box start group class */}
+      <dialog
+        id="dialog"
+        className="bg-white p-6 h-4/5 rounded-lg shadow-lg w-4/5 md:w-3/5 "
+      >
+        <div className="flex justify-between mb-4">
+          <h2 className="text-xl font-bold">Start Group Class</h2>
+          <button onClick={() => document.getElementById("dialog").close()}>
+            ❌
+          </button>
+        </div>
+        <h2 className="text-sm ">Selected Students</h2>
+        <ul className="list-disc ml-4 my-1">
+          {selectedStudents.length > 0 &&
+            selectedStudents.map((student) => (
+              <li key={student.studentId}> {student.studentName}</li>
+            ))}
+        </ul>
+        <input
+          type="text"
+          placeholder="Search students..."
+          className="border p-2 w-full mb-3"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <div className="max-h-72 overflow-y-auto border p-2">
+          {students
+            .filter((s) =>
+              s.studentName.toLowerCase().includes(search.toLowerCase())
+            )
+            .map((student) => (
+              <div
+                key={student.studentId}
+                className="flex justify-between items-center p-2 border-b"
+              >
+                <span>{student.studentName}</span>
+                <button
+                  className={`p-1 rounded ${
+                    selectedStudents.some(
+                      (s) => s.studentId === student.studentId
+                    )
+                      ? "bg-green-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                  onClick={() => toggleStudentSelection(student)}
+                >
+                  ✅
+                </button>
+              </div>
+            ))}
+        </div>
+        <button
+          onClick={startGroupClass}
+          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded w-full"
+        >
+          Start Class
+        </button>
+      </dialog>
     </div>
   );
 };
