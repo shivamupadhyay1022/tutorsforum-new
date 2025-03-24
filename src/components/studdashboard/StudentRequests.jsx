@@ -246,15 +246,17 @@ const StudentRequests = () => {
                             </span>
                           ))}
                         </div>
-                        
                       </div>
                       {Array.isArray(class_.studentName) &&
                         class_.studentName.length > 1 && (
-                          <div className="ml-2" >
+                          <div className="ml-2">
                             <p>Group Class with:</p>
                             {/* {console.log(class_.studentName)} */}
                             <ul className="list-disc ml-4">
-                              {class_.studentName.map((name, index) => (
+                              {(Array.isArray(class_?.studentNam)
+                                ? class_?.studentNam
+                                : [class_?.studentNam]
+                              )?.map((name, index) => (
                                 <li key={index}>{name}</li>
                               ))}
                             </ul>
