@@ -304,14 +304,18 @@ const TutorRequests = () => {
   const fetchStudents = async () => {
     const historyRef = ref(db, `tutors/${currentUser.uid}/classHistory`);
     const snapshot = await get(historyRef);
-  
+
     if (snapshot.exists()) {
       const studentMap = new Map(); // Store unique student records
-  
+
       Object.values(snapshot.val()).forEach((entry) => {
-        const studentIds = Array.isArray(entry.studentId) ? entry.studentId : [entry.studentId];
-        const studentNames = Array.isArray(entry.studentName) ? entry.studentName : [entry.studentName];
-  
+        const studentIds = Array.isArray(entry.studentId)
+          ? entry.studentId
+          : [entry.studentId];
+        const studentNames = Array.isArray(entry.studentName)
+          ? entry.studentName
+          : [entry.studentName];
+
         studentIds.forEach((sId, index) => {
           studentMap.set(sId, {
             studentId: sId,
@@ -319,11 +323,10 @@ const TutorRequests = () => {
           });
         });
       });
-  
+
       setStudents(Array.from(studentMap.values())); // Convert Map back to an array
     }
   };
-  
 
   const toggleStudentSelection = (student) => {
     setSelectedStudents((prev) =>
@@ -567,11 +570,10 @@ const TutorRequests = () => {
                             </span>
                           ))}
                         </div>
-                        
                       </div>
                       {Array.isArray(class_.studentName) &&
                         class_.studentName.length > 1 && (
-                          <div className="ml-2 mb-2" >
+                          <div className="ml-2 mb-2">
                             <p>Group Class with:</p>
                             {/* {console.log(class_.studentName)} */}
                             <ul className="list-disc ml-4">
@@ -706,9 +708,12 @@ const TutorRequests = () => {
               <div>
                 Group class with
                 <ul className="list-disc ml-4">
-                  {request.studentName.map((name) => (
-                    <li key={Math.random()}>{name}</li>
-                  ))}{" "}
+                  {(Array.isArray(request?.studentName)
+                    ? request?.studentName
+                    : [request?.studentName]
+                  )?.map((name, index) => (
+                    <li key={index}>{name}</li>
+                  ))}
                 </ul>
                 ...waiting for otp
               </div>

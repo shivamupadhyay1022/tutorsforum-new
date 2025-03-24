@@ -17,6 +17,7 @@ import Studentinfo from "./pages/Studentinfo";
 import { useNavigate } from "react-router-dom";
 import { App as CapacitorApp } from "@capacitor/app"; // Rename import
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Request from "./pages/Requests";
 
 
 function App() {
@@ -28,18 +29,28 @@ function App() {
   const navigate = useNavigate(); // For navigation
 
   useEffect(() => {
-    const backButtonListener = CapacitorApp.addListener("backButton", ({ canGoBack }) => {
-      if (canGoBack) {
-        navigate(-1); // Go to the previous page
-      } else {
-        CapacitorApp.exitApp(); // Exit the app if no previous page
-      }
-    });
+    let backButtonListener;
+
+    const setupBackButtonListener = async () => {
+      backButtonListener = await CapacitorApp.addListener("backButton", ({ canGoBack }) => {
+        if (canGoBack) {
+          navigate(-1); // Go back
+        } else {
+          CapacitorApp.exitApp(); // Exit the app
+        }
+      });
+    };
+
+    setupBackButtonListener();
 
     return () => {
-      backButtonListener.remove(); // Clean up event listener
+      if (backButtonListener) {
+        backButtonListener.remove();
+      }
     };
   }, [navigate]);
+
+
 
   return (
     <>
@@ -56,6 +67,7 @@ function App() {
           <Route path="/tutor/:id" element={<TutorInfo />} />
           <Route path="/student/:id" element={<Studentinfo />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy/>} />
+          <Route path="/requests" element={<Request/>} />
 
         </>
       </Routes>
