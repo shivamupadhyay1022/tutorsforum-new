@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../AuthProvider";
 import { db } from "../../firebase";
-import { ref, onValue, update, remove, set, get } from "firebase/database";
+import { ref, onValue, update, remove, set, get,serverTimestamp } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 import SubtopicSearch from "../SubtopicSearch";
@@ -116,6 +116,20 @@ const TutorRequests = () => {
     });
   }, [currentUser]);
 
+  const getServerTime = () => {
+    return new Promise((resolve, reject) => {
+      const timeRef = ref(db, ".info/serverTimeOffset");
+      onValue(
+        timeRef,
+        (snapshot) => {
+          const offset = snapshot.val() || 0;
+          resolve(Date.now() + offset); // Correct server time in milliseconds
+        },
+        { onlyOnce: true } // Ensures it runs only once
+      );
+    });
+  };
+
   // ✅ Approve Request - Updates status to 'approved' & generates OTP
   const requestApprove = (studentId) => {
     const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
@@ -213,6 +227,8 @@ const TutorRequests = () => {
         return toast.error("Incorrect OTP.", { position: "top-right" });
       }
 
+      const serverTime = await getServerTime();
+
       // Proceed to start the class
       const classId = uuidv4();
       const classDetails = {
@@ -220,7 +236,7 @@ const TutorRequests = () => {
         tutorName,
         studentId,
         studentName,
-        startTime: Date.now(),
+        startTime: serverTime,
         status: "ongoing",
       };
 
@@ -426,6 +442,12 @@ const TutorRequests = () => {
         return toast.error("Incorrect OTP.", { position: "top-right" });
       }
 
+      const offsetRef = ref(db, ".info/serverTimeOffset");
+      const offsetUnsub = onValue(offsetRef, (snapshot) => {
+        setOffset(snapshot.val() || 0);
+      });
+       
+      const serverTime = await getServerTime();
       // Proceed to start the class
       const classId = uuidv4();
       const classDetails = {
@@ -433,7 +455,7 @@ const TutorRequests = () => {
         tutorName: tutorName,
         studentId: studentId,
         studentName: studentName,
-        startTime: Date.now(),
+        startTime: serverTime,
         status: "ongoing",
       };
       await Promise.all(
