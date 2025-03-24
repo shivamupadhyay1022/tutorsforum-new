@@ -279,7 +279,9 @@ const TutorRequests = () => {
     );
 
     setOngoingClass(null);
-    alert("Class ended & saved to history!");
+    setTime("00:00:00");
+    setOffset(0);
+    toast.success("Class ended.", { position: "top-right" });
   };
 
   // Function to add topics
@@ -596,23 +598,24 @@ const TutorRequests = () => {
       {ongoingClass ? (
         <div className="px-2 border rounded mb-4">
           {/* {ongoingClass.id} */}
-          {ongoingClass.studentName.length == 1 ? (
+          {!Array.isArray(ongoingClass.studentName) ||
+          ongoingClass.studentName.length === 1 ? (
             <div>
               <p>
-                <strong>Student:</strong> {ongoingClass.studentId}
+                <strong>Student:</strong> {ongoingClass.studentName}
               </p>
             </div>
           ) : (
             <div>
               <p>Group Class with:</p>
-              with
               <ul className="list-disc ml-4">
-                {ongoingClass.studentName.map((name) => (
-                  <li key={Math.random()}>{name}</li>
-                ))}{" "}
+                {ongoingClass.studentName.map((name, index) => (
+                  <li key={index}>{name}</li>
+                ))}
               </ul>
             </div>
           )}
+
           <p>
             <strong>Started:</strong>{" "}
             {new Date(ongoingClass.startTime).toLocaleString()}
@@ -668,9 +671,12 @@ const TutorRequests = () => {
           </div>
           <button
             onClick={() => {
-              if (ongoingClass.studentName.length == 1) {
+              if (
+                !Array.isArray(ongoingClass.studentName) ||
+                ongoingClass.studentName.length === 1
+              ) {
                 endClass();
-                // console.log("one")
+                // console.log("one");
               } else {
                 endGroupClass(
                   ongoingClass.id,
@@ -678,7 +684,7 @@ const TutorRequests = () => {
                   ongoingClass.studentName,
                   ongoingClass.tutorName
                 );
-                // console.log(request.studentId);
+                // console.log(ongoingClass.studentId);
               }
             }}
             className="bg-red-500 text-white p-2 rounded w-full mt-2"
@@ -700,23 +706,26 @@ const TutorRequests = () => {
           {/* 🗑️ Delete Request Button (Top Right Corner) */}
 
           <div>
-            {request.studentName.length == 1 ? (
-              <p>
-                <strong>{request.studentName}</strong> requested a class
-              </p>
-            ) : (
+            {Array.isArray(request?.studentName) &&
+            request?.studentName?.length > 1 ? (
               <div>
                 Group class with
                 <ul className="list-disc ml-4">
-                  {(Array.isArray(request?.studentName)
-                    ? request?.studentName
-                    : [request?.studentName]
-                  )?.map((name, index) => (
+                  {request?.studentName?.map((name, index) => (
                     <li key={index}>{name}</li>
                   ))}
                 </ul>
                 ...waiting for otp
               </div>
+            ) : (
+              <p>
+                <strong>
+                  {Array.isArray(request?.studentName)
+                    ? request.studentName[0]
+                    : request.studentName}
+                </strong>{" "}
+                requested a class
+              </p>
             )}
 
             {/* <p>
@@ -748,9 +757,12 @@ const TutorRequests = () => {
               />
               <button
                 onClick={() => {
-                  if (request.studentName.length == 1) {
+                  if (
+                    !Array.isArray(request.studentName) ||
+                    request.studentName.length === 1
+                  ) {
                     verifyOtpAndStartClass(request.studentId);
-                    // console.log("one")
+                    // console.log("one");
                   } else {
                     verifyOtpAndStartGroupClass(
                       studentId,

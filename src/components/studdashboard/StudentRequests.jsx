@@ -26,29 +26,32 @@ const StudentRequests = () => {
   const [feedback, setFeedback] = useState({});
   const [loading, setLoading] = useState(true);
   const [offset, setOffset] = useState(0); // Offset from Firebase
+  // const [key, setKey] = useState(0);
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const requestsRef = ref(db, `users/${currentUser?.uid}/requests`);
-  //   onValue(requestsRef, (snapshot) => {
-  //     if (snapshot.exists()) {
-  //       setRequests(Object.entries(snapshot.val()));
-  //     } else setRequests([]);
-  //   });
-  // }, [currentUser]);
+  useEffect(() => {
+    const requestsRef = ref(db, `users/${currentUser?.uid}/requests`);
+    onValue(requestsRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setRequests(Object.entries(snapshot.val()));
+      } else setRequests([]);
+    });
+    setTime("00:00:00");
+  }, [currentUser]);
 
-  // useEffect(() => {
-  //   const classRef = ref(db, `users/${currentUser?.uid}/classOngoing`);
-  //   onValue(classRef, (snapshot) => {
-  //     if (snapshot.exists()) {
-  //       const classData = Object.entries(snapshot.val())[0];
-  //       setOngoingClass({ id: classData[0], ...classData[1] });
-  //     } else {
-  //       setOngoingClass(null);
-  //     }
-  //   });
-  // }, [currentUser]);
+  useEffect(() => {
+    const classRef = ref(db, `users/${currentUser?.uid}/classOngoing`);
+    onValue(classRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const classData = Object.entries(snapshot.val())[0];
+        setOngoingClass({ id: classData[0], ...classData[1] });
+      } else {
+        setOngoingClass(null);
+      }
+    });
+    setTime("00:00:00");
+  }, [currentUser]);
 
   useEffect(() => {
     // Fetch Firebase server time offset
@@ -86,33 +89,34 @@ const StudentRequests = () => {
     return () => offsetUnsub(); // Cleanup Firebase listener
   }, [ongoingClass, db, offset]);
 
-  // useEffect(() => {
-  //   if (!currentUser) return;
+  useEffect(() => {
+    if (!currentUser) return;
 
-  //   const classesRef = ref(db, `users/${currentUser.uid}/classHistory`);
-  //   onValue(classesRef, (snapshot) => {
-  //     if (snapshot.exists()) {
-  //       const data = snapshot.val();
-  //       // console.log(data);
-  //       const groupedByTutors = {};
-  //       Object.entries(data).forEach(([id, class_]) => {
-  //         // console.log("Class Object:", class_);
-  //         if (!groupedByTutors[class_.tutorName]) {
-  //           groupedByTutors[class_.tutorName] = [];
-  //         }
-  //         groupedByTutors[class_.tutorName].push({ id, ...class_ });
-  //       });
-  //       setEndedClasses(groupedByTutors);
-  //     } else {
-  //       setEndedClasses({});
-  //     }
-  //   });
-  // }, [currentUser]);
-
-  useLayoutEffect(() => {
-    console.log("user");
-    fetchAll();
+    const classesRef = ref(db, `users/${currentUser.uid}/classHistory`);
+    onValue(classesRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        // console.log(data);
+        const groupedByTutors = {};
+        Object.entries(data).forEach(([id, class_]) => {
+          // console.log("Class Object:", class_);
+          if (!groupedByTutors[class_.tutorName]) {
+            groupedByTutors[class_.tutorName] = [];
+          }
+          groupedByTutors[class_.tutorName].push({ id, ...class_ });
+        });
+        setEndedClasses(groupedByTutors);
+      } else {
+        setEndedClasses({});
+      }
+    });
+    setTime("00:00:00");
   }, [currentUser]);
+
+  // useLayoutEffect(() => {
+  //   console.log("user");
+  //   fetchAll();
+  // }, [currentUser,key]);
   const submitFeedback = async () => {
     if (!feedbackDialog || !feedback) return;
 
@@ -142,41 +146,41 @@ const StudentRequests = () => {
     }
   };
 
-  const fetchAll = async () => {
-    const userDataRef = ref(db, `users/${currentUser?.uid}`);
-    await onValue(userDataRef, (snapshot) => {
-      if (snapshot.exists()) {
-        if (snapshot.val().requests) {
-          setRequests(Object.entries(snapshot.val().requests));
-        }
-        if (snapshot.val().classOngoing) {
-          const classData = Object.entries(snapshot.val().classOngoing)[0];
-          setOngoingClass({ id: classData[0], ...classData[1] });
-        }
-        if (snapshot.val().classHistory) {
-          const data = snapshot.val().classHistory;
-          // console.log(data);
-          const groupedByTutors = {};
-          Object.entries(data).forEach(([id, class_]) => {
-            // console.log("Class Object:", class_);
-            if (!groupedByTutors[class_.tutorName]) {
-              groupedByTutors[class_.tutorName] = [];
-            }
-            groupedByTutors[class_.tutorName].push({ id, ...class_ });
-          });
-          setEndedClasses(groupedByTutors);
-        }
-        setLoading(false);
-      } else {
-        setRequests([]);
-        setOngoingClass(null);
-        setEndedClasses({});
-      }
-    });
-  };
-  if (loading) {
-    return <p>...Loading</p>;
-  }
+  // const fetchAll = async () => {
+  //   const userDataRef = ref(db, `users/${currentUser?.uid}`);
+  //   await onValue(userDataRef, (snapshot) => {
+  //     if (snapshot.exists()) {
+  //       if (snapshot.val().requests) {
+  //         setRequests(Object.entries(snapshot.val().requests));
+  //       }
+  //       if (snapshot.val().classOngoing) {
+  //         const classData = Object.entries(snapshot.val().classOngoing)[0];
+  //         setOngoingClass({ id: classData[0], ...classData[1] });
+  //       }
+  //       if (snapshot.val().classHistory) {
+  //         const data = snapshot.val().classHistory;
+  //         // console.log(data);
+  //         const groupedByTutors = {};
+  //         Object.entries(data).forEach(([id, class_]) => {
+  //           // console.log("Class Object:", class_);
+  //           if (!groupedByTutors[class_.tutorName]) {
+  //             groupedByTutors[class_.tutorName] = [];
+  //           }
+  //           groupedByTutors[class_.tutorName].push({ id, ...class_ });
+  //         });
+  //         setEndedClasses(groupedByTutors);
+  //       }
+  //       setLoading(false);
+  //     } else {
+  //       setRequests([]);
+  //       setOngoingClass(null);
+  //       setEndedClasses({});
+  //     }
+  //   });
+  // };
+  // if (loading) {
+  //   return <p>...Loading</p>;
+  // }
 
   return (
     <div className="p-4 border rounded-lg shadow-md">
@@ -247,16 +251,13 @@ const StudentRequests = () => {
                           ))}
                         </div>
                       </div>
-                      {Array.isArray(class_.studentName) &&
-                        class_.studentName.length > 1 && (
+                      {Array.isArray(class_?.studentName) &&
+                        class_?.studentName?.length > 1 && (
                           <div className="ml-2">
                             <p>Group Class with:</p>
                             {/* {console.log(class_.studentName)} */}
                             <ul className="list-disc ml-4">
-                              {(Array.isArray(class_?.studentNam)
-                                ? class_?.studentNam
-                                : [class_?.studentNam]
-                              )?.map((name, index) => (
+                              {class_?.studentName?.map((name, index) => (
                                 <li key={index}>{name}</li>
                               ))}
                             </ul>
@@ -266,7 +267,7 @@ const StudentRequests = () => {
                       {/* Feedback Button */}
                       {/* {console.log(class_)} */}
                       {!class_.feedback ||
-                      Object.keys(class_.feedback).length === 0 ? (
+                      Object.keys(class_.feedback)?.length === 0 ? (
                         <button
                           onClick={() =>
                             setFeedbackDialog({
@@ -299,24 +300,25 @@ const StudentRequests = () => {
       <h2 className="text-lg font-bold">Ongoing Class</h2>
       {ongoingClass ? (
         <div className="p-2 border rounded mt-2">
-          {ongoingClass.studentName.length == 1 ? (
+          {!Array.isArray(ongoingClass?.studentName) ||
+          ongoingClass?.studentName?.length === 1 ? (
             <div>
               <p>
-                <strong>Tutor:</strong> {ongoingClass.tutorName}
+                <strong>Tutor:</strong> {ongoingClass?.tutorName}
               </p>
             </div>
           ) : (
             <div>
-              <strong>Group Class started by:</strong> {ongoingClass.tutorName}
+              <strong>Group Class started by:</strong> {ongoingClass?.tutorName}
               <p>Group Class with:</p>
-              with
               <ul className="list-disc ml-4">
-                {ongoingClass.studentName.map((name) => (
-                  <li key={Math.random()}>{name}</li>
-                ))}{" "}
+                {ongoingClass?.studentName?.map((name, index) => (
+                  <li key={index}>{name}</li>
+                ))}
               </ul>
             </div>
           )}
+
           <p>
             <strong>Started:</strong>{" "}
             {new Date(ongoingClass.startTime).toLocaleString()}
@@ -336,23 +338,24 @@ const StudentRequests = () => {
           className="p-2 flex justify-between border rounded mt-2"
         >
           <div>
-            {request.studentName.length == 1 ? (
-              <div>
-                <p>
-                  Requested a class to <strong>{request.tutorName}</strong>
-                </p>
-              </div>
-            ) : (
+            {Array.isArray(request?.studentName) &&
+            request?.studentName.length > 1 ? (
               <div>
                 <p>
                   Group Class started by <strong>{request.tutorName}</strong>
                 </p>
                 with
                 <ul className="list-disc ml-4">
-                  {request.studentName.map((name) => (
-                    <li>{name}</li>
-                  ))}{" "}
+                  {request.studentName.map((name, index) => (
+                    <li key={index}>{name}</li>
+                  ))}
                 </ul>
+              </div>
+            ) : (
+              <div>
+                <p>
+                  Requested a class to <strong>{request.tutorName}</strong>
+                </p>
               </div>
             )}
 
