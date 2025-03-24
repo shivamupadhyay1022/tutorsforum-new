@@ -64,15 +64,12 @@ const TutorRequests = () => {
 
       const updateTimer = () => {
         const now = Date.now() + offset; // Adjust local time using Firebase offset
-        const elapsed = Math.floor((now - startTime) / 1000);
-
+        const elapsed = Math.max(0, Math.floor((now - startTime) / 1000)); // Prevent negative values
+      
         const hours = String(Math.floor(elapsed / 3600)).padStart(2, "0");
-        const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(
-          2,
-          "0"
-        );
+        const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(2, "0");
         const seconds = String(elapsed % 60).padStart(2, "0");
-
+      
         setTime(`${hours}:${minutes}:${seconds}`);
       };
 
@@ -241,7 +238,10 @@ const TutorRequests = () => {
         remove(ref(db, `tutors/${currentUser.uid}/requests/${studentId}`)),
       ]);
 
-      alert("Class Started!");
+      toast.success("Class started.", { position: "top-right" });
+      setEnteredOtp(0);
+      setTime("00:00:00");
+      setOffset(0);
     } catch (error) {
       console.error("Error starting class:", error);
       toast.error("An error occurred. Please try again.", {
@@ -452,6 +452,9 @@ const TutorRequests = () => {
       );
       remove(ref(db, `tutors/${currentUser.uid}/requests/${currentClassId}`));
       toast.success("Class Started!", { position: "top-right" });
+      setEnteredOtp(0);
+      setTime("00:00:00");
+      setOffset(0);
     } catch (error) {
       console.error("Error starting class:", error);
       toast.error("An error occurred. Please try again.", {
@@ -494,7 +497,9 @@ const TutorRequests = () => {
     );
 
     setOngoingClass(null);
-    alert("Class ended & saved to history!");
+    setTime("00:00:00");
+    setOffset(0);
+    toast.success("Class ended successfully!", { position: "top-right" });
   };
 
   return (
