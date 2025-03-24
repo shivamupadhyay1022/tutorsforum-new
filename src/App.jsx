@@ -16,6 +16,7 @@ import TutorInfo from "./pages/TutorInfo";
 import Studentinfo from "./pages/Studentinfo";
 import { useNavigate } from "react-router-dom";
 import { App as CapacitorApp } from "@capacitor/app"; // Rename import
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/tutor/:id" element={<TutorInfo />} />
           <Route path="/student/:id" element={<Studentinfo />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicy/>} />
 
         </>
       </Routes>
