@@ -1,28 +1,45 @@
-# Tutors Forum  
+# 📚 TutorsForum
 
-Tutors Forum is a platform where students can request classes from tutors, start learning instantly, and pay only for the hours they study. The app ensures secure class sessions, real-time tracking, and easy communication between students and tutors.  
+[![Website](https://img.shields.io/badge/Website-TutorsForum.in-blue?style=flat-square)](https://tutorsforum.in)
+[![Firebase](https://img.shields.io/badge/Firebase-%23039BE5.svg?style=flat-square&logo=firebase)](https://firebase.google.com/)
+[![React](https://img.shields.io/badge/React-%2361DAFB.svg?style=flat-square&logo=react&logoColor=white)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-%23339933.svg?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-%2338B2AC.svg?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-## 🚀 Features  
-- **Class Booking System**: Students can request and book classes with tutors.  
-- **OTP Verification**: Secure sessions with OTP-based class start.  
-- **Live Class Timer**: Tracks session duration in real-time, even if the app is closed.  
-- **Class History**: Both students and tutors can review past sessions.  
-- **Chat System with Moderation**: Secure messaging with automated moderation (three warnings before a ban).  
-- **Tutor Registration & Earnings**: Tutors can register, accept requests, and earn based on time spent teaching.  
-- **Pay-as-you-go Model**: Students pay only for the hours they study.  
+TutorsForum is an interactive platform where students can **request** and **attend** live tutoring sessions from expert tutors. The platform is designed to offer seamless **class booking**, **real-time tracking**, and **secure payments** in a **pay-as-you-go** model.
 
-## 📲 Download & Access  
-Visit [Tutors Forum](https://tutorsforum.in) to get started.  
+## 🚀 Features
 
-## 🛠️ Tech Stack  
-- **Frontend**: React, Tailwind CSS  
-- **Backend**: Node.js, Express  
-- **Database**: Firebase Realtime Database  
-- **Authentication**: Firebase Auth  
-- **Hosting**: Firebase Hosting  
+- **Class Booking System** 📅  
+  Students can request classes from tutors and start learning instantly.
+  
+- **OTP Verification for Secure Classes** 🔐  
+  Secure sessions using an OTP-based start system.
 
-## 📖 Setup & Installation  
-1. Clone the repository:  
-   ```sh
-   git clone https://github.com/your-repo/tutors-forum.git
-   cd tutors-forum
+- **Live Class Timer** ⏳  
+  Tracks class duration in real-time, even if the app is closed.
+
+- **Class History** 📖  
+  Both students and tutors can view past sessions with topics covered.
+
+- **Chat System with Moderation** 💬  
+  Secure messaging with built-in filtering. **Three warnings** lead to an **automatic ban**.
+
+- **Tutor Registration & Earnings** 🎓💰  
+  Tutors can join, accept requests, and earn based on teaching hours.
+
+- **Pay-as-you-go Model** 💳  
+  Students pay only for the hours they study.
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React, Tailwind CSS  
+- **Backend:** Node.js, Express.js  
+- **Database:** Firebase Realtime Database, MongoDB  
+- **Authentication & Security:** Firebase Auth, JWT  
+- **Hosting & Storage:** Firebase Hosting, AWS S3  
+
+### 1️⃣ Clone the repository  
+```sh
+git clone https://github.com/your-repo/tutorsforum.git
+cd tutorsforum
