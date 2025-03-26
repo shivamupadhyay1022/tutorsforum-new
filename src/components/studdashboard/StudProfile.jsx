@@ -48,7 +48,7 @@ function StudProfile() {
           var data = snapshot.val();
           setName(data.name);
           setEmail(data.email);
-          setImageSrc(data.profilepic);
+          setImageSrc(data.profilepic || "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png");
           setClass(data.clas);
           setExam(data.exam);
         } else {

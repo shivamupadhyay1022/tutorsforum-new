@@ -1,7 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../AuthProvider";
 import { db } from "../../firebase";
-import { ref, onValue, update, remove, set, get,serverTimestamp } from "firebase/database";
+import {
+  ref,
+  onValue,
+  update,
+  remove,
+  set,
+  get,
+  serverTimestamp,
+} from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 import SubtopicSearch from "../SubtopicSearch";
@@ -65,11 +73,14 @@ const TutorRequests = () => {
       const updateTimer = () => {
         const now = Date.now() + offset; // Adjust local time using Firebase offset
         const elapsed = Math.max(0, Math.floor((now - startTime) / 1000)); // Prevent negative values
-      
+
         const hours = String(Math.floor(elapsed / 3600)).padStart(2, "0");
-        const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(2, "0");
+        const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(
+          2,
+          "0"
+        );
         const seconds = String(elapsed % 60).padStart(2, "0");
-      
+
         setTime(`${hours}:${minutes}:${seconds}`);
       };
 
@@ -446,7 +457,7 @@ const TutorRequests = () => {
       const offsetUnsub = onValue(offsetRef, (snapshot) => {
         setOffset(snapshot.val() || 0);
       });
-       
+
       const serverTime = await getServerTime();
       // Proceed to start the class
       const classId = uuidv4();
@@ -522,6 +533,24 @@ const TutorRequests = () => {
     setTime("00:00:00");
     setOffset(0);
     toast.success("Class ended successfully!", { position: "top-right" });
+  };
+
+  // 🗑️ Delete Group class Request - Removes request from database
+  const deleteGroupRequest = async (classId, studentId) => {
+    await Promise.all(
+      studentId.map((id) => remove(ref(db, `users/${id}/requests/${classId}`)))
+    );
+    await remove(ref(db, `tutors/${currentUser.uid}/requests/${classId}`));
+    toast.success("Requests deleted.", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   return (
@@ -826,7 +855,18 @@ const TutorRequests = () => {
               </div>
             )}
             <button
-              onClick={() => deleteRequest(request.studentId)}
+              onClick={() => {
+                if (
+                  !Array.isArray(request.studentName) ||
+                  request.studentName.length === 1
+                ) {
+                  deleteRequest(request.studentId);
+                  // console.log("one");
+                } else {
+                  deleteGroupRequest(studentId, request.studentId);
+                  // console.log(request.studentId);
+                }
+              }}
               className="text-2xl"
             >
               🗑️

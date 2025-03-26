@@ -240,7 +240,7 @@ function Chats() {
                   resolve({
                     uid: userId,
                     name: tutorData.name || "Unknown",
-                    profilePic: tutorData.profilepic || "default_pic_url",
+                    profilePic: tutorData.profilepic || "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png",
                   });
                 } else {
                   onValue(
@@ -251,7 +251,7 @@ function Chats() {
                         resolve({
                           uid: userId,
                           name: userData.name || "Unknown",
-                          profilePic: userData.profilepic || "default_pic_url",
+                          profilePic: userData.profilepic || "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png",
                         });
                       } else {
                         resolve(null); // Handle case where user is not found
@@ -373,7 +373,7 @@ function Chats() {
                     <div>
                       <img
                         className="rounded-full h-8 w-8"
-                        src={contact.profilePic}
+                        src={contact.profilePic || "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png"}
                       />
                     </div>
                     {toggle && (
@@ -400,7 +400,7 @@ function Chats() {
                       <div>
                         <img
                           className="rounded-full h-8 w-8"
-                          src={contact.profilepic}
+                          src={contact.profilepic || "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png"}
                         />
                       </div>
                       {toggle && (
@@ -421,7 +421,7 @@ function Chats() {
             <div className="bg-gradient-to-r justify-between from-peach-100 via-white to-peach-100 pl-2 pr-16 md:pl-12 md:pr-36 left-12 right fixed w-full h-12 flex z-50 border-b-2 border-white">
               <div className="flex items-center space-x-2">
                 <img
-                  src={activeChatInfo?.profilepic}
+                  src={activeChatInfo?.profilepic || "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png"}
                   className="rounded-full h-8 w-8"
                 />
                 <p className="font-serif">{activeChatInfo?.name}</p>

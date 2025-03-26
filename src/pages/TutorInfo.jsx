@@ -96,7 +96,7 @@ const TutorInfo = () => {
         <div className="flex flex-col items-center md:items-start border-r border-gray-300 pr-6">
           {/* Profile Image */}
           <img
-            src={tutor.profilepic || "https://via.placeholder.com/150"}
+            src={tutor.profilepic || "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png"}
             alt={tutor.name}
             className="w-36 h-36 rounded-full border-4 border-peach-300 shadow-lg mb-4 hover:scale-105 transition-transform"
           />

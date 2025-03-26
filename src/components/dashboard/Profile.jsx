@@ -113,7 +113,7 @@ function Profile() {
           setLanguages(data.lang || []);
           setName(data.name);
           setEmail(data.email);
-          setImageSrc(data.profilepic);
+          setImageSrc(data.profilepic || "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png");
           setCph(data.cph);
           setBio(data.bio);
           if (data.locations) {

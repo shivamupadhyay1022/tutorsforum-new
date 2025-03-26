@@ -45,7 +45,7 @@ function Studentinfo() {
             <div className="flex flex-col items-center md:items-start border-r border-gray-300 pr-6">
               {/* Profile Image */}
               <img
-                src={stud.profilepic || "https://via.placeholder.com/150"}
+                src={stud.profilepic || "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png"}
                 alt={stud.name}
                 className="w-36 h-36 rounded-full border-4 border-peach-300 shadow-lg mb-4 hover:scale-105 transition-transform"
               />
