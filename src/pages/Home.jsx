@@ -2,11 +2,12 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import TutorCarousel from "../components/TutorCarousel";
 import SubjectsGrid from "../components/SubjectsGrid";
-import HowItWorks  from "../components/HowItWorks";
+import HowItWorks from "../components/HowItWorks";
 import Testimonials from "../components/Testimonials";
 import CallToAction from "../components/CallToAction";
 import Footer from "../components/Footer.jsx";
 import { useNavigate } from "react-router-dom";
+import Chatbot from "../components/Chatbot.jsx";
 
 function Home() {
   const navigate = useNavigate();
@@ -60,7 +61,10 @@ function Home() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <button onClick={hanldeSearch} className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-peach-300 to-peach-100 text-white rounded-full px-4 py-2 hover:opacity-90 transition-opacity">
+              <button
+                onClick={hanldeSearch}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-peach-300 to-peach-100 text-white rounded-full px-4 py-2 hover:opacity-90 transition-opacity"
+              >
                 Search
               </button>
             </div>
@@ -90,14 +94,15 @@ function Home() {
         </div>
       </section>
 
-            {/* Testimonials */}
-            <Testimonials />
+      {/* Testimonials */}
+      <Testimonials />
 
-                  {/* Call to Action with Features */}
+      {/* Call to Action with Features */}
       <CallToAction />
+      <Chatbot/>
 
-{/* Footer */}
-<Footer />
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
