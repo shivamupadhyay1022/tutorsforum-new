@@ -9,40 +9,38 @@ const Chatbot = () => {
     { text: "Please choose a category:", type: "bot" },
   ]);
   const [chatState, setChatState] = useState("main");
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
 
   const handleButtonClick = (text, nextState) => {
     setMessages((prev) => [...prev, { text, type: "user" }]);
     if (nextState) setChatState(nextState);
     setTimeout(() => {
       if (nextState === "tutor") {
-        setMessages((prev) => [
-          ...prev,
-          { text: "Here are some tutor-related questions:", type: "bot" },
-        ]);
+        setMessages((prev) => [...prev, { text: "Here are some tutor-related questions:", type: "bot" }]);
       } else if (nextState === "student") {
-        setMessages((prev) => [
-          ...prev,
-          { text: "Here are some student-related questions:", type: "bot" },
-        ]);
+        setMessages((prev) => [...prev, { text: "Here are some student-related questions:", type: "bot" }]);
       } else if (nextState === "contact") {
-        setMessages((prev) => [
-          ...prev,
-          { text: "Please fill out this form to contact us.", type: "bot" },
-        ]);
+        setMessages((prev) => [...prev, { text: "Please fill out this form to contact us.", type: "bot" }]);
       }
     }, 500);
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    await push(ref(db, "queries"), formData);
+    
+    // Validate form fields
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
+      setMessages((prev) => [...prev, { text: "Please fill all the fields before submitting.", type: "bot" }]);
+      return;
+    }
+
+    await push(ref(db, "queries"), { ...formData, status: "pending" });
     setMessages([
       { text: "Thank you! Your query has been submitted.", type: "bot" },
       { text: "For any further queries, reach us at support@tutorsforum.in", type: "bot" },
     ]);
     setChatState("main");
-    setFormData({ name: "", email: "", message: "" });
+    setFormData({ name: "", email: "", phone: "", message: "" });
   };
 
   return (
@@ -123,6 +121,14 @@ const Chatbot = () => {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
                 />
+                <input
+                  type="tel"
+                  placeholder="Phone Number"
+                  className="w-full p-2 border rounded"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  required
+                />
                 <textarea
                   placeholder="Your message"
                   className="w-full p-2 border rounded"
@@ -132,6 +138,7 @@ const Chatbot = () => {
                   required
                 ></textarea>
                 <button type="submit" className="w-full bg-peach-200 text-white p-2 rounded">Submit</button>
+                <button onClick={() => setChatState("main")} type="button" className="w-full bg-gray-300 text-black p-2 rounded">Back</button>
               </form>
             )}
           </div>
