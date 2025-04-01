@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { App as CapacitorApp } from "@capacitor/app"; // Rename import
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Request from "./pages/Requests";
+import ForgotPassword from "./syllabuses/ForgotPassword";
 
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
           <Route path="/student/:id" element={<Studentinfo />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy/>} />
           <Route path="/requests" element={<Request/>} />
+          <Route path="/forgot" element={<ForgotPassword/>} />
 
         </>
       </Routes>

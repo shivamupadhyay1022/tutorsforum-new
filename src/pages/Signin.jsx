@@ -154,7 +154,13 @@ function Signin() {
               </div>
             </button>
 
-            <div className="text-center text-sm">
+            <div className="text-center flex flex-col gap-2 text-sm">
+              <Link
+                to="/forgot"
+                className="font-medium  "
+              >
+                Forgot Password?<span className="text-blue-600 hover:text-blue-800 " >  Click Here</span>
+              </Link>
               <Link
                 to="/signup"
                 className="font-medium text-peach-500 hover:text-peach-400"
