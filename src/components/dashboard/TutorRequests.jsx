@@ -315,8 +315,7 @@ const TutorRequests = () => {
   const addTopic = () => {
     if (!topicsCovered.trim()) return alert("Enter a topic first!");
 
-    const newTopics = topicsCovered;
-    const uniqueTopics = [...new Set([...topicsList, newTopics])]; // Remove duplicates
+    const uniqueTopics = [...new Set([...topicsList, topicsCovered])]; // Remove duplicates
 
     setTopicsList(uniqueTopics);
     setTopicsCovered(""); // Clear input
@@ -683,14 +682,17 @@ const TutorRequests = () => {
           </p>
           {/* End Class Input & Button */}
           <div className="flex flex-col gap-3">
+            {/* Updated SubtopicSearch Component */}
             <SubtopicSearch func={setTopicsCovered} />
 
+            {/* OR Divider */}
             <div className="flex items-center gap-3">
               <hr className="flex-1 border-2 border-gray-300" />
               <p className="text-xl">Or</p>
               <hr className="flex-1 border-2 border-gray-300" />
             </div>
 
+            {/* Manual Input for Topics */}
             <div className="flex">
               <input
                 type="text"
