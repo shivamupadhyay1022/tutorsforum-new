@@ -72,7 +72,7 @@ function Signup() {
           progress: undefined,
           theme: "light",
         });
-        navigate("/signin");
+        navigate("/dashboard");
     })
     .catch((error) => {
       const errorCode = error.code;

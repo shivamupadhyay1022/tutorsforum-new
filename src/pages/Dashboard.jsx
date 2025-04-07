@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import PreviousClasses from "../components/dashboard/PreviousClasses";
 import DashNav from "../components/dashboard/DashNav";
@@ -12,16 +12,40 @@ import { auth } from "../firebase";
 import { AuthContext } from "../AuthProvider";
 import { useNavigate } from "react-router-dom";
 import StudProfile from "../components/studdashboard/StudProfile";
-import { db } from "../firebase";
+import { useLocation } from "react-router-dom";
 import { ref, onValue } from "firebase/database";
+import { db } from "../firebase";
 
 function Dashboard() {
-  const [nav, setNav] = useState("previous_classes");
+  const [nav, setNav] = useState("profile");
   const [seed, setSeed] = useState("123");
   const [stud, setStud] = useState(false);
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
+
+  const location = useLocation();
+  const [lastPage, setLastPage] = useState(null);
+
+  useEffect(() => {
+    checkStud();
+    // if (previousPage) {
+    //   setLastPage(previousPage);
+    // }
+    // sessionStorage.setItem("lastVisitedPage", location.pathname);
+  }, [currentUser]);
   
+  async function checkStud() {
+        if (currentUser) {
+          const starCountRef = ref(db, "tutors/" + currentUser.uid);
+          onValue(starCountRef, (snapshot) => {
+            if (snapshot.exists()) {
+              setStud(false); // ✅ Tutor found
+            } else {
+              setStud(true); // ✅ No tutor data
+            }
+          });
+        }
+  }
 
   function content() {
     switch (nav) {
@@ -32,7 +56,7 @@ function Dashboard() {
         return <Chats />;
         break;
       case "profile":
-        return <Profile />;
+        return (stud ? <StudProfile/>: <Profile/>) ;
         break;
       case "payments":
         return <Payments />;
@@ -73,55 +97,6 @@ function Dashboard() {
         break;
     }
   }
-
-    function studContent() {
-      switch (nav) {
-        case "previous_classes":
-          return <PreviousClasses />;
-          break;
-        case "chats":
-          return <Chats />;
-          break;
-        case "profile":
-          return <StudProfile />;
-          break;
-        case "payments":
-          return <Payments />;
-          break;
-        case "logout": {
-          signOut(auth)
-            .then(() => {
-              toast.success("Signed Out Successfully", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-              navigate("/");
-            })
-            .catch((error) => {
-              toast.error(error.message, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-            });
-          break;
-        }
-        default:
-          break;
-      }
-    }
-  
 
   return (
     <div key={seed}>

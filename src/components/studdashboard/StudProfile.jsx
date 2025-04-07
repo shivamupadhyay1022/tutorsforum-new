@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useContext } from "react";
+import React, { useState, useLayoutEffect, useContext, useEffect } from "react";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../AuthProvider";
@@ -9,14 +9,26 @@ function StudProfile() {
   const [imageSrc, setImageSrc] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [clas,setClass] = useState("");
+  const [clas, setClass] = useState("");
   const [exam, setExam] = useState("");
+  const [phone, setPhone] = useState("");
 
   const { currentUser } = useContext(AuthContext);
 
   useLayoutEffect(() => {
     fetchData();
   }, [currentUser]);
+
+  useEffect(() => {
+    if (
+      imageSrc !== null &&
+      phone !== null &&
+      exam !== null &&
+      clas !== null
+    ) {
+      checkData();
+    }
+  }, [ imageSrc, clas, exam, phone]);
 
   const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
@@ -46,11 +58,15 @@ function StudProfile() {
       onValue(starCountRef, (snapshot) => {
         if (snapshot.exists()) {
           var data = snapshot.val();
-          setName(data.name);
-          setEmail(data.email);
-          setImageSrc(data.profilepic || "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png");
-          setClass(data.clas);
-          setExam(data.exam);
+            setName(data.name);
+            setEmail(data.email);
+            setImageSrc(
+              data.profilepic ||
+                ""
+            );
+            setClass(data.clas);
+            setExam(data.exam);
+            setPhone(data.phone);
         } else {
           toast.error("User not found", {
             position: "top-right",
@@ -75,8 +91,9 @@ function StudProfile() {
           name: name,
           email: email,
           profilepic: imageSrc || "",
-          exam:exam || "",
-          clas:clas || "",
+          exam: exam || "",
+          clas: clas || "",
+          phone: phone || "",
         });
         toast.success("User data updated successfully", {
           position: "top-right",
@@ -100,6 +117,66 @@ function StudProfile() {
           theme: "light",
         });
       }
+    }
+  }
+
+  async function checkData() {
+    
+    if (!imageSrc && !clas && !exam && !phone) {
+      toast.error("Fill out all the details", {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }  if (!imageSrc) {
+      toast.error("Add Image", {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }  if (!clas) {
+      toast.error("Add Cost per Hour", {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }  if (!exam) {
+      toast.error("Add your Bio", {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }  if (!phone) {
+      toast.error("Add Phone Nunber", {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   }
 
@@ -189,6 +266,17 @@ function StudProfile() {
                       value={email}
                     />
                   </label>
+                </div>
+                <label className="flex flex-col my-2 ">
+                  <p className="text-sm text-gray-400">Contact Number</p>
+                  <input
+                    className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                    placeholder="Contact number"
+                    onChange={(e) => setPhone(e.target.value)}
+                    value={phone}
+                  />
+                </label>
+                <div className="grid gap-4 md:grid-cols-2">
                   <select
                     value={exam}
                     onChange={(e) => setExam(e.target.value)}

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useLayoutEffect } from "react";
+import React, { useState, useContext, useLayoutEffect, useEffect } from "react";
 import imageCompression from "browser-image-compression";
 import { AuthContext } from "../../AuthProvider";
 import { db } from "../../firebase";
@@ -8,7 +8,6 @@ import Select from "react-select";
 // import { getStatesOfCountry, getCitiesOfState } from "react-country-state-city";
 import { State, City } from "country-state-city";
 import TeachOnlineToggle from "./TeachOnlineToggle";
-import StudProfile from "../studdashboard/StudProfile";
 
 function Profile() {
   const [imageSrc, setImageSrc] = useState(null);
@@ -16,6 +15,7 @@ function Profile() {
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState(" ");
   const [cph, setCph] = useState(" ");
+  const [phone, setPhone] = useState("");
   const { currentUser } = useContext(AuthContext);
 
   const [selectedState, setSelectedState] = useState(null);
@@ -28,6 +28,7 @@ function Profile() {
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [choice, setChoice] = useState("");
   const [stud, setStud] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   const subjectsList = ["English", "Maths", "Chemistry", "Biology"];
   const languagesList = ["Hindi", "English"];
@@ -80,145 +81,185 @@ function Profile() {
     setLocations(updatedLocations);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     fetchTutorData();
   }, [currentUser]);
 
-  useLayoutEffect(() => {
-    CheckStud();
-  }, []);
-
-  async function CheckStud() {
-    if (currentUser) {
-      const starCountRef = ref(db, "users/" + currentUser.uid);
-      onValue(starCountRef, (snapshot) => {
-        if (snapshot.exists()) {
-          setStud(true);
-        } else {
-          setStud(false);
-        }
-      });
+  useEffect(() => {
+    if (
+      subjects !== null &&
+      imageSrc !== null &&
+      cph !== null &&
+      bio !== null &&
+      locations !== null
+    ) {
+      checkData();
     }
-  }
+  }, [subjects, imageSrc, cph, bio, locations]);
 
   async function fetchTutorData() {
     if (currentUser) {
+      console.log("Fetching data for:", currentUser.uid);
       const starCountRef = ref(db, "tutors/" + currentUser.uid);
       onValue(starCountRef, (snapshot) => {
         if (snapshot.exists()) {
-          var data = snapshot.val();
-          console.log(data);
+          console.log("Snapshot exists");
+          const data = snapshot.val();
+          console.log("Fetched data:", data);
+
           setChoice("tutor");
           setSubjects(data.sub || []);
           setLanguages(data.lang || []);
           setName(data.name);
           setEmail(data.email);
-          setImageSrc(data.profilepic || "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png");
-          setCph(data.cph);
-          setBio(data.bio);
-          if (data.locations) {
-            setLocations(data.locations);
-          }
+          setImageSrc(data.profilepic || "");
+          setCph(data.cph || "");
+          setBio(data.bio || "");
+          if (data.locations) setLocations(data.locations);
+
+          // setTimeout(() => {
+          //   console.log("Calling checkData after state updates");
+          //   checkData();
+          // }, 500);
         } else {
-          return <StudProfile />;
+          console.log("No snapshot exists, student profile");
         }
       });
     }
   }
 
-  const handleFileInputChange = async (event) => {
-    const file = event.target.files[0];
-    const options = {
-      maxSizeMB: 0.2,
-      maxWidthOrHeight: 800,
-      useWebWorker: true,
-    };
-
-    const compressedFile = await imageCompression(file, options);
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64Image = reader.result;
-      setImageSrc(base64Image); // Correctly set the base64 image source
-    };
-    reader.readAsDataURL(compressedFile);
-  };
-
-  const handleButtonClick = () => {
-    document.getElementById("fileInput").click();
-  };
-
-  const addSubject = () => {
-    if (selectedSubject && !subjects.includes(selectedSubject)) {
-      const updatedSubjects = [...subjects, selectedSubject];
-      const updates = {};
-      updates[`/tutors/${currentUser.uid}/sub`] = updatedSubjects;
-
-      update(ref(db), updates);
-      setSubjects(updatedSubjects);
-      setSelectedSubject("");
-    }
-  };
-
-  const removeSubject = (subjectToRemove) => {
-    const updatedSubjects = subjects.filter((sub) => sub !== subjectToRemove);
-    const updates = {};
-    updates[`/tutors/${currentUser.uid}/sub`] = updatedSubjects;
-
-    update(ref(db), updates);
-    setSubjects(updatedSubjects);
-  };
-
-  const addLanguage = () => {
-    if (selectedLanguage && !languages.includes(selectedLanguage)) {
-      const updatedLanguages = [...languages, selectedLanguage];
-      const updates = {};
-      updates[`/tutors/${currentUser.uid}/lang`] = updatedLanguages;
-
-      update(ref(db), updates);
-      setLanguages(updatedLanguages);
-      setSelectedLanguage("");
-    }
-  };
-
-  const removeLanguage = (languageToRemove) => {
-    const updatedLanguages = languages.filter(
-      (lang) => lang !== languageToRemove
-    );
-    const updates = {};
-    updates[`/tutors/${currentUser.uid}/lang`] = updatedLanguages;
-
-    update(ref(db), updates);
-    setLanguages(updatedLanguages);
-  };
-
-  async function updateTutorData() {
-    if (currentUser) {
-      const tutorRef = ref(db, "tutors/" + currentUser.uid);
-      try {
-        await update(tutorRef, {
-          name: name,
-          email: email,
-          bio: bio,
-          cph: cph,
-          profilepic: imageSrc,
-        });
-        toast.success("Tutor data updated successfully", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
+  // async function checkData() {
+  //   if (!subjects && !imageSrc && !cph && !bio && !locations) {
+  //     toast.error("Fill out all the details", {
+  //       position: "top-center",
+  //       autoClose: false,
+  //       hideProgressBar: true,
+  //       closeOnClick: false,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "light",
+  //     });
+  //     return;
+  //   } else if (!imageSrc) {
+  //     toast.error("Add Image", {
+  //       position: "top-center",
+  //       autoClose: false,
+  //       hideProgressBar: true,
+  //       closeOnClick: false,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "light",
+  //     });
+  //   } else if (!cph) {
+  //     toast.error("Add Cost per Hour", {
+  //       position: "top-center",
+  //       autoClose: false,
+  //       hideProgressBar: true,
+  //       closeOnClick: false,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "light",
+  //     });
+  //   } else if (!bio) {
+  //     toast.error("Add your Bio", {
+  //       position: "top-center",
+  //       autoClose: false,
+  //       hideProgressBar: true,
+  //       closeOnClick: false,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "light",
+  //     });
+  //   } else if (!locations) {
+  //     toast.error("Add Locations", {
+  //       position: "top-center",
+  //       autoClose: false,
+  //       hideProgressBar: true,
+  //       closeOnClick: false,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "light",
+  //     });
+  //   }
+  // }
+  async function checkData() {
+    if (
+      !imageSrc &&
+      !subjects?.length &&
+      !locations?.length &&
+      !bio &&
+      !cph &&
+      !phone
+    ) {
+      toast.error("Fill out all the details", {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });}
+      if (!subjects?.length) {
+        toast.error("Add Subjects", {
+          position: "top-center",
+          autoClose: false,
+          hideProgressBar: true,
+          closeOnClick: false,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
           theme: "light",
         });
-      } catch (error) {
-        toast.error(error.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
+      }
+      if (!imageSrc) {
+        toast.error("Add Image", {
+          position: "top-center",
+          autoClose: false,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      if (!bio.trim()) {
+        toast.error("Add Your Bio", {
+          position: "top-center",
+          autoClose: false,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      if (!cph) {
+        toast.error("Add Cost Per Hour", {
+          position: "top-center",
+          autoClose: false,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      if (!locations?.length) {
+        toast.error("Add Locations", {
+          position: "top-center",
+          autoClose: false,
+          hideProgressBar: true,
+          closeOnClick: false,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
@@ -226,257 +267,289 @@ function Profile() {
         });
       }
     }
-  }
 
-  return (!stud ? (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8 pt-20">
-        <div className="grid gap-8 md:grid-cols-3">
-          <div className="md:col-span-1 hover:border-peach-300 transition-colors">
-            <div>
-              <div className="bg-gradient-to-r from-peach-300 to-peach-100 bg-clip-text text-transparent">
-                Profile
-              </div>
-            </div>
-            <div className="flex flex-col items-center space-y-4">
-              <div className="relative">
-                <img
-                  className="object-cover h-40 w-40 rounded-full"
-                  src={
-                    imageSrc
-                      ? `${imageSrc}`
-                      : "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png"
-                  }
-                  alt="Profile"
-                />
-                <button
-                  size="icon"
-                  variant="outline"
-                  onClick={handleButtonClick}
-                  className="absolute bottom-0 right-0 rounded-full bg-gradient-to-r from-white to-[#ffded5]/10"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                    />
-                  </svg>
-                </button>
-                <input
-                  type="file"
-                  id="fileInput"
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  onChange={handleFileInputChange}
-                />
-              </div>
-              <h2 className="text-xl font-semibold">{name || "name"}</h2>
-              <p className="text-sm text-gray-500">
-                {email || "email@example.com"}
-              </p>
-            </div>
-          </div>
+    async function fetchTutorData() {
+      if (currentUser) {
+        const starCountRef = ref(db, "tutors/" + currentUser.uid);
+        onValue(starCountRef, (snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            setChoice("tutor");
+            setSubjects(data.sub || []);
+            setLanguages(data.lang || []);
+            setName(data.name);
+            setEmail(data.email);
+            setImageSrc(data.profilepic || "");
+            setCph(data.cph);
+            setBio(data.bio);
+            if (data.locations) {
+              setLocations(data.locations);
+            }
+            setStud(false); // ✅ Tutor found
+          } else {
+            setStud(true); // ✅ No tutor data
+          }
+        });
+      }
+    }
 
-          <div className="md:col-span-2 space-y-8">
-            <div className="hover:border-peach-300 transition-colors">
+    const handleFileInputChange = async (event) => {
+      const file = event.target.files[0];
+      const options = {
+        maxSizeMB: 0.2,
+        maxWidthOrHeight: 800,
+        useWebWorker: true,
+      };
+
+      const compressedFile = await imageCompression(file, options);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Image = reader.result;
+        setImageSrc(base64Image); // Correctly set the base64 image source
+      };
+      reader.readAsDataURL(compressedFile);
+    };
+
+    const handleButtonClick = () => {
+      document.getElementById("fileInput").click();
+    };
+
+    const addSubject = () => {
+      if (selectedSubject && !subjects.includes(selectedSubject)) {
+        const updatedSubjects = [...subjects, selectedSubject];
+        const updates = {};
+        updates[`/tutors/${currentUser.uid}/sub`] = updatedSubjects;
+
+        update(ref(db), updates);
+        setSubjects(updatedSubjects);
+        setSelectedSubject("");
+      }
+    };
+
+    const removeSubject = (subjectToRemove) => {
+      const updatedSubjects = subjects.filter((sub) => sub !== subjectToRemove);
+      const updates = {};
+      updates[`/tutors/${currentUser.uid}/sub`] = updatedSubjects;
+
+      update(ref(db), updates);
+      setSubjects(updatedSubjects);
+    };
+
+    const addLanguage = () => {
+      if (selectedLanguage && !languages.includes(selectedLanguage)) {
+        const updatedLanguages = [...languages, selectedLanguage];
+        const updates = {};
+        updates[`/tutors/${currentUser.uid}/lang`] = updatedLanguages;
+
+        update(ref(db), updates);
+        setLanguages(updatedLanguages);
+        setSelectedLanguage("");
+      }
+    };
+
+    const removeLanguage = (languageToRemove) => {
+      const updatedLanguages = languages.filter(
+        (lang) => lang !== languageToRemove
+      );
+      const updates = {};
+      updates[`/tutors/${currentUser.uid}/lang`] = updatedLanguages;
+
+      update(ref(db), updates);
+      setLanguages(updatedLanguages);
+    };
+
+    async function updateTutorData() {
+      if (currentUser) {
+        const tutorRef = ref(db, "tutors/" + currentUser.uid);
+        try {
+          await update(tutorRef, {
+            name: name,
+            email: email,
+            bio: bio,
+            cph: cph,
+            profilepic: imageSrc,
+          });
+          toast.success("Tutor data updated successfully", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } catch (error) {
+          toast.error(error.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      }
+    }
+
+    // Optional: show loading while checking
+    if (stud === null) {
+      return <div>Loading...</div>;
+    }
+
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="container mx-auto px-4 py-8 pt-20">
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="md:col-span-1 hover:border-peach-300 transition-colors">
               <div>
                 <div className="bg-gradient-to-r from-peach-300 to-peach-100 bg-clip-text text-transparent">
-                  Personal Information
+                  Profile
                 </div>
               </div>
-              <div className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-2">
-                  <label className="flex flex-col my-2 ">
-                    <p className="text-sm text-gray-400">Name</p>
-                    <input
-                      className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                      placeholder="First Name"
-                      defaultValue="Undefined, contact admin"
-                      onChange={(e) => setName(e.target.value)}
-                      value={name}
-                    />
-                  </label>
-                  <label className="flex flex-col my-2 ">
-                    <p className="text-sm text-gray-400">Email</p>
-                    <input
-                      className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                      placeholder="Phone"
-                      defaultValue="Undefined, contact admin"
-                      contentEditable={false}
-                      value={email}
-                    />
-                  </label>
-                  <label className="flex flex-col my-2 ">
-                    <p className="text-sm text-gray-400">Cost Per Hour</p>
-                    <input
-                      className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                      placeholder="Cost Per Hour"
-                      defaultValue="Undefined, contact admin"
-                      onChange={(e) => setCph(e.target.value)}
-                      value={cph}
-                    />
-                  </label>
-                </div>
-                <label className="flex flex-col my-2 ">
-                  <p className="text-sm text-gray-400">Bio</p>
-                  <input
-                    className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                    placeholder="Bio"
-                    onChange={(e) => setBio(e.target.value)}
-                    value={bio}
+              <div className="flex flex-col items-center space-y-4">
+                <div className="relative">
+                  <img
+                    className="object-cover h-40 w-40 rounded-full"
+                    src={
+                      imageSrc
+                        ? `${imageSrc}`
+                        : "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png"
+                    }
+                    alt="Profile"
                   />
-                </label>
-                <button
-                  onClick={() => updateTutorData()}
-                  className="w-full rounded-full py-1 px-2 md:w-auto bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
-                >
-                  Save Changes
-                </button>
+                  <button
+                    size="icon"
+                    variant="outline"
+                    onClick={handleButtonClick}
+                    className="absolute bottom-0 right-0 rounded-full bg-gradient-to-r from-white to-[#ffded5]/10"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                      />
+                    </svg>
+                  </button>
+                  <input
+                    type="file"
+                    id="fileInput"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleFileInputChange}
+                  />
+                </div>
+                <h2 className="text-xl font-semibold">{name || "name"}</h2>
+                <p className="text-sm text-gray-500">
+                  {email || "email@example.com"}
+                </p>
               </div>
-              {currentUser && <TeachOnlineToggle currentUser={currentUser} />}
-              {/* select subject */}
-              <div className="p-4 bg-gray-50 rounded-lg my-4 shadow-md">
-                {/* Subject Selection */}
-                <h2 className="text-lg font-semibold mb-2">Select Subjects</h2>
-                <div className="flex gap-2">
-                  <select
-                    value={selectedSubject}
-                    onChange={(e) => setSelectedSubject(e.target.value)}
-                    className="border rounded-md p-2 w-full"
-                  >
-                    <option value="">Select a subject</option>
-                    {subjectsList.map((subject) => (
-                      <option key={subject} value={subject}>
-                        {subject}
-                      </option>
-                    ))}
-                  </select>
+            </div>
+
+            <div className="md:col-span-2 space-y-8">
+              <div className="hover:border-peach-300 transition-colors">
+                <div>
+                  <div className="bg-gradient-to-r from-peach-300 to-peach-100 bg-clip-text text-transparent">
+                    Personal Information
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <label className="flex flex-col my-2 ">
+                      <p className="text-sm text-gray-400">Name</p>
+                      <input
+                        className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                        placeholder="First Name"
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
+                      />
+                    </label>
+                    <label className="flex flex-col my-2 ">
+                      <p className="text-sm text-gray-400">Email</p>
+                      <input
+                        className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                        placeholder="Phone"
+                        contentEditable={false}
+                        value={email}
+                        readOnly
+                      />
+                    </label>
+                    <label className="flex flex-col my-2 ">
+                      <p className="text-sm text-gray-400">Cost Per Hour</p>
+                      <input
+                        className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                        placeholder="Cost Per Hour"
+                        onChange={(e) => setCph(e.target.value)}
+                        value={cph}
+                      />
+                    </label>
+                  </div>
+                  <label className="flex flex-col my-2 ">
+                    <p className="text-sm text-gray-400">Bio</p>
+                    <input
+                      className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                      placeholder="Bio"
+                      onChange={(e) => setBio(e.target.value)}
+                      value={bio}
+                    />
+                  </label>
                   <button
-                    onClick={addSubject}
-                    className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
+                    onClick={() => updateTutorData()}
+                    className="w-full rounded-full py-1 px-2 md:w-auto bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
                   >
-                    ✔
+                    Save Changes
                   </button>
                 </div>
-
-                {subjects.length > 0 && (
-                  <div className="mt-4">
-                    <h3 className="font-medium mb-2">Selected Subjects:</h3>
-                    {subjects.map((subject) => (
-                      <div
-                        key={subject}
-                        className="flex items-center justify-between bg-gray-200 px-3 py-1 rounded-md mb-2"
-                      >
-                        <span>{subject}</span>
-                        <button
-                          onClick={() => removeSubject(subject)}
-                          className="text-red-500 hover:text-red-700"
-                        >
-                          ✖
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Language Selection */}
-                <h2 className="text-lg font-semibold mt-6 mb-2">
-                  Select Languages
-                </h2>
-                <div className="flex gap-2">
-                  <select
-                    value={selectedLanguage}
-                    onChange={(e) => setSelectedLanguage(e.target.value)}
-                    className="border rounded-md p-2 w-full"
-                  >
-                    <option value="">Select a language</option>
-                    {languagesList.map((lang) => (
-                      <option key={lang} value={lang}>
-                        {lang}
-                      </option>
-                    ))}
-                  </select>
-                  <button
-                    onClick={addLanguage}
-                    className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
-                  >
-                    ✔
-                  </button>
-                </div>
-
-                {languages.length > 0 && (
-                  <div className="mt-4">
-                    <h3 className="font-medium mb-2">Selected Languages:</h3>
-                    {languages.map((lang) => (
-                      <div
-                        key={lang}
-                        className="flex items-center justify-between bg-gray-200 px-3 py-1 rounded-md mb-2"
-                      >
-                        <span>{lang}</span>
-                        <button
-                          onClick={() => removeLanguage(lang)}
-                          className="text-red-500 hover:text-red-700"
-                        >
-                          ✖
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                {/* select location */}
-                <div className="">
-                  <h2 className="text-lg font-semibold mt-6 mb-2">
-                    Select Location
+                {currentUser && <TeachOnlineToggle currentUser={currentUser} />}
+                {/* select subject */}
+                <div className="p-4 bg-gray-50 rounded-lg my-4 shadow-md">
+                  {/* Subject Selection */}
+                  <h2 className="text-lg font-semibold mb-2">
+                    Select Subjects
                   </h2>
                   <div className="flex gap-2">
-                    {/* State Select */}
-                    <Select
-                      options={states}
-                      value={selectedState}
-                      onChange={handleStateChange}
-                      placeholder="Select a state"
-                      className="w-1/2"
-                    />
-
-                    {/* City Select */}
-                    <Select
-                      options={cities}
-                      value={selectedCity}
-                      onChange={setSelectedCity}
-                      placeholder="Select a city"
-                      className="w-1/2"
-                      isDisabled={!selectedState}
-                    />
-
-                    {/* Add Button */}
+                    <select
+                      value={selectedSubject}
+                      onChange={(e) => setSelectedSubject(e.target.value)}
+                      className="border rounded-md p-2 w-full"
+                    >
+                      <option value="">Select a subject</option>
+                      {subjectsList.map((subject) => (
+                        <option key={subject} value={subject}>
+                          {subject}
+                        </option>
+                      ))}
+                    </select>
                     <button
-                      onClick={handleAddLocation}
+                      onClick={addSubject}
                       className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
                     >
                       ✔
                     </button>
                   </div>
 
-                  {/* Selected Locations */}
-                  {locations.length > 0 && (
+                  {subjects.length > 0 && (
                     <div className="mt-4">
-                      <h3 className="font-medium mb-2">Selected Locations:</h3>
-                      {locations.map((location) => (
+                      <h3 className="font-medium mb-2">Selected Subjects:</h3>
+                      {subjects.map((subject) => (
                         <div
-                          key={location}
+                          key={subject}
                           className="flex items-center justify-between bg-gray-200 px-3 py-1 rounded-md mb-2"
                         >
-                          <span>{location}</span>
+                          <span>{subject}</span>
                           <button
-                            onClick={() => handleRemoveLocation(location)}
+                            onClick={() => removeSubject(subject)}
                             className="text-red-500 hover:text-red-700"
                           >
                             ✖
@@ -485,18 +558,119 @@ function Profile() {
                       ))}
                     </div>
                   )}
-                </div>
-              </div>
-            </div>
 
-            <div className="hover:border-peach-300 transition-colors">
-              <div>
-                <div className="bg-gradient-to-r from-peach-300 to-peach-100 bg-clip-text text-transparent">
-                  Recent Payments
+                  {/* Language Selection */}
+                  <h2 className="text-lg font-semibold mt-6 mb-2">
+                    Select Languages
+                  </h2>
+                  <div className="flex gap-2">
+                    <select
+                      value={selectedLanguage}
+                      onChange={(e) => setSelectedLanguage(e.target.value)}
+                      className="border rounded-md p-2 w-full"
+                    >
+                      <option value="">Select a language</option>
+                      {languagesList.map((lang) => (
+                        <option key={lang} value={lang}>
+                          {lang}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      onClick={addLanguage}
+                      className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
+                    >
+                      ✔
+                    </button>
+                  </div>
+
+                  {languages.length > 0 && (
+                    <div className="mt-4">
+                      <h3 className="font-medium mb-2">Selected Languages:</h3>
+                      {languages.map((lang) => (
+                        <div
+                          key={lang}
+                          className="flex items-center justify-between bg-gray-200 px-3 py-1 rounded-md mb-2"
+                        >
+                          <span>{lang}</span>
+                          <button
+                            onClick={() => removeLanguage(lang)}
+                            className="text-red-500 hover:text-red-700"
+                          >
+                            ✖
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {/* select location */}
+                  <div className="">
+                    <h2 className="text-lg font-semibold mt-6 mb-2">
+                      Select Location
+                    </h2>
+                    <div className="flex gap-2">
+                      {/* State Select */}
+                      <Select
+                        options={states}
+                        value={selectedState}
+                        onChange={handleStateChange}
+                        placeholder="Select a state"
+                        className="w-1/2"
+                      />
+
+                      {/* City Select */}
+                      <Select
+                        options={cities}
+                        value={selectedCity}
+                        onChange={setSelectedCity}
+                        placeholder="Select a city"
+                        className="w-1/2"
+                        isDisabled={!selectedState}
+                      />
+
+                      {/* Add Button */}
+                      <button
+                        onClick={handleAddLocation}
+                        className="rounded-full py-1 w-10 px-2 bg-gradient-to-r from-peach-300 to-peach-100 text-white hover:opacity-90"
+                      >
+                        ✔
+                      </button>
+                    </div>
+
+                    {/* Selected Locations */}
+                    {locations.length > 0 && (
+                      <div className="mt-4">
+                        <h3 className="font-medium mb-2">
+                          Selected Locations:
+                        </h3>
+                        {locations.map((location) => (
+                          <div
+                            key={location}
+                            className="flex items-center justify-between bg-gray-200 px-3 py-1 rounded-md mb-2"
+                          >
+                            <span>{location}</span>
+                            <button
+                              onClick={() => handleRemoveLocation(location)}
+                              className="text-red-500 hover:text-red-700"
+                            >
+                              ✖
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-              <div>
-                {/* <div className="space-y-4">
+
+              <div className="hover:border-peach-300 transition-colors">
+                <div>
+                  <div className="bg-gradient-to-r from-peach-300 to-peach-100 bg-clip-text text-transparent">
+                    Recent Payments
+                  </div>
+                </div>
+                <div>
+                  {/* <div className="space-y-4">
                   {[1, 2, 3].map((i) => (
                     <div
                       key={i}
@@ -529,15 +703,13 @@ function Profile() {
                     </div>
                   ))}
                 </div> */}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  ) : (
-    <StudProfile />
-  ))
-}
+    );
+  }
 
 export default Profile;

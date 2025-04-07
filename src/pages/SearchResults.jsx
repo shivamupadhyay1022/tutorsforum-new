@@ -61,29 +61,27 @@ const SearchResults = () => {
     if (searchQuery) {
       result = result.filter(
         (tutor) =>
-          tutor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          tutor.sub.some((subject) =>
-            subject.toLowerCase().includes(searchQuery.toLowerCase())
-          )
+          tutor.name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+          (Array.isArray(tutor.sub) && tutor.sub.some((subject) =>
+            subject?.toLowerCase().includes(searchQuery.toLowerCase())
+          ))
       );
     }
-
-    // Apply language filter
+    
     if (filterLanguage) {
-      result = result.filter((tutor) => tutor.lang.includes(filterLanguage));
+      result = result.filter((tutor) => Array.isArray(tutor.lang) && tutor.lang.includes(filterLanguage));
     }
-
-    // Apply subject filter
+    
     if (filterSubject) {
-      result = result.filter((tutor) => tutor.sub.includes(filterSubject));
+      result = result.filter((tutor) => Array.isArray(tutor.sub) && tutor.sub.includes(filterSubject));
     }
-
-    // Apply location filter
+    
     if (filterLocation) {
       result = result.filter((tutor) =>
-        tutor.locations?.some((str) => str.includes(filterLocation))
+        Array.isArray(tutor.locations) && tutor.locations.some((str) => str.includes(filterLocation))
       );
     }
+    
 
     // Apply stars filter
     if (filterStars) {
