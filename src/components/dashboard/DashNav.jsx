@@ -1,9 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { getDatabase, ref, onValue, update, remove } from "firebase/database";
+import { AuthContext } from "../../AuthProvider";
+import { db } from "../../firebase";
 
 function DashNav({ func, refresh }) {
   const [menu, toggleMenu] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
+
+  const { currentUser } = useContext(AuthContext);
+
   const navigate = useNavigate();
+
+  // Fetch notifications from Firebase
+  useEffect(() => {
+    if (currentUser) {
+      const path = `tutors/${currentUser.uid}/notifications`;
+      const altPath = `users/${currentUser.uid}/notifications`;
+
+      const pathRef = ref(db, path);
+      const altPathRef = ref(db, altPath);
+
+      const unsubscribe = onValue(pathRef, (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          setNotifications(
+            Object.entries(data).map(([id, notif]) => ({ id, ...notif }))
+          );
+        } else {
+          onValue(altPathRef, (altSnapshot) => {
+            if (altSnapshot.exists()) {
+              const data = altSnapshot.val();
+              setNotifications(
+                Object.entries(data).map(([id, notif]) => ({ id, ...notif }))
+              );
+            } else {
+              setNotifications([]);
+            }
+          });
+        }
+      });
+      return () => unsubscribe();
+    }
+  }, [currentUser]);
+
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
+  const handleNotificationClick = () => {
+    setShowNotifications(!showNotifications);
+
+    // Mark all as read
+    notifications.forEach((notif) => {
+      if (!notif.read) {
+        const notifRef = ref(
+          db,
+          `users/${currentUser?.uid}/notifications/${notif.id}`
+        );
+        update(notifRef, { read: true });
+      }
+    });
+  };
+
+  const handleDelete = (id) => {
+    const userTypePath =
+      notifications[0]?.userType === "tutor"
+        ? `tutors/${currentUser.uid}/notifications/${id}`
+        : `users/${currentUser.uid}/notifications/${id}`;
+    remove(ref(db, userTypePath));
+  };
+
   const menuItems = [
     {
       icon: (
@@ -23,7 +90,7 @@ function DashNav({ func, refresh }) {
         </svg>
       ),
       label: "Home",
-      onClick: "home",
+      onClick: () => func("home"),
     },
     {
       icon: (
@@ -43,7 +110,7 @@ function DashNav({ func, refresh }) {
         </svg>
       ),
       label: "Profile",
-      onClick: "profile",
+      onClick: () => func("profile"),
     },
     {
       icon: (
@@ -63,7 +130,7 @@ function DashNav({ func, refresh }) {
         </svg>
       ),
       label: "Classes",
-      onClick: "previous_classes",
+      onClick: () => func("previous_classes"),
     },
     {
       icon: (
@@ -83,123 +150,187 @@ function DashNav({ func, refresh }) {
         </svg>
       ),
       label: "Chat",
-      onClick: "chats",
-    },
-    {
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15 8.25H9m6 3H9m3 6-3-3h1.5a3 3 0 1 0 0-6M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-          />
-        </svg>
-      ),
-      label: "Payments",
-      onClick: "payments",
-    },
-    {
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
-          />
-        </svg>
-      ),
-      label: "Logout",
-      onClick: "logout",
+      onClick: () => func("chats"),
     },
   ];
 
   return (
-    <nav className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex justify-center items-center">
-            <div className="absolute top-4 left-4">
-              <button className="md:hidden" onClick={() => toggleMenu(!menu)}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="size-8"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                  />
-                </svg>
-              </button>
-              {/* mobile side menu */}
-              {menu && (
-                <div
-                  side="left"
-                  className="md:hidden mt-3 text-center -ml-4 rounded-br-2xl bg-gray-200 p-4 "
-                >
-                  <div className="mt-2 space-y-4">
-                    {menuItems.map((item) => (
-                      <button
-                        key={item.label}
-                        variant="ghost"
-                        className="w-full gap-2 flex flex-row justify-start"
-                        onClick={() => {
-                          func(item.onClick);
-                          refresh(Math.random());
-                        }}
-                      >
-                        <span>{item.icon}</span>
-                        <span>{item.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-            <span
-              onClick={() => navigate("/")}
-              className="text-xl ml-12 md:ml-0 font-semibold bg-gradient-to-r from-peach-300 to-peach-100 bg-clip-text text-transparent cursor-pointer"
-            >
-              TutorsForum
-            </span>
-          </div>
-          <div className="hidden md:flex items-center  space-x-4">
-            {menuItems.map((item) => (
-              <button
-                key={item.label}
-                variant="ghost"
-                className="w-full gap-2 flex flex-row items-center  justify-start"
-                onClick={() => {
-                  func(item.onClick);
-                  refresh(Math.random());
-                }}
-              >
-                <span>{item.icon}</span>
-                <span className="text-xs">{item.label}</span>
-              </button>
-            ))}
-          </div>
+    <div className="w-full flex items-center justify-between p-3 border-b px-8">
+      <div className="flex items-center gap-3">
+        <div
+          className="font-bold text-lg cursor-pointer"
+          onClick={() => navigate("/")}
+        >
+          TutorsForum
         </div>
       </div>
-    </nav>
+
+      <div className="flex items-center gap-3">
+        <div className="hidden md:flex gap-5">
+          {menuItems.map((item, idx) => (
+            <div
+              key={idx}
+              className="flex items-center gap-1 text-sm cursor-pointer hover:opacity-70"
+              onClick={item.onClick}
+            >
+              {item.icon}
+              {item.label}
+            </div>
+          ))}
+        </div>
+        <div
+          className="relative cursor-pointer"
+          onClick={handleNotificationClick}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M14.857 17.082a23.848 23.848 0 0 1-5.714 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>
+          {unreadCount > 0 && (
+            <span className="absolute top-0 right-0 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+              {unreadCount}
+            </span>
+          )}
+          {showNotifications && (
+            <div className="absolute right-0 mt-2 w-64 bg-gray-200 flex-col p-1 border rounded shadow-lg z-50 max-h-64 overflow-y-auto">
+              {notifications.length === 0 ? (
+                <div className="p-3 text-sm text-gray-500">
+                  No notifications
+                </div>
+              ) : (
+                notifications.map((notif) => (
+                  <div
+                    key={notif.id}
+                    className="p-3 flex bg-white justify-between border-b text-sm"
+                  >
+                    {notif.message || "No message"}
+                    <button onClick={() => handleDelete(notif.id)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 text-gray-500 hover:text-red-500"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                ))
+              )}
+              {notifications.length > 5 && (
+                <button
+                  className="w-full text-sm text-blue-600 hover:underline mt-1"
+                  onClick={() => {
+                    setShowDialog(true);
+                    setShowDropdown(false);
+                  }}
+                >
+                  Show more...
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div
+          className="md:hidden cursor-pointer"
+          onClick={() => toggleMenu(!menu)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3.75 5.25h16.5m-16.5 6h16.5m-16.5 6h16.5"
+            />
+          </svg>
+        </div>
+      </div>
+
+      {/* Dialog for all notifications */}
+      {showDialog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white w-96 rounded-lg shadow-lg p-4 relative">
+            <h2 className="text-lg font-semibold mb-4">All Notifications</h2>
+            <div className="max-h-64 overflow-y-auto space-y-2">
+              {notifications.map((notif) => (
+                <div
+                  key={notif.id}
+                  className="flex justify-between items-center p-2 border rounded"
+                >
+                  <span className="text-sm text-gray-700">{notif.message}</span>
+                  <button onClick={() => handleDelete(notif.id)}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 text-gray-500 hover:text-red-500"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowDialog(false)}
+              className="absolute top-2 right-2 text-gray-600 hover:text-red-600"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+      {menu && (
+        <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg z-50">
+          {menuItems.map((item, idx) => (
+            <div
+              key={idx}
+              className="flex items-center gap-2 p-3 text-sm border-b cursor-pointer hover:bg-gray-100"
+              onClick={item.onClick}
+            >
+              {item.icon}
+              {item.label}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
