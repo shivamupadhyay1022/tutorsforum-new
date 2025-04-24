@@ -133,7 +133,11 @@ function TutorCarousel() {
               >
                 <div className="relative w-full h-72 mb-4 overflow-hidden rounded-lg">
                   <img
-                    src={item.profilepic ? (item.profilepic): "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png"}
+                    src={
+                      item.profilepic
+                        ? item.profilepic
+                        : "https://cdn.pixabay.com/photo/2023/05/02/10/35/avatar-7964945_960_720.png"
+                    }
                     alt={item.name}
                     className="w-full h-72  transition-transform duration-300 ease-in-out hover:scale-110"
                     loading="lazy"
@@ -174,34 +178,16 @@ function TutorCarousel() {
                   {item.sub}
                 </p> */}
                 <div className="flex flex-wrap justify-end gap-2 px-2">
-                  {!item.sub?.includes("Maths") || (
-                    <div className="shadow-md  rounded-full bg-gradient-to-br from-white to-[#ffded5]  text-sm ">
-                      <div className="bg-white m-1 p-y1 px-2 rounded-full">
-                        {"Maths"}
+                  {item.sub?.map((subject, idx) => (
+                    <div
+                      key={idx}
+                      className="shadow-md rounded-full bg-gradient-to-br from-white to-[#ffded5] text-sm"
+                    >
+                      <div className="bg-white m-1 py-1 px-2 rounded-full">
+                        {subject}
                       </div>
                     </div>
-                  )}
-                  {!item.sub?.includes("Physics") || (
-                    <div className="shadow-md  rounded-full bg-gradient-to-br from-white to-[#ffded5]  text-sm ">
-                    <div className="bg-white m-1 p-y1 px-2 rounded-full">
-                      {"Physics"}
-                    </div>
-                  </div>
-                  )}
-                  {!item.sub?.includes("Chemistry") || (
-                    <div className="shadow-md  rounded-full bg-gradient-to-br from-white to-[#ffded5]  text-sm ">
-                    <div className="bg-white m-1 p-y1 px-2 rounded-full">
-                      {"Chemistry"}
-                    </div>
-                  </div>
-                  )}
-                  {!item.sub?.includes("Bio") || (
-                    <div className="shadow-md  rounded-full bg-gradient-to-br from-white to-[#ffded5]  text-sm ">
-                    <div className="bg-white m-1 p-y1 px-2 rounded-full">
-                      {"Biology"}
-                    </div>
-                  </div>
-                  )}
+                  ))}
                 </div>
               </div>
             </SwiperSlide>

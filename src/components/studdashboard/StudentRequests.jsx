@@ -26,10 +26,10 @@ const StudentRequests = () => {
   const [feedback, setFeedback] = useState({});
   const [loading, setLoading] = useState(true);
   const [offset, setOffset] = useState(0); // Offset from Firebase
-  // const [key, setKey] = useState(0);
 
   const navigate = useNavigate();
 
+  // requests
   useEffect(() => {
     const requestsRef = ref(db, `users/${currentUser?.uid}/requests`);
     onValue(requestsRef, (snapshot) => {
@@ -40,6 +40,7 @@ const StudentRequests = () => {
     setTime("00:00:00");
   }, [currentUser]);
 
+  // ongoing class
   useEffect(() => {
     const classRef = ref(db, `users/${currentUser?.uid}/classOngoing`);
     onValue(classRef, (snapshot) => {
@@ -53,6 +54,7 @@ const StudentRequests = () => {
     setTime("00:00:00");
   }, [currentUser]);
 
+  // ongoing class timer
   useEffect(() => {
     // Fetch Firebase server time offset
     const offsetRef = ref(db, ".info/serverTimeOffset");
@@ -89,14 +91,29 @@ const StudentRequests = () => {
     return () => offsetUnsub(); // Cleanup Firebase listener
   }, [ongoingClass, db, offset]);
 
+  
+useEffect(() => {
+  if (!currentUser) return;
+  const testRef = ref(db, `users/${currentUser.uid}/classHistory`);
+  get(testRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log("Manual GET Success:", snapshot.val());
+    } else {
+      console.log("Manual GET: No data");
+    }
+  });
+}, [currentUser]);
+  // ended classes
   useEffect(() => {
     if (!currentUser) return;
-
+    console.log(currentUser)
     const classesRef = ref(db, `users/${currentUser.uid}/classHistory`);
+    console.log(classesRef)
     onValue(classesRef, (snapshot) => {
+      console.log(snapshot)
       if (snapshot.exists()) {
         const data = snapshot.val();
-        // console.log(data);
+        console.log(data);
         const groupedByTutors = {};
         Object.entries(data).forEach(([id, class_]) => {
           // console.log("Class Object:", class_);
@@ -106,17 +123,18 @@ const StudentRequests = () => {
           groupedByTutors[class_.tutorName].push({ id, ...class_ });
         });
         setEndedClasses(groupedByTutors);
+        setLoading(false)
       } else {
+        console.log("No data")
         setEndedClasses({});
+        setLoading(false)
       }
+    },(error) =>{
+      console.error("Firebase read error:", error);
     });
     setTime("00:00:00");
   }, [currentUser]);
 
-  // useLayoutEffect(() => {
-  //   console.log("user");
-  //   fetchAll();
-  // }, [currentUser,key]);
   const submitFeedback = async () => {
     if (!feedbackDialog || !feedback) return;
 
@@ -146,41 +164,9 @@ const StudentRequests = () => {
     }
   };
 
-  // const fetchAll = async () => {
-  //   const userDataRef = ref(db, `users/${currentUser?.uid}`);
-  //   await onValue(userDataRef, (snapshot) => {
-  //     if (snapshot.exists()) {
-  //       if (snapshot.val().requests) {
-  //         setRequests(Object.entries(snapshot.val().requests));
-  //       }
-  //       if (snapshot.val().classOngoing) {
-  //         const classData = Object.entries(snapshot.val().classOngoing)[0];
-  //         setOngoingClass({ id: classData[0], ...classData[1] });
-  //       }
-  //       if (snapshot.val().classHistory) {
-  //         const data = snapshot.val().classHistory;
-  //         // console.log(data);
-  //         const groupedByTutors = {};
-  //         Object.entries(data).forEach(([id, class_]) => {
-  //           // console.log("Class Object:", class_);
-  //           if (!groupedByTutors[class_.tutorName]) {
-  //             groupedByTutors[class_.tutorName] = [];
-  //           }
-  //           groupedByTutors[class_.tutorName].push({ id, ...class_ });
-  //         });
-  //         setEndedClasses(groupedByTutors);
-  //       }
-  //       setLoading(false);
-  //     } else {
-  //       setRequests([]);
-  //       setOngoingClass(null);
-  //       setEndedClasses({});
-  //     }
-  //   });
-  // };
-  // if (loading) {
-  //   return <p>...Loading</p>;
-  // }
+  if (loading) {
+    return <p>...Loading</p>;
+  }
 
   return (
     <div className="p-4 border rounded-lg shadow-md">

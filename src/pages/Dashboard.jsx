@@ -28,10 +28,12 @@ function Dashboard() {
 
   useEffect(() => {
     checkStud();
+    console.log(currentUser)
     // if (previousPage) {
     //   setLastPage(previousPage);
     // }
     // sessionStorage.setItem("lastVisitedPage", location.pathname);
+    // console.log(signOut(auth));
   }, [currentUser]);
   
   async function checkStud() {

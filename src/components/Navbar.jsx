@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider";
 import { db } from "../firebase";
 import { ref, onValue, remove } from "firebase/database";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 function Navbar() {
   const { currentUser } = useContext(AuthContext);
@@ -10,6 +12,7 @@ function Navbar() {
   const [notifications, setNotifications] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     if (currentUser) {
@@ -22,12 +25,16 @@ function Navbar() {
       const unsubscribe = onValue(pathRef, (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          setNotifications(Object.entries(data).map(([id, notif]) => ({ id, ...notif })));
+          setNotifications(
+            Object.entries(data).map(([id, notif]) => ({ id, ...notif }))
+          );
         } else {
           onValue(altPathRef, (altSnapshot) => {
             if (altSnapshot.exists()) {
               const data = altSnapshot.val();
-              setNotifications(Object.entries(data).map(([id, notif]) => ({ id, ...notif })));
+              setNotifications(
+                Object.entries(data).map(([id, notif]) => ({ id, ...notif }))
+              );
             } else {
               setNotifications([]);
             }
@@ -40,9 +47,10 @@ function Navbar() {
   }, [currentUser]);
 
   const handleDelete = (id) => {
-    const userTypePath = notifications[0]?.userType === "tutor"
-      ? `tutors/${currentUser.uid}/notifications/${id}`
-      : `users/${currentUser.uid}/notifications/${id}`;
+    const userTypePath =
+      notifications[0]?.userType === "tutor"
+        ? `tutors/${currentUser.uid}/notifications/${id}`
+        : `users/${currentUser.uid}/notifications/${id}`;
     remove(ref(db, userTypePath));
   };
 
@@ -59,88 +67,31 @@ function Navbar() {
             </span>
           </div>
           <div className="flex items-center space-x-4">
-            {currentUser && (
-              <div className="relative">
+            {currentUser ? (
+              <>
                 <button
-                  onClick={() => setShowDropdown(!showDropdown)}
-                  className="relative focus:outline-none"
+                  className="bg-gradient-to-r p-2 rounded-xl from-peach-300 to-peach-100 text-white hover:opacity-80 transition-opacity"
+                  onClick={() => navigate("/dashboard")}
                 >
-                  {/* Bell Icon */}
+                  Dashboard
+                </button>
+                <button onClick={()=>signOut(auth)} className="" >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    strokeWidth="1.5"
+                    strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 text-gray-700"
+                    className="size-6"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M14.857 17.418A2.001 2.001 0 0112 19a2.001 2.001 0 01-2.857-1.582M6.73 10.73a7.5 7.5 0 0110.54 0M18 12c0 3.866-3.582 7-8 7S2 15.866 2 12c0-3.314 2.686-6 6-6s6 2.686 6 6z"
+                      d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
                     />
                   </svg>
-                  {notifications.length > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-                      {notifications.length}
-                    </span>
-                  )}
                 </button>
-
-                {/* Dropdown */}
-                {showDropdown && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-50">
-                    <div className="p-2">
-                      {notifications.length === 0 ? (
-                        <p className="text-gray-500 text-sm text-center">No notifications</p>
-                      ) : (
-                        notifications.slice(0, 5).map((notif) => (
-                          <div
-                            key={notif.id}
-                            className="flex justify-between items-center p-2 border-b last:border-none"
-                          >
-                            <span className="text-sm text-gray-700">{notif.message}</span>
-                            <button onClick={() => handleDelete(notif.id)}>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-4 w-4 text-gray-500 hover:text-red-500"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-                        ))
-                      )}
-                      {notifications.length > 5 && (
-                        <button
-                          className="w-full text-sm text-blue-600 hover:underline mt-1"
-                          onClick={() => {
-                            setShowDialog(true);
-                            setShowDropdown(false);
-                          }}
-                        >
-                          Show more...
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {currentUser ? (
-              <button
-                className="bg-gradient-to-r p-2 rounded-xl from-peach-300 to-peach-100 text-white hover:opacity-80 transition-opacity"
-                onClick={() => navigate("/dashboard")}
-              >
-                Dashboard
-              </button>
+              </>
             ) : (
               <>
                 <button
@@ -155,6 +106,27 @@ function Navbar() {
                 >
                   Sign Up
                 </button>
+                <div className="relative">
+                  <button
+                    onClick={() => setShowMenu(!showMenu)}
+                    className="text-gray-600 hover:text-gray-900"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </>
             )}
           </div>

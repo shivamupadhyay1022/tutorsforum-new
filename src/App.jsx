@@ -1,6 +1,4 @@
 import { useEffect, useState,useContext } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
@@ -19,7 +17,6 @@ import { App as CapacitorApp } from "@capacitor/app"; // Rename import
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Request from "./pages/Requests";
 import ForgotPassword from "./syllabuses/ForgotPassword";
-
 
 function App() {
   const [count, setCount] = useState(0);
@@ -70,7 +67,6 @@ function App() {
           <Route path="/privacypolicy" element={<PrivacyPolicy/>} />
           <Route path="/requests" element={<Request/>} />
           <Route path="/forgot" element={<ForgotPassword/>} />
-
         </>
       </Routes>
     </>
@@ -78,3 +74,4 @@ function App() {
 }
 
 export default App;
+

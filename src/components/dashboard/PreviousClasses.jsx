@@ -45,6 +45,7 @@ function PreviousClasses() {
         const snapshot = await get(userRef);
         if (snapshot.exists()) {
           setStud(true);
+          console.log("Stud")
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
