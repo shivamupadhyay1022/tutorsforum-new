@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import PreviousClasses from "../components/dashboard/PreviousClasses";
 import DashNav from "../components/dashboard/DashNav";
 import Home from "./Home";
+import Exams from "./Exams";
 import Chats from "../components/dashboard/Chats";
 import Profile from "../components/dashboard/Profile";
 import Payments from "../components/dashboard/Payments";
@@ -62,6 +63,9 @@ function Dashboard() {
         break;
       case "payments":
         return <Payments />;
+        break;
+      case "exams":
+        return <Exams />;
         break;
       case "home":
         return navigate("/");

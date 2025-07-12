@@ -17,6 +17,7 @@ import { App as CapacitorApp } from "@capacitor/app"; // Rename import
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Request from "./pages/Requests";
 import ForgotPassword from "./syllabuses/ForgotPassword";
+import Exam from "./pages/Exam";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -64,6 +65,7 @@ function App() {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/tutor/:id" element={<TutorInfo />} />
           <Route path="/student/:id" element={<Studentinfo />} />
+          <Route path="/exam/:id" element={<Exam />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy/>} />
           <Route path="/requests" element={<Request/>} />
           <Route path="/forgot" element={<ForgotPassword/>} />

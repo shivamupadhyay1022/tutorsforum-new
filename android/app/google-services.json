@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "754539837111",
+    "firebase_url": "https://sci-tutorsforum-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sci-tutorsforum",
+    "storage_bucket": "sci-tutorsforum.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754539837111:android:e961b7cd2fa6c8b83a7f32",
+        "android_client_info": {
+          "package_name": "com.sci.tutorsforum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "754539837111-2jtngc9guee9bkbg9o5hig6ju40b1rt7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIYiVY0-_sqb2NmrBzeq9uY_NqNO0iyvQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "754539837111-2jtngc9guee9bkbg9o5hig6ju40b1rt7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

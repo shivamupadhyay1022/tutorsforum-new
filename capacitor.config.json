@@ -1,8 +1,13 @@
 {
-  "appId": "in.sci.tutorsforum",
+  "appId": "com.sci.tutorsforum",
   "appName": "TutorsForum",
   "webDir": "dist",
-  "server" :{
-    "url":"https://sci-tutorsforum.web.app/"
+
+  "plugins": {
+    "GoogleAuth": {
+      "serverClientId": "856015984354-7dd6ffi03t2u540m6epvokafgh0ah93j.apps.googleusercontent.com",
+      "scopes": ["profile", "email"],
+      "forceCodeForRefreshToken": true
+    }
   }
 }
