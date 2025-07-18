@@ -8,7 +8,7 @@ const TeachOnlineToggle = ({ currentUser }) => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
 
-  const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const daysOfWeek = [ "Everyday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ];
   const tutorRef = ref(db, "tutors/" + currentUser?.uid);
 
   // Fetch tutor's online status and schedule from Firebase

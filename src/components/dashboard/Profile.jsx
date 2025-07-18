@@ -175,17 +175,17 @@ function Profile() {
     fetchTutorData();
   }, [currentUser]);
 
-  useEffect(() => {
-    if (
-      subjects !== null &&
-      imageSrc !== null &&
-      cph !== null &&
-      bio !== null &&
-      locations !== null
-    ) {
-      checkData();
-    }
-  }, [subjects, imageSrc, cph, bio, locations]);
+  // useEffect(() => {
+  //   if (
+  //     subjects !== null &&
+  //     imageSrc !== null &&
+  //     cph !== null &&
+  //     bio !== null &&
+  //     locations !== null
+  //   ) {
+  //     checkData();
+  //   }
+  // }, [subjects, imageSrc, cph, bio, locations]);
 
   async function fetchTutorData() {
     if (currentUser) {

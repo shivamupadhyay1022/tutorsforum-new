@@ -19,16 +19,16 @@ function StudProfile() {
     fetchData();
   }, [currentUser]);
 
-  useEffect(() => {
-    if (
-      imageSrc !== null &&
-      phone !== null &&
-      exam !== null &&
-      clas !== null
-    ) {
-      checkData();
-    }
-  }, [ imageSrc, clas, exam, phone]);
+  // useEffect(() => {
+  //   if (
+  //     imageSrc !== null &&
+  //     phone !== null &&
+  //     exam !== null &&
+  //     clas !== null
+  //   ) {
+  //     checkData();
+  //   }
+  // }, [ imageSrc, clas, exam, phone]);
 
   const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
