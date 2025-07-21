@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithRedirect,
   getRedirectResult,
+  signInWithPopup
 } from "firebase/auth";
 import { set, ref, get } from "firebase/database";
 import { toast } from "react-toastify";
@@ -29,7 +30,11 @@ function Signup() {
 
   const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
-    const options = { maxSizeMB: 0.2, maxWidthOrHeight: 800, useWebWorker: true };
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 800,
+      useWebWorker: true,
+    };
     const compressedFile = await imageCompression(file, options);
     const reader = new FileReader();
     reader.onloadend = () => setImageSrc(reader.result);
@@ -75,7 +80,8 @@ function Signup() {
       if (isAndroid) {
         await SocialLogin.initialize({
           google: {
-            webClientId: "754539837111-2jtngc9guee9bkbg9o5hig6ju40b1rt7.apps.googleusercontent.com", // Use Android clientId
+            webClientId:
+              "754539837111-2jtngc9guee9bkbg9o5hig6ju40b1rt7.apps.googleusercontent.com", // Use Android clientId
             mode: "online",
           },
         });
@@ -110,13 +116,54 @@ function Signup() {
         toast.success("Signed In with Google");
         navigate("/dashboard");
       } else {
-        await signInWithRedirect(auth, provider);
+        await signInWithPopup(auth, provider)
+          .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+            checkUserRoleOrPrompt(user);
+            // navigate
+            // console.log(user);
+            // signOut(auth)
+            // IdP data available using getAdditionalUserInfo(result)
+            // ...
+          })
+          .catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            toast.error(errorCode + ":" + errorMessage);
+            // ...
+          });
       }
     } catch (err) {
       console.error("Google Sign-In error:", err);
       toast.error(err.message || "Google Sign-In failed");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const checkUserRoleOrPrompt = async (user) => {
+    const userRef = ref(db, `users/${user.uid}`);
+    const tutorRef = ref(db, `tutors/${user.uid}`);
+    const userSnap = await get(userRef);
+    const tutorSnap = await get(tutorRef);
+
+    if (userSnap.exists() || tutorSnap.exists()) {
+      toast.success("Signed In with Google");
+      navigate("/dashboard");
+    } else {
+      setTempUserData({
+        uid: user.uid,
+        name: user.displayName,
+        email: user.email,
+        profilepic: user.photoURL || "",
+      });
+      setShowRoleDialog(true);
     }
   };
 
@@ -174,6 +221,10 @@ function Signup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-[#ffded5]">
+      <Helmet>
+        <title>Sign Up - Tutors Forum</title>
+        <meta name="description" content="Create an account on Tutors Forum to start your learning journey today." />
+      </Helmet>
       {loading && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="text-white text-lg font-semibold">Signing in...</div>
@@ -182,8 +233,12 @@ function Signup() {
 
       <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-xl shadow-lg">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900">Create an account</h2>
-          <p className="text-sm text-gray-600">Start your learning journey today</p>
+          <h2 className="text-3xl font-bold text-gray-900">
+            Create an account
+          </h2>
+          <p className="text-sm text-gray-600">
+            Start your learning journey today
+          </p>
         </div>
 
         <div className="space-y-4">
@@ -233,17 +288,25 @@ function Signup() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
-            <input type="file" onChange={handleFileInputChange} accept="image/*" />
+            <input
+              type="file"
+              onChange={handleFileInputChange}
+              accept="image/*"
+            />
             <div className="flex justify-around">
               <button
-                className={`px-4 py-1 border rounded ${role === "tutors" ? "bg-black text-white" : ""}`}
+                className={`px-4 py-1 border rounded ${
+                  role === "tutors" ? "bg-black text-white" : ""
+                }`}
                 onClick={() => setRole("tutors")}
                 type="button"
               >
                 Tutor
               </button>
               <button
-                className={`px-4 py-1 border rounded ${role === "users" ? "bg-black text-white" : ""}`}
+                className={`px-4 py-1 border rounded ${
+                  role === "users" ? "bg-black text-white" : ""
+                }`}
                 onClick={() => setRole("users")}
                 type="button"
               >
@@ -275,13 +338,21 @@ function Signup() {
             </p>
             <div className="flex justify-around">
               <button
-                onClick={() => tempUserData ? confirmRoleAndSave("tutors") : handleRoleSelect("tutors")}
+                onClick={() =>
+                  tempUserData
+                    ? confirmRoleAndSave("tutors")
+                    : handleRoleSelect("tutors")
+                }
                 className="px-6 py-2 bg-gray-800 text-white rounded"
               >
                 Tutor
               </button>
               <button
-                onClick={() => tempUserData ? confirmRoleAndSave("users") : handleRoleSelect("users")}
+                onClick={() =>
+                  tempUserData
+                    ? confirmRoleAndSave("users")
+                    : handleRoleSelect("users")
+                }
                 className="px-6 py-2 bg-gray-800 text-white rounded"
               >
                 Student

@@ -568,6 +568,10 @@ function Exam() {
 
   return (
     <div className="min-h-screen overflow-hidden">
+      <Helmet>
+        <title>{examName ? examName : "Exam"} - Tutors Forum</title>
+        <meta name="description" content={`Take the ${examName ? examName : "exam"} on Tutors Forum.`} />
+      </Helmet>
       <Sidebar />
       <div className="min-h-screen overflow-y-auto pt-16 pb-16">
         <div

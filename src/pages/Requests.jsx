@@ -34,6 +34,10 @@ const Request = () => {
 
   return (
     <div className="container mx-auto p-6">
+      <Helmet>
+        <title>Account & Data Deletion - Tutors Forum</title>
+        <meta name="description" content="Request account and data deletion from Tutors Forum." />
+      </Helmet>
       <h1 className="text-3xl font-bold mb-4">Request Account & Data Deletion</h1>
 
       {!submitted ? (

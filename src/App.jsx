@@ -18,6 +18,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Request from "./pages/Requests";
 import ForgotPassword from "./syllabuses/ForgotPassword";
 import Exam from "./pages/Exam";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -52,8 +53,12 @@ function App() {
 
 
   return (
-    <>
-    <ToastContainer/>
+    <HelmetProvider>
+      <Helmet>
+        <title>Tutors Forum</title>
+        <meta name="description" content="Find the best tutors for any subject." />
+      </Helmet>
+      <ToastContainer/>
       <Routes>
         <>
           {" "}
@@ -71,7 +76,7 @@ function App() {
           <Route path="/forgot" element={<ForgotPassword/>} />
         </>
       </Routes>
-    </>
+    </HelmetProvider>
   );
 }
 

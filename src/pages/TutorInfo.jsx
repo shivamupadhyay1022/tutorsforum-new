@@ -89,6 +89,10 @@ const TutorInfo = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 md:p-10">
+      <Helmet>
+        <title>{tutor ? tutor.name : "Tutor Profile"} - Tutors Forum</title>
+        <meta name="description" content={tutor ? `View the profile of ${tutor.name}, a tutor on Tutors Forum.` : "View the profile of a tutor on Tutors Forum."} />
+      </Helmet>
       <Navbar />
       {/* Two-Column Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-xl mt-16 shadow-md p-6">

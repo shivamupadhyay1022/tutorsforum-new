@@ -137,6 +137,10 @@ const SearchResults = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Search Results - Tutors Forum</title>
+        <meta name="description" content="Find the perfect tutor for your needs by searching our extensive database of qualified instructors." />
+      </Helmet>
       <Navbar />
       <div className="p-6 mt-16 space-y-4">
         {/* Search Input */}

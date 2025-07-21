@@ -106,6 +106,10 @@ function Dashboard() {
 
   return (
     <div key={seed}>
+      <Helmet>
+        <title>Dashboard - Tutors Forum</title>
+        <meta name="description" content="Manage your account, view your classes, and connect with tutors on your Tutors Forum dashboard." />
+      </Helmet>
       <DashNav func={setNav} refresh={setSeed} />
       {content()}
     </div>

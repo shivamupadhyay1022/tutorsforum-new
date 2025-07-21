@@ -3,6 +3,10 @@ import React from "react";
 const PrivacyPolicy = () => {
   return (
     <div className="container mx-auto p-6">
+      <Helmet>
+        <title>Privacy Policy & Terms of Service - Tutors Forum</title>
+        <meta name="description" content="Read the Privacy Policy and Terms of Service for Tutors Forum." />
+      </Helmet>
       <h1 className="text-3xl font-bold mb-4">Privacy Policy & Terms of Service</h1>
 
       <p className="mb-4">

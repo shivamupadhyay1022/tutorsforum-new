@@ -38,6 +38,10 @@ function Studentinfo() {
     
       return (
         <div className="min-h-screen bg-gray-100 p-6 md:p-10">
+          <Helmet>
+            <title>{stud ? stud.name : "Student Profile"} - Tutors Forum</title>
+            <meta name="description" content={stud ? `View the profile of ${stud.name}, a student on Tutors Forum.` : "View the profile of a student on Tutors Forum."} />
+          </Helmet>
           <Navbar />
           {/* Two-Column Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-xl mt-16 shadow-md p-6">

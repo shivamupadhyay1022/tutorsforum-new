@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { auth, googleProvider, db } from "../firebase";
@@ -42,30 +42,62 @@ function Signin() {
       const isAndroid = Capacitor.getPlatform() === "android";
 
       if (isAndroid) {
-        await SocialLogin.initialize({
-          google: {
-            webClientId:
-              "754539837111-2jtngc9guee9bkbg9o5hig6ju40b1rt7.apps.googleusercontent.com", // replace with your own
-            mode: "online",
-          },
-        });
+        try {
+          await SocialLogin.initialize({
+            google: {
+              webClientId:
+                "754539837111-2jtngc9guee9bkbg9o5hig6ju40b1rt7.apps.googleusercontent.com", // replace with your own
+              mode: "online",
+            },
+          });
 
-        const result = await SocialLogin.login({
-          provider: "google",
-          options: {
-            scopes: ["email", "profile"],
-            forceRefreshToken: true,
-          },
-        });
+          const result = await SocialLogin.login({
+            provider: "google",
+            options: {
+              scopes: ["email", "profile"],
+              forceRefreshToken: true,
+            },
+          });
 
-        const credential = GoogleAuthProvider.credential(result.result.idToken);
-        const userCredential = await signInWithCredential(auth, credential);
+          const credential = GoogleAuthProvider.credential(
+            result.result.idToken
+          );
+          const userCredential = await signInWithCredential(auth, credential);
 
-        const user = userCredential.user;
+          const user = userCredential.user;
 
-        await checkUserRoleOrPrompt(user);
+          await checkUserRoleOrPrompt(user);
+        } catch (error) {
+          if (error.code === "auth/account-exists-with-different-credential") {
+            toast.error("Already have an account with given mail and password")
+            toast.error("Try signing in using email and password")
+          }else{
+            toast.error(error.code+":"+error.message)
+          }
+        }
       } else {
-        await signInWithRedirect(auth, provider);
+        await signInWithPopup(auth, provider)
+          .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+            checkUserRoleOrPrompt(user);
+            // navigate
+            // console.log(user);
+            // signOut(auth)
+            // IdP data available using getAdditionalUserInfo(result)
+            // ...
+          })
+          .catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            toast.error(errorCode + ":" + errorMessage);
+            // ...
+          });
       }
     } catch (err) {
       console.error("Google Sign-In error:", err);
@@ -161,6 +193,10 @@ function Signin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-[#ffded5]">
+      <Helmet>
+        <title>Sign In - Tutors Forum</title>
+        <meta name="description" content="Sign in to your Tutors Forum account to continue your learning journey." />
+      </Helmet>
       {loading && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="text-white text-lg font-semibold">Signing in...</div>
