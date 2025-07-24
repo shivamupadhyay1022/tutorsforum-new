@@ -39,6 +39,7 @@ function PreviousClasses() {
   ];
 
   async function fetchUserData() {
+    console.log(currentUser.uid)
     if (currentUser) {
       const userRef = ref(db, "users/" + currentUser.uid);
       try {

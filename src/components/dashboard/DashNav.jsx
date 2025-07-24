@@ -51,16 +51,6 @@ function DashNav({ func, refresh }) {
   const handleNotificationClick = () => {
     setShowNotifications(!showNotifications);
 
-    // Mark all as read
-    notifications.forEach((notif) => {
-      if (!notif.read) {
-        const notifRef = ref(
-          db,
-          `users/${currentUser?.uid}/notifications/${notif.id}`
-        );
-        update(notifRef, { read: true });
-      }
-    });
   };
 
   const handleDelete = (id) => {
