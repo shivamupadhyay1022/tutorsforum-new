@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const TutorInfo = () => {
   const { id } = useParams();

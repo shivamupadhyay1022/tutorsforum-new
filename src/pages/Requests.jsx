@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ref, set } from "firebase/database";
 import { db } from "../firebase"; // Adjust the import based on your project structure
 import { v4 as uuidv4 } from "uuid";
+import { Helmet } from "react-helmet-async";
 
 const Request = () => {
   const [contact, setContact] = useState("");

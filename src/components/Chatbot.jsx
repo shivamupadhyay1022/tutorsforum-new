@@ -2,6 +2,19 @@ import { useState } from "react";
 import { db } from "../firebase"; // Ensure correct Firebase import
 import { ref, push } from "firebase/database";
 
+const knowledgeBase = {
+  tutor: {
+    "How do I sign up as a tutor?": "To sign up as a tutor, go to the Sign Up page and select the 'Tutor' role. You will be asked to provide your personal information, subjects you teach, and your qualifications.",
+    "How do I get students?": "Once your profile is complete, students will be able to find you through our search and book sessions with you. You can also browse student requests and offer your services.",
+    "How does the payment system work?": "Payments are processed securely through our platform. Students pay for sessions in advance, and the funds are held in escrow until the session is complete. Payments are then released to your account within 2-3 business days.",
+  },
+  student: {
+    "How do I request a class?": "You can request a class by visiting a tutor's profile and clicking the 'Request a Class' button. You will be asked to provide details about your learning needs and preferred schedule.",
+    "What happens after I request a tutor?": "After you request a tutor, they will be notified and can accept or decline your request. Once they accept, you will be able to chat with them to finalize the details of your session.",
+    "How do I make payments?": "Payments are made through our secure online payment system. You can pay for sessions using a credit card, debit card, or other supported payment methods.",
+  },
+};
+
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -13,16 +26,25 @@ const Chatbot = () => {
 
   const handleButtonClick = (text, nextState) => {
     setMessages((prev) => [...prev, { text, type: "user" }]);
-    if (nextState) setChatState(nextState);
-    setTimeout(() => {
-      if (nextState === "tutor") {
-        setMessages((prev) => [...prev, { text: "Here are some tutor-related questions:", type: "bot" }]);
-      } else if (nextState === "student") {
-        setMessages((prev) => [...prev, { text: "Here are some student-related questions:", type: "bot" }]);
-      } else if (nextState === "contact") {
-        setMessages((prev) => [...prev, { text: "Please fill out this form to contact us.", type: "bot" }]);
-      }
-    }, 500);
+    if (nextState) {
+      setChatState(nextState);
+      setTimeout(() => {
+        if (nextState === "tutor") {
+          setMessages((prev) => [...prev, { text: "Here are some tutor-related questions:", type: "bot" }]);
+        } else if (nextState === "student") {
+          setMessages((prev) => [...prev, { text: "Here are some student-related questions:", type: "bot" }]);
+        } else if (nextState === "contact") {
+          setMessages((prev) => [...prev, { text: "Please fill out this form to contact us.", type: "bot" }]);
+        }
+      }, 500);
+    } else {
+      const category = chatState;
+      const answer = knowledgeBase[category][text];
+      setTimeout(() => {
+        setMessages((prev) => [...prev, { text: answer, type: "bot" }]);
+        setChatState("main");
+      }, 500);
+    }
   };
 
   const handleFormSubmit = async (e) => {
@@ -87,18 +109,30 @@ const Chatbot = () => {
             {/* Tutor Related Questions */}
             {chatState === "tutor" && (
               <>
-                <button onClick={() => handleButtonClick("How do I sign up as a tutor?", "main")} className="w-full bg-gray-100 p-2 rounded">How do I sign up as a tutor?</button>
-                <button onClick={() => handleButtonClick("How do I get students?", "main")} className="w-full bg-gray-100 p-2 rounded">How do I get students?</button>
-                <button onClick={() => handleButtonClick("How does the payment system work?", "main")} className="w-full bg-gray-100 p-2 rounded">How does the payment system work?</button>
+                {Object.keys(knowledgeBase.tutor).map((question) => (
+                  <button
+                    key={question}
+                    onClick={() => handleButtonClick(question)}
+                    className="w-full bg-gray-100 p-2 rounded"
+                  >
+                    {question}
+                  </button>
+                ))}
               </>
             )}
 
             {/* Student Related Questions */}
             {chatState === "student" && (
               <>
-                <button onClick={() => handleButtonClick("How do I request a class?", "main")} className="w-full bg-gray-100 p-2 rounded">How do I request a class?</button>
-                <button onClick={() => handleButtonClick("What happens after I request a tutor?", "main")} className="w-full bg-gray-100 p-2 rounded">What happens after I request a tutor?</button>
-                <button onClick={() => handleButtonClick("How do I make payments?", "main")} className="w-full bg-gray-100 p-2 rounded">How do I make payments?</button>
+                {Object.keys(knowledgeBase.student).map((question) => (
+                  <button
+                    key={question}
+                    onClick={() => handleButtonClick(question)}
+                    className="w-full bg-gray-100 p-2 rounded"
+                  >
+                    {question}
+                  </button>
+                ))}
               </>
             )}
 

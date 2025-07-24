@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import imageCompression from "browser-image-compression";
 import { Capacitor } from "@capacitor/core";
 import { SocialLogin } from "@capgo/capacitor-social-login";
+import { Helmet } from "react-helmet-async";
 
 function Signup() {
   const [email, setEmail] = useState("");

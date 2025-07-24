@@ -5,6 +5,7 @@ import { db } from "../firebase";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const SearchResults = () => {
   const navigate = useNavigate();

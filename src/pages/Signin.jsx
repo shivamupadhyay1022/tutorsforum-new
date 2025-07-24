@@ -13,6 +13,7 @@ import { Capacitor } from "@capacitor/core";
 import { signInWithCredential, signInWithPopup } from "firebase/auth";
 import { ref, set, get } from "firebase/database";
 import { SocialLogin } from "@capgo/capacitor-social-login"; // Added ref, set, and get imports
+import { Helmet } from "react-helmet-async";
 
 function Signin() {
   const [email, setEmail] = useState("");

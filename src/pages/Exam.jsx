@@ -5,6 +5,7 @@ import { supabase } from "../../supabase";
 import { parseTextWithImages } from "../components/parseTextWithImages";
 import SolveexamWithMathlive from "../components/SolveexamWithMathlive";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 function Exam() {
   const { id } = useParams();

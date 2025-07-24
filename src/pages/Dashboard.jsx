@@ -16,6 +16,7 @@ import StudProfile from "../components/studdashboard/StudProfile";
 import { useLocation } from "react-router-dom";
 import { ref, onValue } from "firebase/database";
 import { db } from "../firebase";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function Dashboard() {
   const [nav, setNav] = useState("profile");

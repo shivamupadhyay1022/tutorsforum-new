@@ -5,6 +5,7 @@ import { db } from "../firebase";
 import Navbar from '../components/Navbar';
 import { AuthContext } from '../AuthProvider';
 import { toast } from 'react-toastify';
+import { Helmet } from "react-helmet-async";
 
 function Studentinfo() {
   const { id } = useParams();
