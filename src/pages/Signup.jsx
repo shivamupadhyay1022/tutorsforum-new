@@ -7,7 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithRedirect,
   getRedirectResult,
-  signInWithPopup
+  signInWithPopup,
 } from "firebase/auth";
 import { set, ref, get } from "firebase/database";
 import { toast } from "react-toastify";
@@ -15,6 +15,7 @@ import imageCompression from "browser-image-compression";
 import { Capacitor } from "@capacitor/core";
 import { SocialLogin } from "@capgo/capacitor-social-login";
 import { Helmet } from "react-helmet-async";
+import Signin from "./Signin";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -27,6 +28,14 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const [tempUserData, setTempUserData] = useState(null);
   const [role, setRole] = useState(""); // "tutors" or "users"
+  const [navigatedSignin, setNavigatedSignin] = useState(false);
+  // const { currentUser } = useContext(AuthContext);
+  const currentUrl = window.location.href;
+  const match = currentUrl.match(
+    /^https?:\/\/(tutorsforum\.in|localhost:5173)\/exam\/\d+$/
+  );
+  const parts = currentUrl.split("/"); // ["", "exam", "20"]
+  const examId = parts[4]; // "20"
   const navigate = useNavigate();
 
   const handleFileInputChange = async (event) => {
@@ -63,7 +72,12 @@ function Signup() {
           cph: "0",
         });
         toast.success("Account Created");
-        navigate("/dashboard");
+        if (match) {
+          console.log(examId);
+          navigate(`/exam/${examId}`);
+        } else {
+          navigate("/dashboard");
+        }
       })
       .catch((err) => toast.error(err.message))
       .finally(() => setLoading(false));
@@ -220,11 +234,22 @@ function Signup() {
     }
   };
 
-  return (
+  const navigatesignin = async () => {
+    if (match) {
+      setNavigatedSignin(true);
+    } else {
+      navigate("/signin");
+    }
+  };
+
+  return !navigatedSignin ? (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-[#ffded5]">
       <Helmet>
         <title>Sign Up - Tutors Forum</title>
-        <meta name="description" content="Create an account on Tutors Forum to start your learning journey today." />
+        <meta
+          name="description"
+          content="Create an account on Tutors Forum to start your learning journey today."
+        />
       </Helmet>
       {loading && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -323,9 +348,12 @@ function Signup() {
           </form>
 
           <div className="text-center text-sm">
-            <Link to="/signin" className="text-blue-500 hover:underline">
+            <p
+              onClick={navigatesignin}
+              className="text-blue-500 hover:underline cursor-pointer"
+            >
               Already have an account? Sign in
-            </Link>
+            </p>
           </div>
         </div>
       </div>
@@ -363,6 +391,8 @@ function Signup() {
         </div>
       )}
     </div>
+  ) : (
+    <Signin />
   );
 }
 

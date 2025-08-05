@@ -1,14 +1,23 @@
-import React, { useEffect,useState,useRef,useLayoutEffect } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useLayoutEffect,
+  useContext,
+} from "react";
 import Backnav from "../components/Backnav";
 import { useParams } from "react-router-dom";
 import { supabase } from "../../supabase";
 import { parseTextWithImages } from "../components/parseTextWithImages";
 import SolveexamWithMathlive from "../components/SolveexamWithMathlive";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import { AuthContext } from "../AuthProvider";
+import Signin from "./Signin";
 
 function Exam() {
   const { id } = useParams();
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentquestion, setCurrentQuestion] = useState();
@@ -25,15 +34,20 @@ function Exam() {
   const [showSidebar, setShowSidebar] = useState(false);
   const sidebarRef = useRef(null);
 
-  
   const [isCalculating, setIsCalculating] = useState(false);
   const [reviewQuestions, setReviewQuestions] = useState([]);
   const [visitedQuestions, setVisitedQuestions] = useState([]);
   const [handleSubmitFn, setHandleSubmitFn] = useState(null);
 
+  // useLayoutEffect(()=>{
+  //   if(!currentUser){
+
+  //   }
+  // })
+
   useLayoutEffect(() => {
     if (examquestionlistid.length > 0) {
-        console.log(examquestionlistid[currentQuestionIndex])
+      console.log(examquestionlistid[currentQuestionIndex]);
       fetchQuestion(examquestionlistid[currentQuestionIndex]);
 
       // Mark the current question as visited
@@ -49,7 +63,7 @@ function Exam() {
   useEffect(() => {
     const fetchExam = async () => {
       if (!id) return;
-      console.log(id)
+      console.log(id);
       const { data, error } = await supabase
         .from("exams")
         .select("*")
@@ -61,8 +75,8 @@ function Exam() {
         setCounter(data.Duration * 60);
         const ids = data.Questions.split(",").map((id) => id.trim());
         SetexamquestionlistidId(ids);
-      }else{
-        console.log(error)
+      } else {
+        console.log(error);
       }
     };
     fetchExam();
@@ -87,7 +101,7 @@ function Exam() {
   }, [useroptionlist, currentQuestionIndex, counter]);
 
   const fetchQuestion = async (id) => {
-    console.log(id)
+    console.log(id);
     const { data, error } = await supabase
       .from("questions")
       .select("*")
@@ -567,11 +581,18 @@ function Exam() {
     );
   };
 
+  if (!currentUser) {
+    return <Signin />;
+  }
+
   return (
     <div className="min-h-screen overflow-hidden">
       <Helmet>
         <title>{examName ? examName : "Exam"} - Tutors Forum</title>
-        <meta name="description" content={`Take the ${examName ? examName : "exam"} on Tutors Forum.`} />
+        <meta
+          name="description"
+          content={`Take the ${examName ? examName : "exam"} on Tutors Forum.`}
+        />
       </Helmet>
       <Sidebar />
       <div className="min-h-screen overflow-y-auto pt-16 pb-16">
@@ -635,7 +656,10 @@ function Exam() {
 
                   <button
                     onClick={() => {
-                      if (currentQuestionIndex === examquestionlistid.length - 1) {
+                      if (
+                        currentQuestionIndex ===
+                        examquestionlistid.length - 1
+                      ) {
                         handleSubmitFn ? handleSubmitFn() : onSubmit();
                       } else {
                         setCurrentQuestionIndex((prev) =>
@@ -645,7 +669,9 @@ function Exam() {
                     }}
                     className={`px-4 py-2 text-white rounded`}
                   >
-                    {currentQuestionIndex === examquestionlistid.length - 1 ? "Finish" : "Next"}
+                    {currentQuestionIndex === examquestionlistid.length - 1
+                      ? "Finish"
+                      : "Next"}
                   </button>
                 </div>
               )}

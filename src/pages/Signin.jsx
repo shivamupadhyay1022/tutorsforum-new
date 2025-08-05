@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { auth, googleProvider, db } from "../firebase";
 import {
@@ -14,6 +14,9 @@ import { signInWithCredential, signInWithPopup } from "firebase/auth";
 import { ref, set, get } from "firebase/database";
 import { SocialLogin } from "@capgo/capacitor-social-login"; // Added ref, set, and get imports
 import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../AuthProvider";
+import Signup from "./Signup";
+import Exam from "./Exam";
 
 function Signin() {
   const [email, setEmail] = useState("");
@@ -22,7 +25,15 @@ function Signin() {
   const [loading, setLoading] = useState(false);
   const [showRoleDialog, setShowRoleDialog] = useState(false);
   const [tempUserData, setTempUserData] = useState(null);
-
+  const [navigatedExam, setNavigatedExam] = useState(false);
+  const [navigatedSignup, setNavigatedSignup] = useState(false);
+  const { currentUser } = useContext(AuthContext);
+  const currentUrl = window.location.href;
+  const match = currentUrl.match(
+    /^https?:\/\/(tutorsforum\.in|localhost:5173)\/exam\/\d+$/
+  );
+  const parts = currentUrl.split("/"); // ["", "exam", "20"]
+  const examId = parts[4]; // "20"
   const navigate = useNavigate();
 
   const handleSignin = (e) => {
@@ -30,7 +41,12 @@ function Signin() {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         toast.success("Signed In Successfully");
-        navigate("/dashboard");
+        if (match) {
+          console.log(examId)
+          navigate(`/exam/${examId}`);
+        } else {
+          navigate("/dashboard");
+        }
       })
       .catch((error) => {
         toast.error(error.message);
@@ -70,10 +86,10 @@ function Signin() {
           await checkUserRoleOrPrompt(user);
         } catch (error) {
           if (error.code === "auth/account-exists-with-different-credential") {
-            toast.error("Already have an account with given mail and password")
-            toast.error("Try signing in using email and password")
-          }else{
-            toast.error(error.code+":"+error.message)
+            toast.error("Already have an account with given mail and password");
+            toast.error("Try signing in using email and password");
+          } else {
+            toast.error(error.code + ":" + error.message);
           }
         }
       } else {
@@ -192,11 +208,22 @@ function Signin() {
     checkGoogleRedirect();
   }, []);
 
-  return (
+  const navigatesignup = async () => {
+    if (match) {
+      setNavigatedSignup(true);
+    } else {
+      navigate("/signup");
+    }
+  };
+
+  return !navigatedSignup ? (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-[#ffded5]">
       <Helmet>
         <title>Sign In - Tutors Forum</title>
-        <meta name="description" content="Sign in to your Tutors Forum account to continue your learning journey." />
+        <meta
+          name="description"
+          content="Sign in to your Tutors Forum account to continue your learning journey."
+        />
       </Helmet>
       {loading && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -297,13 +324,18 @@ function Signin() {
                 Click Here
               </span>
             </Link>
-            <Link to="/signup" className="text-peach-500 hover:text-peach-400">
+            <p
+              onClick={navigatesignup}
+              className="text-peach-500 cursor-pointer hover:text-peach-400"
+            >
               Don't have an account? Sign Up
-            </Link>
+            </p>
           </div>
         </form>
       </div>
     </div>
+  ) : (
+    <Signup />
   );
 }
 
