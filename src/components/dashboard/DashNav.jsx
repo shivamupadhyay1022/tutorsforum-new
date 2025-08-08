@@ -50,7 +50,6 @@ function DashNav({ func, refresh }) {
 
   const handleNotificationClick = () => {
     setShowNotifications(!showNotifications);
-
   };
 
   const handleDelete = (id) => {
@@ -80,7 +79,10 @@ function DashNav({ func, refresh }) {
         </svg>
       ),
       label: "Home",
-      onClick: () => func("home"),
+      onClick: () => {
+        func("home");
+        toggleMenu(!menu);
+      },
     },
     {
       icon: (
@@ -100,7 +102,10 @@ function DashNav({ func, refresh }) {
         </svg>
       ),
       label: "Profile",
-      onClick: () => func("profile"),
+      onClick: () => {
+        func("profile");
+        toggleMenu(!menu);
+      },
     },
     {
       icon: (
@@ -120,7 +125,10 @@ function DashNav({ func, refresh }) {
         </svg>
       ),
       label: "Classes",
-      onClick: () => func("previous_classes"),
+      onClick: () => {
+        func("previous_classes");
+        toggleMenu(!menu);
+      },
     },
     {
       icon: (
@@ -140,7 +148,10 @@ function DashNav({ func, refresh }) {
         </svg>
       ),
       label: "Exams",
-      onClick: () => func("exams"),
+      onClick: () => {
+        func("exams");
+        toggleMenu(!menu);
+      },
     },
     {
       icon: (
@@ -160,7 +171,10 @@ function DashNav({ func, refresh }) {
         </svg>
       ),
       label: "Chat",
-      onClick: () => func("chats"),
+      onClick: () => {
+        func("chats");
+        toggleMenu(!menu);
+      },
     },
   ];
 
