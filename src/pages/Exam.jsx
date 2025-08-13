@@ -166,7 +166,7 @@ function Exam() {
 
             // If user's answer is correct
             if (userOption === correctOption) {
-              return acc + 3; // Add 3 points
+              return acc + 4; // Add 3 points
             }
 
             // If user's answer is wrong
@@ -649,9 +649,9 @@ function Exam() {
                     onClick={() =>
                       handleSubmitFn ? handleSubmitFn() : onSubmit()
                     }
-                    className="px-4 py-2 text-white rounded"
+                    className="px-2 py-2 mb-20 mr-5 bg-slate-700 text-white rounded-t-full"
                   >
-                    Submit
+                    <p className="px-6 py-3 border-2 rounded-t-full">Submit</p>
                   </button>
 
                   <button
